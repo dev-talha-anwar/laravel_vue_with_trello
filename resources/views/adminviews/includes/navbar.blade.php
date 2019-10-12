@@ -27,6 +27,12 @@
                     </li>
                 </ul>
             </li>
+            <li class="nav-item">
+                <router-link :to="{ name:'timeline' }" class="nav-link">
+                    <i class="glyphicon glyphicon-time"></i>
+                    <span class="title">Timeline</span>
+                </router-link>
+            </li>
             <!--
             <li class="nav-item start active open">
                 <a href="javascript:;" class="nav-link nav-toggle">
