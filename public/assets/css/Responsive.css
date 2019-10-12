@@ -1,0 +1,100 @@
+/* ------------------- */
+/* 1199 */
+/* ------------------- */
+@media only screen and (max-width: 1199px){
+    .Header-section .nav>li>a{
+        padding: 10px;
+    }
+}
+
+/* ------------------- */
+/* 991 */
+/* ------------------- */
+
+@media only screen and (max-width: 991px) {
+    .Header-section .navbar-inverse .navbar-nav > li > a{
+        font-size: 14px;
+    }
+    .service-button a:link{
+        width: 100%;
+    }
+    .checkout-step-2::before{
+        width: 71%;
+        left: -6%;
+    }
+}
+
+/* ---------------------- */
+/* 768 */
+/* ---------------------- */
+@media only screen and (max-width: 768px){
+    .service-button a:link{
+        width: auto;
+    }
+    .service-img img{
+        max-height: 300px;
+    }
+    .our-service-container{
+        margin-bottom: 2em;
+    }
+    .contact-container{
+        margin-bottom: 2em;
+    }
+    .Flexii{
+        display: block;
+    }
+    .teacher-image{
+        position: static;
+        margin-bottom: 2em;
+    }
+    .Header-section .navbar-header{
+        height: 58px;
+    }
+    .Header-section .navbar-header a img{
+        float: left;
+        max-width: 100px;
+    }
+    .Header-section .navbar-toggle{
+        background-color: #F92C8B;
+        border-radius: 0px;
+    }
+    .Header-section .navbar-inverse .navbar-toggle:focus, 
+    .Header-section .navbar-inverse .navbar-toggle:hover{
+        background-color: #4843D2;;
+    }
+    .service-list-container{
+        margin-bottom: 3em;
+    }
+    button{
+        padding: 13px 20px;
+        margin-bottom: .5em;
+    }
+    .checkout-step-2::before{
+        display: none;
+    }
+    .step-line::after{
+        display: none;
+    }
+    .check-out-step-container{
+        margin-bottom: 2em;
+    }
+}
+
+
+/* --------------------- */
+/* 597 */
+/* --------------------- */
+
+@media only screen and (max-width: 597px){
+    .tdCols-coupen{
+        display: block;
+    }
+    .tdCols-coupen input{
+        display: block;
+        width: 100%;
+        margin-bottom: 1em;
+    }
+    .update-cart{
+        float: none;
+    }
+}
