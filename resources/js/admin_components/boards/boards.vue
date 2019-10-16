@@ -84,15 +84,44 @@
         <div id="static" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <div class="modal-header">
+                    <div class="modal-header bg-purple font-white">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                        <h4 class="modal-title">Confirmation</h4>
+                        <h4 class="modal-title">Add New Board</h4>
                     </div>
                     <div class="modal-body">
-                        <p> Would you like to continue with some arbitrary task? </p>
+                        <div class="" id="errorsdiv" style="display: none;"></div>
+                        <form action="#" class="ajaxform form-horizontal form-bordered ">
+                            <div class="form-group last">
+                                <label class="control-label col-md-3">Image</label>
+                                <div class="col-md-9">
+                                    <div class="fileinput fileinput-new" data-provides="fileinput">
+                                        <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
+                                            <img :src="logo" alt=""> </div>
+                                        <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"> </div>
+                                        <div>
+                                            <span class="btn default btn-file">
+                                                <span class="fileinput-new"> Select image </span>
+                                                <span class="fileinput-exists"> Change </span>
+                                                <input type="file" name="logo"> </span>
+                                            <a href="javascript:;" class="btn red fileinput-exists" data-dismiss="fileinput"> Remove </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-2">
+                                <label for="">Title</label>
+                                <input type="text" class="form-control border-purple" name="name">
+                            </div>
+                        </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" data-dismiss="modal" class="btn purple">Continue Task</button>
+                        <button id="submitbtn" v-on:click="submitform" type="button" class="btn purple uppercase mt-ladda-btn ladda-button" data-style="zoom-in">
+                            <span class="ladda-label">
+                                <i class="glyphicon glyphicon-saved"></i>
+                                Update
+                            </span>
+                            <span class="ladda-spinner"></span>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -117,6 +146,9 @@ export default {
         let loader = this.$loading.show({
             container: this.$refs.formContainer,
         });
+        this.$loadScript(window.adminassets + "/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js")
+        .then(() => {})
+        .catch(() => {});
         axios.get(route('board.index'))
             .then((data) => {
                 this.data = data.data.boards;
@@ -126,7 +158,12 @@ export default {
             .catch((error) => {
                 this.$Progress.fail();
                 loader.hide()
-            });
+        });
+    },
+    head: {
+        link: [
+            { r: 'stylesheet', h: window.adminassets + '/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css', t: 'text/css' }
+        ]
     },
     methods: {
         paginate(page = 1) {
@@ -134,5 +171,4 @@ export default {
         }
     }
 }
-
 </script>

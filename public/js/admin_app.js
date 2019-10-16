@@ -1939,6 +1939,35 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1957,6 +1986,7 @@ __webpack_require__.r(__webpack_exports__);
     var loader = this.$loading.show({
       container: this.$refs.formContainer
     });
+    this.$loadScript(window.adminassets + "/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js").then(function () {})["catch"](function () {});
     axios.get(route('board.index')).then(function (data) {
       _this.data = data.data.boards;
 
@@ -1968,6 +1998,13 @@ __webpack_require__.r(__webpack_exports__);
 
       loader.hide();
     });
+  },
+  head: {
+    link: [{
+      r: 'stylesheet',
+      h: window.adminassets + '/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css',
+      t: 'text/css'
+    }]
   },
   methods: {
     paginate: function paginate() {
@@ -1988,8 +2025,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
 //
 //
 //
@@ -38085,7 +38120,100 @@ var render = function() {
       ])
     ]),
     _vm._v(" "),
-    _vm._m(3)
+    _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        attrs: {
+          id: "static",
+          tabindex: "-1",
+          "data-backdrop": "static",
+          "data-keyboard": "false"
+        }
+      },
+      [
+        _c("div", { staticClass: "modal-dialog" }, [
+          _c("div", { staticClass: "modal-content" }, [
+            _vm._m(3),
+            _vm._v(" "),
+            _c("div", { staticClass: "modal-body" }, [
+              _c("div", {
+                staticStyle: { display: "none" },
+                attrs: { id: "errorsdiv" }
+              }),
+              _vm._v(" "),
+              _c(
+                "form",
+                {
+                  staticClass: "ajaxform form-horizontal form-bordered ",
+                  attrs: { action: "#" }
+                },
+                [
+                  _c("div", { staticClass: "form-group last" }, [
+                    _c("label", { staticClass: "control-label col-md-3" }, [
+                      _vm._v("Image")
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-9" }, [
+                      _c(
+                        "div",
+                        {
+                          staticClass: "fileinput fileinput-new",
+                          attrs: { "data-provides": "fileinput" }
+                        },
+                        [
+                          _c(
+                            "div",
+                            {
+                              staticClass: "fileinput-new thumbnail",
+                              staticStyle: { width: "200px", height: "150px" }
+                            },
+                            [_c("img", { attrs: { src: _vm.logo, alt: "" } })]
+                          ),
+                          _vm._v(" "),
+                          _c("div", {
+                            staticClass:
+                              "fileinput-preview fileinput-exists thumbnail",
+                            staticStyle: {
+                              "max-width": "200px",
+                              "max-height": "150px"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _vm._m(4)
+                        ]
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _vm._m(5)
+                ]
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "modal-footer" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn purple uppercase mt-ladda-btn ladda-button",
+                  attrs: {
+                    id: "submitbtn",
+                    type: "button",
+                    "data-style": "zoom-in"
+                  },
+                  on: { click: _vm.submitform }
+                },
+                [
+                  _vm._m(6),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "ladda-spinner" })
+                ]
+              )
+            ])
+          ])
+        ])
+      ]
+    )
   ])
 }
 var staticRenderFns = [
@@ -38200,53 +38328,65 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass: "modal fade",
+    return _c("div", { staticClass: "modal-header bg-purple font-white" }, [
+      _c("button", {
+        staticClass: "close",
         attrs: {
-          id: "static",
-          tabindex: "-1",
-          "data-backdrop": "static",
-          "data-keyboard": "false"
+          type: "button",
+          "data-dismiss": "modal",
+          "aria-hidden": "true"
         }
-      },
-      [
-        _c("div", { staticClass: "modal-dialog" }, [
-          _c("div", { staticClass: "modal-content" }, [
-            _c("div", { staticClass: "modal-header" }, [
-              _c("button", {
-                staticClass: "close",
-                attrs: {
-                  type: "button",
-                  "data-dismiss": "modal",
-                  "aria-hidden": "true"
-                }
-              }),
-              _vm._v(" "),
-              _c("h4", { staticClass: "modal-title" }, [_vm._v("Confirmation")])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "modal-body" }, [
-              _c("p", [
-                _vm._v(" Would you like to continue with some arbitrary task? ")
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "modal-footer" }, [
-              _c(
-                "button",
-                {
-                  staticClass: "btn purple",
-                  attrs: { type: "button", "data-dismiss": "modal" }
-                },
-                [_vm._v("Continue Task")]
-              )
-            ])
-          ])
-        ])
-      ]
-    )
+      }),
+      _vm._v(" "),
+      _c("h4", { staticClass: "modal-title" }, [_vm._v("Add New Board")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [
+      _c("span", { staticClass: "btn default btn-file" }, [
+        _c("span", { staticClass: "fileinput-new" }, [
+          _vm._v(" Select image ")
+        ]),
+        _vm._v(" "),
+        _c("span", { staticClass: "fileinput-exists" }, [_vm._v(" Change ")]),
+        _vm._v(" "),
+        _c("input", { attrs: { type: "file", name: "logo" } })
+      ]),
+      _vm._v(" "),
+      _c(
+        "a",
+        {
+          staticClass: "btn red fileinput-exists",
+          attrs: { href: "javascript:;", "data-dismiss": "fileinput" }
+        },
+        [_vm._v(" Remove ")]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "p-2" }, [
+      _c("label", { attrs: { for: "" } }, [_vm._v("Title")]),
+      _vm._v(" "),
+      _c("input", {
+        staticClass: "form-control border-purple",
+        attrs: { type: "text", name: "name" }
+      })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "ladda-label" }, [
+      _c("i", { staticClass: "glyphicon glyphicon-saved" }),
+      _vm._v("\n                            Update\n                        ")
+    ])
   }
 ]
 render._withStripped = true
