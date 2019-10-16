@@ -6,6 +6,8 @@ import LoadScript from 'vue-plugin-load-script';
 import VueProgressBar from 'vue-progressbar';
 import loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
+Vue.component('pagination', require('laravel-vue-pagination'));
+
 
 // import Vuex from 'vuex'
 Vue.use(VueHead)

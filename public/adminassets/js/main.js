@@ -15,7 +15,6 @@ function ajax(url,type,data = '',button= null,self =null){
 		processData = false;
 		contentType = false;
 	}
-	returndata = null;
 	$.ajax({
 		headers: {
 			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
@@ -52,6 +51,9 @@ function ajax(url,type,data = '',button= null,self =null){
 				text : data.msg.msg,
 				showConfirmButton: showbtnflag
 			});
+		}
+		else if(data.hasOwnProperty('data')){
+			self.data = data.data
 		}
 		if(data.hasOwnProperty('auth')){
 			if(self!=null){

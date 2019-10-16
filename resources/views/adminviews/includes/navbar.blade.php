@@ -28,9 +28,9 @@
                 </ul>
             </li>
             <li class="nav-item">
-                <router-link :to="{ name:'timeline' }" class="nav-link">
+                <router-link :to="{ name:'boards' }" class="nav-link">
                     <i class="glyphicon glyphicon-time"></i>
-                    <span class="title">Timeline</span>
+                    <span class="title">Boards</span>
                 </router-link>
             </li>
             <!--

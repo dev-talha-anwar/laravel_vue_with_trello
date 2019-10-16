@@ -33,4 +33,11 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function boards(){
+        return $this->belongsToMany('App\Board')->using('App\UserBoard');
+    }
+    public function teams(){
+        return $this->belongsToMany('App\Team')->using('App\UserTeam');
+    }
 }
