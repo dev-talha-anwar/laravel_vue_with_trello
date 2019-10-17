@@ -30,7 +30,7 @@ Route::prefix('admin')->group(function(){
 Route::resource('admin','AdminController')->except('index','show','destroy','create','store');
 Route::get('general','GeneralController@index')->name('general.index');
 Route::post('general/update','GeneralController@update')->name('general.update');
-Route::get('boards','BoardController@index')->name('board.index');
+Route::resource('board','BoardController');
 
 
 

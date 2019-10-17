@@ -6,6 +6,7 @@ export default[
 	    path: "/admin/boards",
 	    name: "boards", 
 	    component: boards, 
+	    props:true,
   	}
   	,{ 
 	    path: "/admin/timeline",

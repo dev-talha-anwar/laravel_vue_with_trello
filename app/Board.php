@@ -3,6 +3,9 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 class Board extends Model
 {
+	protected $fillable = [
+		'img','name','owner_id'
+	];
     public function lists(){
     	return hasMany('App\List');
     }

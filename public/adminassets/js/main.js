@@ -1,4 +1,4 @@
-function ajax(url,type,data = '',button= null,self =null){
+function ajax(url,type,data = '',button= null,self =null,model =null){
 	if(button !=null){
 		var l = Ladda.create(button);
 		l.start();
@@ -45,6 +45,9 @@ function ajax(url,type,data = '',button= null,self =null){
 					showbtnflag = false;
 				}				
 			}
+			if(model !=null){
+				model.modal('hide');
+			}
 			swal({
 				title : data.msg.type,
 				type : data.msg.type,
@@ -54,6 +57,9 @@ function ajax(url,type,data = '',button= null,self =null){
 		}
 		else if(data.hasOwnProperty('data')){
 			self.data = data.data
+			if(model !=null){
+				model.modal('hide');
+			}
 		}
 		if(data.hasOwnProperty('auth')){
 			if(self!=null){
