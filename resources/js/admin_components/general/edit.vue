@@ -75,9 +75,6 @@ export default {
         }
     },
     mounted() {
-        // this.$store.commit('pagecsslinkschange',['/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css']);
-        // this.$store.commit('pagejslinkschange',['/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js']);
-        // this.$store.commit('pagejschange',"$(function(){$('form input').keydown(function (e) {if (e.keyCode == 13) {e.preventDefault();$('#submitbtn').click();}});});");
         this.$Progress.start();
         let loader = this.$loading.show({
             container: this.$refs.formContainer,
@@ -85,7 +82,11 @@ export default {
         this.$loadScript(window.adminassets + "/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js")
             .then(() => {})
             .catch(() => {});
-        axios.get(route('general.index'))
+        axios.get(route('general.index'), {
+                headers: {
+                    'APP-TOKEN': '1l23f134b1'
+                }
+            })
             .then((data) => {
                 this.data = data.data.general;
                 this.$Progress.finish();

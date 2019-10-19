@@ -18,7 +18,7 @@
                                     </a>
                                     <ul class="dropdown-menu pull-right">
                                         <li>
-                                            <a data-toggle="modal" href="#static"> New Board </a>
+                                            <a href="javascript:;" @click="addnew"> New Board </a>
                                         </li>
                                     </ul>
                                 </div>
@@ -51,12 +51,12 @@
                                                     <div class="mt-card-social">
                                                         <ul>
                                                             <li>
-                                                                <a href="javascript:;">
+                                                                <a href="javascript:;" @click="edit($event.target)" :id="board.id">
                                                                     <i class="glyphicon glyphicon-edit"></i>
                                                                 </a>
                                                             </li>
                                                             <li>
-                                                                <a href="javascript:;">
+                                                                <a href="javascript:;" @click="del($event.target)" :id="board.id">
                                                                     <i class="glyphicon glyphicon-trash "></i>
                                                                 </a>
                                                             </li>
@@ -81,7 +81,6 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header bg-purple font-white">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                         <h4 class="modal-title">Add New Board</h4>
                     </div>
                     <div class="modal-body vld-parent" ref="formContainer">
@@ -92,7 +91,7 @@
                                 <div class="col-md-9">
                                     <div class="fileinput fileinput-new" data-provides="fileinput">
                                         <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
-                                            <img alt="">
+                                            <img alt="" class="modalimg">
                                         </div>
                                         <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"> </div>
                                         <div>
@@ -105,20 +104,22 @@
                                     </div>
                                 </div>
                             </div>
+                            <input type="hidden" name="recid" class="recfield">
                             <div class="p-2">
                                 <label for="">Title</label>
-                                <input type="text" class="form-control border-purple" name="name">
+                                <input type="text" class="form-control namefield border-purple" name="name">
                             </div>
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button id="submitbtn" v-on:click="submitform" type="button" class="btn purple uppercase mt-ladda-btn ladda-button" data-style="zoom-in">
+                        <button id="submitbtn" v-on:click="submitform(true)" type="button" class="btn purple uppercase mt-ladda-btn ladda-button" data-style="zoom-in">
                             <span class="ladda-label">
                                 <i class="glyphicon glyphicon-saved"></i>
                                 Create
                             </span>
                             <span class="ladda-spinner"></span>
                         </button>
+                        <button type="button" class="btn red-thunderbird" data-dismiss="modal">Cancel</button>
                     </div>
                 </div>
             </div>
@@ -145,11 +146,32 @@ export default {
         ]
     },
     methods: {
-        submitform() {
+        submitform(flag) {
             var form = document.querySelector('.ajaxform');
             var formData = new FormData(form);
-            ajax(route('board.store'), 'POST', formData, document.getElementById("submitbtn"), this, $('#static'));
-            $('.fileinput').fileupload('reset');
+            if(flag){
+                ajax(route('board.store'), 'POST', formData, document.getElementById("submitbtn"), this, $('#static'));
+            }else{
+                ajax(route('board.update'), 'POST', formData, document.getElementById("submitbtn"), this, $('#static'));
+            } 
+            $('.namefield').val('');
+            $('.fileinput').first().fileinput('reset');
+
+        },
+        addnew() {
+            $('.modalimg').attr('src', '');
+            $('.namefield').val('');
+            $('.recfield').val('');
+            $('#static').modal('show');
+        },
+        edit(e) {
+            $('.modalimg').attr('src', $(e).parents('.mt-card-item').find('.boardimages').first().attr('src'));
+            $('.namefield').val($(e).parents('.mt-card-item').find('h3').html());
+            $('.recfield').val($(e).parent().first().attr('id'));
+            $('#static').modal('show');
+        },
+        del(e) {
+
         },
         boardsimg(img) {
             return window.storagepath + img;
@@ -186,8 +208,15 @@ export default {
 </script>
 <style scoped="">
 .boardimages {
-    width: auto !important;
-    height: 150px !important;
+    width: 100% !important;
+    height: 130px !important;
+}
+
+@media only screen and (max-width: 768px) {
+    .boardimages {
+        width: 100% !important;
+        height: auto !important;
+    }
 }
 
 .reload {

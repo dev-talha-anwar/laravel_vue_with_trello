@@ -52792,9 +52792,9 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xamp\htdocs\resources\laravel trello project with vue\resources\js\app.js */"./resources/js/app.js");
-__webpack_require__(/*! C:\xamp\htdocs\resources\laravel trello project with vue\resources\sass\app.scss */"./resources/sass/app.scss");
-module.exports = __webpack_require__(/*! C:\xamp\htdocs\resources\laravel trello project with vue\resources\sass\admin_app.scss */"./resources/sass/admin_app.scss");
+__webpack_require__(/*! D:\xampp\htdocs\laravel_vue_with_trello\resources\js\app.js */"./resources/js/app.js");
+__webpack_require__(/*! D:\xampp\htdocs\laravel_vue_with_trello\resources\sass\app.scss */"./resources/sass/app.scss");
+module.exports = __webpack_require__(/*! D:\xampp\htdocs\laravel_vue_with_trello\resources\sass\admin_app.scss */"./resources/sass/admin_app.scss");
 
 
 /***/ })

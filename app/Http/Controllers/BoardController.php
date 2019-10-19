@@ -47,4 +47,35 @@ class BoardController extends Controller
             ]);
         endif;  
     }
+    public function update(Request $request){
+        $validator = Validator::make($request->all(), [
+            'image' => 'nullable|image|mimes:jpg,jpeg,png',
+            'name' => 'required|string|max:255',
+            'id' => 'required|numeric|exists:boards'
+        ]);
+        if($validator->fails()):
+            return response()->json(['errors' => $validator->errors()]);
+        endif;
+        if($request->hasFile('image')):
+            if($data['img'] = $request->image->store('boards')):
+            else:
+                return response()->json([
+                    'msg' => ['msg' => 'Something went wrong.','type' => 'error']
+                ]);
+            endif;  
+        endif;
+        $data['name'] = $request->name;
+        $data['owner_id'] = auth()->user()->id;
+        if(Board::find($request->id)->update($data)):
+            $boards = Board::paginate(12);
+            return response()->json([
+                'msg' => ['msg' => 'Board Edited Successfully.','type' => 'success'],
+                'data' => $boards
+            ]);
+        else:
+            return response()->json([
+                'msg' => ['msg' => 'Something went wrong.','type' => 'error']
+            ]);
+        endif;
+    }
 }

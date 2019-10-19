@@ -11,7 +11,7 @@ class GeneralController extends Controller
 {
     public function __construct(){
         $this->middleware('auth:admin');
-        $this->middleware('ajax')->only('update');
+        $this->middleware('ajax');
     }
     
     public function index()
