@@ -1,13 +1,19 @@
-function ajax(url,type,data = '',button= null,self =null,model =null){
+function ajax(url,type,data = '',button= null,self =null,model =null,ref = null){
 	if(button !=null){
 		var l = Ladda.create(button);
 		l.start();
 	}
 	if(self !=null){
 		self.$Progress.start();
-		var loader = self.$loading.show({ 
-      	container: self.$refs.formContainer,
-    });
+		if(ref != null){
+			var loader = self.$loading.show({ 
+      			container: self.$refs.ref,
+    		});
+		}else{
+			var loader = self.$loading.show({ 
+      			container: self.$refs.formContainer,
+    		});
+		}
 	}
 	var processData;
 	var contentType;

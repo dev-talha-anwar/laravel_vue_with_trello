@@ -1791,6 +1791,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['id'],
   data: function data() {
@@ -1799,29 +1802,32 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
-    var _this = this;
-
-    this.$Progress.start();
-    var loader = this.$loading.show({
-      container: this.$refs.formContainer
-    });
-    this.$loadScript(window.adminassets + "/global/plugins/bootstrap-pwstrength/pwstrength-bootstrap.min.js").then(function () {})["catch"](function () {});
-    axios.get(route('admin.edit', this.id)).then(function (data) {
-      _this.data = data.data.admin;
-      $('#password_strength').pwstrength();
-
-      _this.$Progress.finish();
-
-      loader.hide();
-    })["catch"](function (error) {
-      _this.$Progress.fail();
-
-      loader.hide();
-    });
+    this.__mounted();
   },
   methods: {
     submitform: function submitform() {
       ajax(route('admin.update', this.id), 'PUT', $('.ajaxform').serialize(), document.getElementById("submitbtn"), this);
+    },
+    __mounted: function __mounted() {
+      var _this = this;
+
+      this.$Progress.start();
+      var loader = this.$loading.show({
+        container: this.$refs.formContainer
+      });
+      this.$loadScript(window.adminassets + "/global/plugins/bootstrap-pwstrength/pwstrength-bootstrap.min.js").then(function () {})["catch"](function () {});
+      axios.get(route('admin.edit', this.id)).then(function (data) {
+        _this.data = data.data.admin;
+        $('#password_strength').pwstrength();
+
+        _this.$Progress.finish();
+
+        loader.hide();
+      })["catch"](function (error) {
+        _this.$Progress.fail();
+
+        loader.hide();
+      });
     }
   }
 });
@@ -1964,12 +1970,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      data: {}
+      data: {},
+      flag: false
     };
   },
   computed: {},
@@ -1984,30 +1989,34 @@ __webpack_require__.r(__webpack_exports__);
     }]
   },
   methods: {
-    submitform: function submitform(flag) {
+    submitform: function submitform() {
       var form = document.querySelector('.ajaxform');
       var formData = new FormData(form);
 
-      if (flag) {
-        ajax(route('board.store'), 'POST', formData, document.getElementById("submitbtn"), this, $('#static'));
+      if (this.flag) {
+        ajax(route('board.store'), 'POST', formData, document.getElementById("submitbtn"), this, $('#static'), 'modalContainer');
       } else {
-        ajax(route('board.update'), 'POST', formData, document.getElementById("submitbtn"), this, $('#static'));
+        ajax(route('board.update'), 'POST', formData, document.getElementById("submitbtn"), this, $('#static'), 'modalContainer');
       }
 
       $('.namefield').val('');
-      $('.fileinput').first().fileinput('reset');
+      $('.fileinput').fileinput('reset');
     },
     addnew: function addnew() {
       $('.modalimg').attr('src', '');
       $('.namefield').val('');
       $('.recfield').val('');
+      $('.ladabtn-text').html('Create');
       $('#static').modal('show');
+      this.flag = true;
     },
     edit: function edit(e) {
       $('.modalimg').attr('src', $(e).parents('.mt-card-item').find('.boardimages').first().attr('src'));
       $('.namefield').val($(e).parents('.mt-card-item').find('h3').html());
       $('.recfield').val($(e).parent().first().attr('id'));
+      $('.ladabtn-text').html('Update');
       $('#static').modal('show');
+      this.flag = false;
     },
     del: function del(e) {},
     boardsimg: function boardsimg(img) {
@@ -2131,28 +2140,7 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
-    var _this = this;
-
-    this.$Progress.start();
-    var loader = this.$loading.show({
-      container: this.$refs.formContainer
-    });
-    this.$loadScript(window.adminassets + "/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js").then(function () {})["catch"](function () {});
-    axios.get(route('general.index'), {
-      headers: {
-        'APP-TOKEN': '1l23f134b1'
-      }
-    }).then(function (data) {
-      _this.data = data.data.general;
-
-      _this.$Progress.finish();
-
-      loader.hide();
-    })["catch"](function (error) {
-      _this.$Progress.fail();
-
-      loader.hide();
-    });
+    this.__mounted();
   },
   head: {
     link: [{
@@ -2174,6 +2162,30 @@ __webpack_require__.r(__webpack_exports__);
       var form = document.querySelector('.ajaxform');
       var formData = new FormData(form);
       ajax(route('general.update'), 'POST', formData, document.getElementById("submitbtn"), this);
+    },
+    __mounted: function __mounted() {
+      var _this = this;
+
+      this.$Progress.start();
+      var loader = this.$loading.show({
+        container: this.$refs.formContainer
+      });
+      this.$loadScript(window.adminassets + "/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js").then(function () {})["catch"](function () {});
+      axios.get(route('general.index'), {
+        headers: {
+          'APP-TOKEN': '1l23f134b1'
+        }
+      }).then(function (data) {
+        _this.data = data.data.general;
+
+        _this.$Progress.finish();
+
+        loader.hide();
+      })["catch"](function (error) {
+        _this.$Progress.fail();
+
+        loader.hide();
+      });
     }
   }
 });
@@ -37980,7 +37992,17 @@ var render = function() {
               staticClass: "portlet box purple bordered vld-parent"
             },
             [
-              _vm._m(0),
+              _c("div", { staticClass: "portlet-title" }, [
+                _vm._m(0),
+                _vm._v(" "),
+                _c("div", { staticClass: "tools" }, [
+                  _c("a", {
+                    staticClass: "reload font-purple",
+                    attrs: { href: "javascript:;" },
+                    on: { click: _vm.__mounted }
+                  })
+                ])
+              ]),
               _vm._v(" "),
               _c("div", { staticClass: "portlet-body form" }, [
                 _c("div", {
@@ -38067,11 +38089,11 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "portlet-title" }, [
-      _c("div", { staticClass: "caption" }, [
-        _c("i", { staticClass: "icon-users" }),
-        _vm._v(" \n              Edit Profile \n          ")
-      ])
+    return _c("div", { staticClass: "caption" }, [
+      _c("i", { staticClass: "icon-users" }),
+      _vm._v(
+        "\n                            Edit Profile\n                        "
+      )
     ])
   },
   function() {
@@ -38106,7 +38128,7 @@ var staticRenderFns = [
     return _c("span", { staticClass: "ladda-label" }, [
       _c("i", { staticClass: "glyphicon glyphicon-saved" }),
       _vm._v(
-        "\n                              Update\n                          "
+        "\n                                                    Update\n                                                "
       )
     ])
   }
@@ -38136,162 +38158,163 @@ var render = function() {
     _c("div", { staticClass: "page-content" }, [
       _c("div", { staticClass: "row" }, [
         _c("div", { staticClass: "col-md-12" }, [
-          _c("div", { staticClass: "portlet light bordered" }, [
-            _c("div", { staticClass: "portlet-title" }, [
-              _vm._m(0),
-              _vm._v(" "),
-              _c("div", { staticClass: "actions font-purple" }, [
-                _c("div", { staticClass: "btn-group" }, [
-                  _vm._m(1),
-                  _vm._v(" "),
-                  _c("ul", { staticClass: "dropdown-menu pull-right" }, [
-                    _c("li", [
-                      _c(
-                        "a",
-                        {
-                          attrs: { href: "javascript:;" },
-                          on: { click: _vm.addnew }
-                        },
-                        [_vm._v(" New Board ")]
-                      )
+          _c(
+            "div",
+            {
+              ref: "formContainer",
+              staticClass: "portlet box purple vld-parent"
+            },
+            [
+              _c("div", { staticClass: "portlet-title" }, [
+                _vm._m(0),
+                _vm._v(" "),
+                _c("div", { staticClass: "actions" }, [
+                  _c("div", { staticClass: "btn-group" }, [
+                    _vm._m(1),
+                    _vm._v(" "),
+                    _c("ul", { staticClass: "dropdown-menu pull-right" }, [
+                      _c("li", [
+                        _c(
+                          "a",
+                          {
+                            attrs: { href: "javascript:;" },
+                            on: { click: _vm.addnew }
+                          },
+                          [_vm._v(" New Board ")]
+                        )
+                      ])
                     ])
                   ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "tools" }, [
+                  _c("a", {
+                    staticClass: "reload font-purple",
+                    attrs: { href: "javascript:;" },
+                    on: { click: _vm.__mounted }
+                  })
                 ])
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "tools" }, [
-                _c("a", {
-                  staticClass: "reload font-purple",
-                  attrs: { href: "javascript:;" },
-                  on: { click: _vm.__mounted }
-                })
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "portlet-body" }, [
-              _c(
-                "div",
-                {
-                  staticClass:
-                    "mt-element-card mt-card-round mt-element-overlay",
-                  staticStyle: { display: "block" }
-                },
-                [
-                  _c(
-                    "div",
-                    { staticClass: "row" },
-                    [
+              _c("div", { staticClass: "portlet-body" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "mt-element-card mt-card-round mt-element-overlay",
+                    staticStyle: { display: "block" }
+                  },
+                  [
+                    _c(
+                      "div",
+                      { staticClass: "row" },
                       _vm._l(_vm.data.data, function(board) {
-                        return [
-                          _c(
-                            "div",
-                            {
-                              staticClass:
-                                "col-lg-3 col-md-4 col-sm-6 col-xs-12"
-                            },
-                            [
-                              _c("div", { staticClass: "mt-card-item" }, [
-                                _c(
-                                  "div",
-                                  {
-                                    staticClass: "mt-card-avatar mt-overlay-1"
-                                  },
-                                  [
-                                    _c("img", {
-                                      staticClass: "boardimages",
-                                      attrs: { src: _vm.boardsimg(board.img) }
-                                    }),
-                                    _vm._v(" "),
-                                    _vm._m(2, true)
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c("div", { staticClass: "mt-card-content" }, [
-                                  _c("h3", { staticClass: "mt-card-name" }, [
-                                    _vm._v(_vm._s(board.name.substring(0, 21)))
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("p", {
-                                    staticClass: "mt-card-desc font-grey-mint"
+                        return _c(
+                          "div",
+                          {
+                            key: board.id,
+                            staticClass: "col-lg-3 col-md-4 col-sm-6 col-xs-12"
+                          },
+                          [
+                            _c("div", { staticClass: "mt-card-item" }, [
+                              _c(
+                                "div",
+                                { staticClass: "mt-card-avatar mt-overlay-1" },
+                                [
+                                  _c("img", {
+                                    staticClass: "boardimages",
+                                    attrs: { src: _vm.boardsimg(board.img) }
                                   }),
                                   _vm._v(" "),
-                                  _c("div", { staticClass: "mt-card-social" }, [
-                                    _c("ul", [
-                                      _c("li", [
-                                        _c(
-                                          "a",
-                                          {
-                                            attrs: {
-                                              href: "javascript:;",
-                                              id: board.id
-                                            },
-                                            on: {
-                                              click: function($event) {
-                                                return _vm.edit($event.target)
-                                              }
-                                            }
+                                  _vm._m(2, true)
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "mt-card-content" }, [
+                                _c("h3", { staticClass: "mt-card-name" }, [
+                                  _vm._v(_vm._s(board.name.substring(0, 21)))
+                                ]),
+                                _vm._v(" "),
+                                _c("p", {
+                                  staticClass: "mt-card-desc font-grey-mint"
+                                }),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "mt-card-social" }, [
+                                  _c("ul", [
+                                    _c("li", [
+                                      _c(
+                                        "a",
+                                        {
+                                          attrs: {
+                                            href: "javascript:;",
+                                            id: board.id
                                           },
-                                          [
-                                            _c("i", {
-                                              staticClass:
-                                                "glyphicon glyphicon-edit"
-                                            })
-                                          ]
-                                        )
-                                      ]),
-                                      _vm._v(" "),
-                                      _c("li", [
-                                        _c(
-                                          "a",
-                                          {
-                                            attrs: {
-                                              href: "javascript:;",
-                                              id: board.id
-                                            },
-                                            on: {
-                                              click: function($event) {
-                                                return _vm.del($event.target)
-                                              }
+                                          on: {
+                                            click: function($event) {
+                                              return _vm.edit($event.target)
                                             }
+                                          }
+                                        },
+                                        [
+                                          _c("i", {
+                                            staticClass:
+                                              "glyphicon glyphicon-edit"
+                                          })
+                                        ]
+                                      )
+                                    ]),
+                                    _vm._v(" "),
+                                    _c("li", [
+                                      _c(
+                                        "a",
+                                        {
+                                          attrs: {
+                                            href: "javascript:;",
+                                            id: board.id
                                           },
-                                          [
-                                            _c("i", {
-                                              staticClass:
-                                                "glyphicon glyphicon-trash "
-                                            })
-                                          ]
-                                        )
-                                      ])
+                                          on: {
+                                            click: function($event) {
+                                              return _vm.del($event.target)
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _c("i", {
+                                            staticClass:
+                                              "glyphicon glyphicon-trash "
+                                          })
+                                        ]
+                                      )
                                     ])
                                   ])
                                 ])
                               ])
-                            ]
-                          )
-                        ]
-                      })
-                    ],
-                    2
-                  )
-                ]
+                            ])
+                          ]
+                        )
+                      }),
+                      0
+                    )
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass: "portlet-footer bg-white",
+                  staticStyle: { "text-align": "center" }
+                },
+                [
+                  _c("pagination", {
+                    attrs: { data: _vm.data, align: "center" },
+                    on: { "pagination-change-page": _vm.__mounted }
+                  })
+                ],
+                1
               )
-            ]),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass: "portlet-footer",
-                staticStyle: { "text-align": "center" }
-              },
-              [
-                _c("pagination", {
-                  attrs: { data: _vm.data, align: "center" },
-                  on: { "pagination-change-page": _vm.__mounted }
-                })
-              ],
-              1
-            )
-          ])
+            ]
+          )
         ])
       ])
     ]),
@@ -38314,7 +38337,7 @@ var render = function() {
             _vm._v(" "),
             _c(
               "div",
-              { ref: "formContainer", staticClass: "modal-body vld-parent" },
+              { ref: "modalContainer", staticClass: "modal-body vld-parent" },
               [
                 _c("div", {
                   staticStyle: { display: "none" },
@@ -38335,11 +38358,7 @@ var render = function() {
                     type: "button",
                     "data-style": "zoom-in"
                   },
-                  on: {
-                    click: function($event) {
-                      return _vm.submitform(true)
-                    }
-                  }
+                  on: { click: _vm.submitform }
                 },
                 [
                   _vm._m(5),
@@ -38368,8 +38387,8 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "caption font-purple" }, [
-      _c("i", { staticClass: "icon-users font-purple" }),
+    return _c("div", { staticClass: "caption" }, [
+      _c("i", { staticClass: "icon-users" }),
       _vm._v("\n                            Boards\n                        ")
     ])
   },
@@ -38380,8 +38399,7 @@ var staticRenderFns = [
     return _c(
       "a",
       {
-        staticClass:
-          "btn purple btn-circle btn-outline btn-sm todo-projects-config",
+        staticClass: "btn white btn-outline btn-sm todo-projects-config",
         attrs: {
           href: "javascript:;",
           "data-toggle": "dropdown",
@@ -38514,7 +38532,8 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("span", { staticClass: "ladda-label" }, [
       _c("i", { staticClass: "glyphicon glyphicon-saved" }),
-      _vm._v("\n                            Create\n                        ")
+      _vm._v(" "),
+      _c("span", { staticClass: "ladabtn-text" }, [_vm._v("Create")])
     ])
   }
 ]
@@ -38550,7 +38569,17 @@ var render = function() {
               staticClass: "portlet box purple vld-parent"
             },
             [
-              _vm._m(0),
+              _c("div", { staticClass: "portlet-title" }, [
+                _vm._m(0),
+                _vm._v(" "),
+                _c("div", { staticClass: "tools" }, [
+                  _c("a", {
+                    staticClass: "reload font-purple",
+                    attrs: { href: "javascript:;" },
+                    on: { click: _vm.__mounted }
+                  })
+                ])
+              ]),
               _vm._v(" "),
               _c("div", { staticClass: "portlet-body form" }, [
                 _c("div", {
@@ -38703,11 +38732,9 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "portlet-title" }, [
-      _c("div", { staticClass: "caption" }, [
-        _c("i", { staticClass: "fa fa-gift" }),
-        _vm._v(" Change General Settings ")
-      ])
+    return _c("div", { staticClass: "caption" }, [
+      _c("i", { staticClass: "fa fa-gift" }),
+      _vm._v(" Change General Settings \n                        ")
     ])
   },
   function() {
@@ -54893,10 +54920,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = ([{
-  path: '/admin/general/edit',
+  path: '/admin/general/index',
   name: 'edit/general',
-  component: _admin_components_general_edit__WEBPACK_IMPORTED_MODULE_0__["default"],
-  props: true
+  component: _admin_components_general_edit__WEBPACK_IMPORTED_MODULE_0__["default"]
 }, {
   path: "/admin/*",
   name: "404",
@@ -55016,7 +55042,7 @@ if (token) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! D:\xampp\htdocs\laravel_vue_with_trello\resources\js\admin_app.js */"./resources/js/admin_app.js");
+module.exports = __webpack_require__(/*! C:\xamp\htdocs\resources\laravel trello project with vue\resources\js\admin_app.js */"./resources/js/admin_app.js");
 
 
 /***/ })

@@ -1,14 +1,17 @@
 <template>
     <div class="page-content-wrapper">
-        <!-- BEGIN CONTENT BODY -->
         <div class="page-content">
-            <!-- BEGIN PAGE BASE CONTENT -->
             <div class="row">
                 <div class="col-md-12">
                     <div class="portlet box purple vld-parent" ref="formContainer">
                         <div class="portlet-title">
                             <div class="caption">
-                                <i class="fa fa-gift"></i> Change General Settings </div>
+                                <i class="fa fa-gift"></i> Change General Settings 
+                            </div>
+                            <div class="tools">
+                                <a href="javascript:;" class="reload font-purple" @click="__mounted"></a>
+                            </div>
+
                         </div>
                         <div class="portlet-body form">
                             <div class="" id="errorsdiv" style="display: none;"></div>
@@ -61,11 +64,8 @@
                     </div>
                 </div>
             </div>
-            <!-- END PAGE BASE CONTENT -->
         </div>
-        <!-- END CONTENT BODY -->
     </div>
-    <!-- END CONTENT -->
 </template>
 <script>
 export default {
@@ -75,27 +75,7 @@ export default {
         }
     },
     mounted() {
-        this.$Progress.start();
-        let loader = this.$loading.show({
-            container: this.$refs.formContainer,
-        });
-        this.$loadScript(window.adminassets + "/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js")
-            .then(() => {})
-            .catch(() => {});
-        axios.get(route('general.index'), {
-                headers: {
-                    'APP-TOKEN': '1l23f134b1'
-                }
-            })
-            .then((data) => {
-                this.data = data.data.general;
-                this.$Progress.finish();
-                loader.hide()
-            })
-            .catch((error) => {
-                this.$Progress.fail();
-                loader.hide()
-            });
+        this.__mounted();
     },
     head: {
         link: [
@@ -115,6 +95,30 @@ export default {
             var form = document.querySelector('.ajaxform');
             var formData = new FormData(form);
             ajax(route('general.update'), 'POST', formData, document.getElementById("submitbtn"), this);
+        },
+        __mounted() {
+            this.$Progress.start();
+            let loader = this.$loading.show({
+                container: this.$refs.formContainer,
+            });
+            this.$loadScript(window.adminassets + "/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js")
+                .then(() => {})
+                .catch(() => {});
+            axios.get(route('general.index'), {
+                    headers: {
+                        'APP-TOKEN': '1l23f134b1'
+                    }
+                })
+                .then((data) => {
+                    this.data = data.data.general;
+                    this.$Progress.finish();
+                    loader.hide()
+                })
+                .catch((error) => {
+                    this.$Progress.fail();
+                    loader.hide()
+                });
+
         }
     }
 }

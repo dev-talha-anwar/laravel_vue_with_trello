@@ -2,10 +2,9 @@ import generaledit from '@/admin_components/general/edit';
 import PageNotFound from '@/admin_components/PageNotFound';
 
 export default [{
-        path: '/admin/general/edit',
+        path: '/admin/general/index',
         name: 'edit/general',
         component: generaledit,
-        props: true
     },
     {
         path: "/admin/*",

@@ -51,7 +51,7 @@ class BoardController extends Controller
         $validator = Validator::make($request->all(), [
             'image' => 'nullable|image|mimes:jpg,jpeg,png',
             'name' => 'required|string|max:255',
-            'id' => 'required|numeric|exists:boards'
+            'recid' => 'required|numeric|exists:boards,id'
         ]);
         if($validator->fails()):
             return response()->json(['errors' => $validator->errors()]);
@@ -66,7 +66,7 @@ class BoardController extends Controller
         endif;
         $data['name'] = $request->name;
         $data['owner_id'] = auth()->user()->id;
-        if(Board::find($request->id)->update($data)):
+        if(Board::find($request->recid)->update($data)):
             $boards = Board::paginate(12);
             return response()->json([
                 'msg' => ['msg' => 'Board Edited Successfully.','type' => 'success'],

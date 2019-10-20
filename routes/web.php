@@ -34,11 +34,5 @@ Route::get('board','BoardController@index')->name('board.index');
 Route::post('board','BoardController@store')->name('board.store');
 Route::post('board/update','BoardController@update')->name('board.update');
 
-
-
-View::composer('adminviews.layouts.layout',function($view){
-	$general = General::first();
-	$view->with('general',$general);
-});
 Route::get("admin/{any}", "AdminController@index")->where("any", ".*");
 Route::get("{any}", "WelcomeController@index")->where("any", ".*");

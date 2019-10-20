@@ -4,15 +4,15 @@
         <div class="page-content">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="portlet light bordered">
+                    <div class="portlet box purple vld-parent" ref="formContainer">
                         <div class="portlet-title">
-                            <div class="caption font-purple">
-                                <i class="icon-users font-purple"></i>
+                            <div class="caption">
+                                <i class="icon-users"></i>
                                 Boards
                             </div>
-                            <div class="actions font-purple">
+                            <div class="actions">
                                 <div class="btn-group">
-                                    <a class="btn purple btn-circle btn-outline btn-sm todo-projects-config" href="javascript:;" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" aria-expanded="false">
+                                    <a class="btn white btn-outline btn-sm todo-projects-config" href="javascript:;" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" aria-expanded="false">
                                         <i class="icon-settings"></i> &nbsp;
                                         <i class="fa fa-angle-down"></i>
                                     </a>
@@ -30,8 +30,7 @@
                         <div class="portlet-body">
                             <div class="mt-element-card mt-card-round mt-element-overlay" style="display: block;">
                                 <div class="row">
-                                    <template v-for="board in data.data">
-                                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                                        <div v-for="board in data.data" :key="board.id" class="col-lg-3 col-md-4 col-sm-6 col-xs-12" >
                                             <div class="mt-card-item">
                                                 <div class="mt-card-avatar mt-overlay-1">
                                                     <img :src="boardsimg(board.img)" class="boardimages">
@@ -65,11 +64,10 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </template>
                                 </div>
                             </div>
                         </div>
-                        <div class="portlet-footer" style="text-align: center;">
+                        <div class="portlet-footer bg-white" style="text-align: center;">
                             <pagination :data="data" @pagination-change-page="__mounted" align="center"></pagination>
                         </div>
                     </div>
@@ -83,7 +81,7 @@
                     <div class="modal-header bg-purple font-white">
                         <h4 class="modal-title">Add New Board</h4>
                     </div>
-                    <div class="modal-body vld-parent" ref="formContainer">
+                    <div class="modal-body vld-parent" ref="modalContainer">
                         <div class="" id="errorsdiv" style="display: none;"></div>
                         <form action="#" class="ajaxform form-horizontal form-bordered ">
                             <div class="form-group last">
@@ -112,10 +110,10 @@
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button id="submitbtn" v-on:click="submitform(true)" type="button" class="btn purple uppercase mt-ladda-btn ladda-button" data-style="zoom-in">
+                        <button id="submitbtn" v-on:click="submitform" type="button" class="btn purple uppercase mt-ladda-btn ladda-button" data-style="zoom-in">
                             <span class="ladda-label">
                                 <i class="glyphicon glyphicon-saved"></i>
-                                Create
+                                <span class="ladabtn-text">Create</span>
                             </span>
                             <span class="ladda-spinner"></span>
                         </button>
@@ -131,7 +129,8 @@
 export default {
     data() {
         return {
-            data: {}
+            data: {},
+            flag : false
         }
     },
     computed: {
@@ -146,29 +145,33 @@ export default {
         ]
     },
     methods: {
-        submitform(flag) {
+        submitform() {
             var form = document.querySelector('.ajaxform');
             var formData = new FormData(form);
-            if(flag){
-                ajax(route('board.store'), 'POST', formData, document.getElementById("submitbtn"), this, $('#static'));
+            if(this.flag){
+                ajax(route('board.store'), 'POST', formData, document.getElementById("submitbtn"), this, $('#static'),'modalContainer');
             }else{
-                ajax(route('board.update'), 'POST', formData, document.getElementById("submitbtn"), this, $('#static'));
+                ajax(route('board.update'), 'POST', formData, document.getElementById("submitbtn"), this, $('#static'),'modalContainer');
             } 
             $('.namefield').val('');
-            $('.fileinput').first().fileinput('reset');
+            $('.fileinput').fileinput('reset');
 
         },
         addnew() {
             $('.modalimg').attr('src', '');
             $('.namefield').val('');
             $('.recfield').val('');
+            $('.ladabtn-text').html('Create');
             $('#static').modal('show');
+            this.flag = true;
         },
         edit(e) {
             $('.modalimg').attr('src', $(e).parents('.mt-card-item').find('.boardimages').first().attr('src'));
             $('.namefield').val($(e).parents('.mt-card-item').find('h3').html());
             $('.recfield').val($(e).parent().first().attr('id'));
+            $('.ladabtn-text').html('Update');
             $('#static').modal('show');
+            this.flag = false;
         },
         del(e) {
 
