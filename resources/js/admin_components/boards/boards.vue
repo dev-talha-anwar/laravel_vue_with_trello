@@ -28,7 +28,7 @@
                             </div>
                         </div>
                         <div class="portlet-body">
-                            <vue-element-loading :active="pageloader" spinner="bar-fade-scale" color="#8E44AD"/>
+                            <vue-element-loading :active="pageloader" spinner="bar-fade-scale" color="#8E44AD" />
                             <div class="mt-element-card mt-card-round mt-element-overlay" style="display: block;">
                                 <div class="row">
                                     <div v-for="board in data.data" :key="board.id" class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
@@ -82,8 +82,8 @@
                     <div class="modal-header bg-purple font-white">
                         <h4 class="modal-title">Add New Board</h4>
                     </div>
-                    <div class="modal-body" >
-                        <vue-element-loading :active="modelloader" spinner="bar-fade-scale" color="#8E44AD"/>
+                    <div class="modal-body">
+                        <vue-element-loading :active="modelloader" spinner="bar-fade-scale" color="#8E44AD" />
                         <div class="" id="errorsdiv" style="display: none;"></div>
                         <form action="#" class="ajaxform form-horizontal form-bordered ">
                             <div class="form-group last">
@@ -133,8 +133,8 @@ export default {
         return {
             data: {},
             flag: false,
-            pageloader :false,
-            modelloader : false
+            pageloader: false,
+            modelloader: false
         }
     },
     computed: {
@@ -153,9 +153,9 @@ export default {
             var form = document.querySelector('.ajaxform');
             var formData = new FormData(form);
             if (this.flag) {
-                ajax(route('board.store'), 'POST', formData, document.getElementById("submitbtn"), this, $('#static'),'modelloader');
+                ajax(route('board.store'), 'POST', formData, document.getElementById("submitbtn"), this, $('#static'), 'modelloader');
             } else {
-                ajax(route('board.update'), 'POST', formData, document.getElementById("submitbtn"), this, $('#static'),'modelloader');
+                ajax(route('board.update'), 'POST', formData, document.getElementById("submitbtn"), this, $('#static'), 'modelloader');
             }
             $('.namefield').val('');
             $('.fileinput').first().fileinput('clear');
@@ -187,26 +187,10 @@ export default {
             return substr(str, 0, 20);
         },
         __mounted(page = 1) {
-            this.$Progress.start();
-            this.pageloader = true;
             this.$loadScript(window.adminassets + "/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js")
                 .then(() => {})
                 .catch(() => {});
-            // ajax(route('board.index') + '?page=' + page, 'GET','', this,'','pageloader');
-            axios.get(route('board.index') + '?page=' + page, {
-                    headers: {
-                        'APP-TOKEN': '1l23f134b1'
-                    }
-                })
-                .then((data) => {
-                    this.data = data.data.data;
-                    this.$Progress.finish();
-                    this.pageloader = false;
-                })
-                .catch((error) => {
-                    this.$Progress.fail();
-                    this.pageloader = false;
-                });
+            ajax(route('board.index') + '?page=' + page, 'GET',undefined,undefined ,this,undefined,'pageloader');
         }
     }
 }

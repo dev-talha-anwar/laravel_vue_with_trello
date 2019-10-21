@@ -1,5 +1,6 @@
 function ajax(url, type, data = '', button = null, self = null, model = null, loader = null) {
     if (button != null) {
+        console.log(button);
         var l = Ladda.create(button);
         l.start();
     }
@@ -9,39 +10,29 @@ function ajax(url, type, data = '', button = null, self = null, model = null, lo
             self[loader] = true;
         }
     }
-
-    var processData;
-    var contentType;
-    if (typeof(data) !== 'string') {
-        processData = false;
-        contentType = false;
-    }
-    $.ajax({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                'APP-TOKEN': '1l23f134b1'
-            },
+    axios({
+            method: type,
             url: url,
-            processData: processData,
-            contentType: contentType,
-            type: type,
             data: data,
+            headers: {
+                'APP-TOKEN': '1l23f134b1'
+            }
         })
-        .done(function(data) {
-            if (data.hasOwnProperty('errors')) {
-                $("#errorsdiv").html(makeerrors(data.errors));
+        .then((data) => {
+            if (data.data.hasOwnProperty('errors')) {
+                $("#errorsdiv").html(makeerrors(data.data.errors));
                 $("#errorsdiv").css({
                     display: 'block'
                 });
                 if (self != null) self.$Progress.fail();
             }
-            if (data.hasOwnProperty('msg')) {
-                if (data.msg.type == 'success' && !data.hasOwnProperty('url')) {
-                    self.data = data.data;
+            if (data.data.hasOwnProperty('msg')) {
+                if (data.data.msg.type == 'success' && !data.data.hasOwnProperty('url')) {
+                    self.data = data.data.data;
                 }
                 showbtnflag = true;
-                if (data.hasOwnProperty('refresh')) {
-                    if (data.refresh == true) {
+                if (data.data.hasOwnProperty('refresh')) {
+                    if (data.data.refresh == true) {
                         showbtnflag = false;
                     }
                 }
@@ -49,32 +40,32 @@ function ajax(url, type, data = '', button = null, self = null, model = null, lo
                     model.modal('hide');
                 }
                 swal({
-                    title: data.msg.type,
-                    type: data.msg.type,
-                    text: data.msg.msg,
+                    title: data.data.msg.type,
+                    type: data.data.msg.type,
+                    text: data.data.msg.msg,
                     showConfirmButton: showbtnflag
                 });
-            } else if (data.hasOwnProperty('data')) {
-                self.data = data.data
+            } else if (data.data.hasOwnProperty('data')) {
+                self.data = data.data.data
                 if (model != null) {
                     model.modal('hide');
                 }
             }
-            if (data.hasOwnProperty('auth')) {
+            if (data.data.hasOwnProperty('auth')) {
                 if (self != null) {
-                    self.$session.set('auth', data.auth);
+                    self.$session.set('auth', data.data.auth);
                 }
             }
-            if (data.hasOwnProperty('url')) {
-                location.assign(data.url);
+            if (data.data.hasOwnProperty('url')) {
+                location.assign(data.data.url);
             }
-            if (data.hasOwnProperty('refresh')) {
-                if (data.refresh == true) {
+            if (data.data.hasOwnProperty('refresh')) {
+                if (data.data.refresh == true) {
                     location.reload();
                 }
             }
         })
-        .fail(function(error) {
+        .catch((error) => {
             swal({
                 title: 'error',
                 type: 'error',
@@ -83,7 +74,7 @@ function ajax(url, type, data = '', button = null, self = null, model = null, lo
             });
             if (self != null) self.$Progress.fail();
         })
-        .always(function() {
+        .then(() => {
             if (button != null) l.stop();
             if (self != null) {
                 self.$Progress.finish();

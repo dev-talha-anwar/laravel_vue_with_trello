@@ -57,7 +57,15 @@
         @routes
         <script src="{{asset('adminassets')}}/js/main.js" type="text/javascript"></script>
         <script src="{{asset('js/admin_app.js')}}" type="text/javascript"></script>
-
+        <script>
+            $(function(){
+                $('form input').keydown(function (e) {
+                    if (e.keyCode == 13) {
+                        e.preventDefault();
+                    }
+                });
+            });
+        </script>
 
         {{-- <script src="{{asset('adminassets')}}/pages/scripts/ui-sweetalert.min.js" type="text/javascript"></script> --}}
 

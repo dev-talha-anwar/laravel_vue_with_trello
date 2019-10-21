@@ -89,6 +89,7 @@ export default {
         __mounted() {
             this.$Progress.start();
             this.pageloader = true;
+            ajax();
             axios.get(route('admin.edit', this.id))
                 .then((data) => {
                     this.data = data.data.admin;

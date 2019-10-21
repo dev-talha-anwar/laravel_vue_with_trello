@@ -1823,6 +1823,7 @@ __webpack_require__.r(__webpack_exports__);
 
       this.$Progress.start();
       this.pageloader = true;
+      ajax();
       axios.get(route('admin.edit', this.id)).then(function (data) {
         _this.data = data.data.admin;
 
@@ -2037,28 +2038,9 @@ __webpack_require__.r(__webpack_exports__);
       return substr(str, 0, 20);
     },
     __mounted: function __mounted() {
-      var _this = this;
-
       var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
-      this.$Progress.start();
-      this.pageloader = true;
-      this.$loadScript(window.adminassets + "/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js").then(function () {})["catch"](function () {}); // ajax(route('board.index') + '?page=' + page, 'GET','', this,'','pageloader');
-
-      axios.get(route('board.index') + '?page=' + page, {
-        headers: {
-          'APP-TOKEN': '1l23f134b1'
-        }
-      }).then(function (data) {
-        _this.data = data.data.data;
-
-        _this.$Progress.finish();
-
-        _this.pageloader = false;
-      })["catch"](function (error) {
-        _this.$Progress.fail();
-
-        _this.pageloader = false;
-      });
+      this.$loadScript(window.adminassets + "/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js").then(function () {})["catch"](function () {});
+      ajax(route('board.index') + '?page=' + page, 'GET', undefined, undefined, this, undefined, 'pageloader');
     }
   }
 });
@@ -56799,7 +56781,7 @@ if (token) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\xamp\htdocs\resources\laravel trello project with vue\resources\js\admin_app.js */"./resources/js/admin_app.js");
+module.exports = __webpack_require__(/*! D:\xampp\htdocs\laravel_vue_with_trello\resources\js\admin_app.js */"./resources/js/admin_app.js");
 
 
 /***/ })
