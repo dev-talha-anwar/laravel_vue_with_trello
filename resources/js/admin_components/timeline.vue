@@ -4,7 +4,7 @@
    <div class="row">
       <div class="col-md-12">
          <!-- BEGIN TODO SIDEBAR -->
-         <div class="todo-ui" ref="formContainer">
+         <div class="todo-ui">
             <div class="todo-sidebar">
                <div class="portlet light bordered">
                   <div class="portlet-title">
@@ -179,18 +179,13 @@
         },
         mounted(){
             this.$Progress.start();
-            let loader = this.$loading.show({
-              container: this.$refs.formContainer,
-            });
             axios.get(route('board.index'))
             .then((data) => {
               this.data = data.data.data;
                 this.$Progress.finish();
-                loader.hide();
             })
             .catch((error) =>{
                 this.$Progress.fail();
-                loader.hide();
             });
         },
         methods:{

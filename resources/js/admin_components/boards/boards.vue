@@ -4,7 +4,7 @@
         <div class="page-content">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="portlet box purple vld-parent" ref="formContainer">
+                    <div class="portlet box purple">
                         <div class="portlet-title">
                             <div class="caption">
                                 <i class="icon-users"></i>
@@ -28,42 +28,43 @@
                             </div>
                         </div>
                         <div class="portlet-body">
+                            <vue-element-loading :active="pageloader" spinner="bar-fade-scale" color="#8E44AD"/>
                             <div class="mt-element-card mt-card-round mt-element-overlay" style="display: block;">
                                 <div class="row">
-                                        <div v-for="board in data.data" :key="board.id" class="col-lg-3 col-md-4 col-sm-6 col-xs-12" >
-                                            <div class="mt-card-item">
-                                                <div class="mt-card-avatar mt-overlay-1">
-                                                    <img :src="boardsimg(board.img)" class="boardimages">
-                                                    <div class="mt-overlay">
-                                                        <ul class="mt-info">
-                                                            <li>
-                                                                <a class="btn default btn-outline" href="javascript:;">
-                                                                    <i class="glyphicon glyphicon-resize-full"></i>
-                                                                </a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
+                                    <div v-for="board in data.data" :key="board.id" class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                                        <div class="mt-card-item">
+                                            <div class="mt-card-avatar mt-overlay-1">
+                                                <img :src="boardsimg(board.img)" class="boardimages">
+                                                <div class="mt-overlay">
+                                                    <ul class="mt-info">
+                                                        <li>
+                                                            <a class="btn default btn-outline" href="javascript:;">
+                                                                <i class="glyphicon glyphicon-resize-full"></i>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
                                                 </div>
-                                                <div class="mt-card-content">
-                                                    <h3 class="mt-card-name">{{board.name.substring(0,21)}}</h3>
-                                                    <p class="mt-card-desc font-grey-mint"></p>
-                                                    <div class="mt-card-social">
-                                                        <ul>
-                                                            <li>
-                                                                <a href="javascript:;" @click="edit($event.target)" :id="board.id">
-                                                                    <i class="glyphicon glyphicon-edit"></i>
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="javascript:;" @click="del($event.target)" :id="board.id">
-                                                                    <i class="glyphicon glyphicon-trash "></i>
-                                                                </a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
+                                            </div>
+                                            <div class="mt-card-content">
+                                                <h3 class="mt-card-name">{{board.name.substring(0,21)}}</h3>
+                                                <p class="mt-card-desc font-grey-mint"></p>
+                                                <div class="mt-card-social">
+                                                    <ul>
+                                                        <li>
+                                                            <a href="javascript:;" @click="edit($event.target)" :id="board.id">
+                                                                <i class="glyphicon glyphicon-edit"></i>
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="javascript:;" @click="del($event.target)" :id="board.id">
+                                                                <i class="glyphicon glyphicon-trash "></i>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -81,7 +82,8 @@
                     <div class="modal-header bg-purple font-white">
                         <h4 class="modal-title">Add New Board</h4>
                     </div>
-                    <div class="modal-body vld-parent" ref="modalContainer">
+                    <div class="modal-body" >
+                        <vue-element-loading :active="modelloader" spinner="bar-fade-scale" color="#8E44AD"/>
                         <div class="" id="errorsdiv" style="display: none;"></div>
                         <form action="#" class="ajaxform form-horizontal form-bordered ">
                             <div class="form-group last">
@@ -130,7 +132,9 @@ export default {
     data() {
         return {
             data: {},
-            flag : false
+            flag: false,
+            pageloader :false,
+            modelloader : false
         }
     },
     computed: {
@@ -148,14 +152,13 @@ export default {
         submitform() {
             var form = document.querySelector('.ajaxform');
             var formData = new FormData(form);
-            if(this.flag){
-                ajax(route('board.store'), 'POST', formData, document.getElementById("submitbtn"), this, $('#static'),'modalContainer');
-            }else{
-                ajax(route('board.update'), 'POST', formData, document.getElementById("submitbtn"), this, $('#static'),'modalContainer');
-            } 
+            if (this.flag) {
+                ajax(route('board.store'), 'POST', formData, document.getElementById("submitbtn"), this, $('#static'),'modelloader');
+            } else {
+                ajax(route('board.update'), 'POST', formData, document.getElementById("submitbtn"), this, $('#static'),'modelloader');
+            }
             $('.namefield').val('');
-            $('.fileinput').fileinput('reset');
-
+            $('.fileinput').first().fileinput('clear');
         },
         addnew() {
             $('.modalimg').attr('src', '');
@@ -166,6 +169,7 @@ export default {
             this.flag = true;
         },
         edit(e) {
+            $('.fileinput').first().fileinput('clear');
             $('.modalimg').attr('src', $(e).parents('.mt-card-item').find('.boardimages').first().attr('src'));
             $('.namefield').val($(e).parents('.mt-card-item').find('h3').html());
             $('.recfield').val($(e).parent().first().attr('id'));
@@ -184,9 +188,7 @@ export default {
         },
         __mounted(page = 1) {
             this.$Progress.start();
-            let loader = this.$loading.show({
-                container: this.$refs.formContainer,
-            });
+            this.pageloader = true;
             this.$loadScript(window.adminassets + "/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js")
                 .then(() => {})
                 .catch(() => {});
@@ -198,11 +200,11 @@ export default {
                 .then((data) => {
                     this.data = data.data.data;
                     this.$Progress.finish();
-                    loader.hide();
+                    this.pageloader = false;
                 })
                 .catch((error) => {
                     this.$Progress.fail();
-                    loader.hide()
+                    this.pageloader = false;
                 });
         }
     }

@@ -375,7 +375,6 @@
                                             <i class="icon-user"></i> My Profile
                                         </router-link>
                                     </li>
-                                    <li class="divider"> </li>
                                     <li>
                                         <a href="{{route('admin.logout')}}">
                                             <i class="icon-key"></i> Log Out </a>

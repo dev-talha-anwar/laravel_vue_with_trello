@@ -3,7 +3,7 @@
         <div class="page-content">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="portlet box purple vld-parent" ref="formContainer">
+                    <div class="portlet box purple " >
                         <div class="portlet-title">
                             <div class="caption">
                                 <i class="fa fa-gift"></i> Change General Settings 
@@ -14,6 +14,7 @@
 
                         </div>
                         <div class="portlet-body form">
+                            <vue-element-loading :active="pageloader" spinner="bar-fade-scale" color="#8E44AD"/>
                             <div class="" id="errorsdiv" style="display: none;"></div>
                             <form action="#" class="ajaxform form-horizontal form-bordered ">
                                 <div class="form-body">
@@ -71,7 +72,8 @@
 export default {
     data() {
         return {
-            data: {}
+            data: {},
+            pageloader : false
         }
     },
     mounted() {
@@ -94,13 +96,11 @@ export default {
         submitform() {
             var form = document.querySelector('.ajaxform');
             var formData = new FormData(form);
-            ajax(route('general.update'), 'POST', formData, document.getElementById("submitbtn"), this);
+            ajax(route('general.update'), 'POST', formData, document.getElementById("submitbtn"), this,null,'pageloader');
         },
         __mounted() {
             this.$Progress.start();
-            let loader = this.$loading.show({
-                container: this.$refs.formContainer,
-            });
+            this.pageloader = true;
             this.$loadScript(window.adminassets + "/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js")
                 .then(() => {})
                 .catch(() => {});
@@ -112,11 +112,11 @@ export default {
                 .then((data) => {
                     this.data = data.data.general;
                     this.$Progress.finish();
-                    loader.hide()
+                    this.pageloader = false;
                 })
                 .catch((error) => {
                     this.$Progress.fail();
-                    loader.hide()
+                    this.pageloader = false;
                 });
 
         }

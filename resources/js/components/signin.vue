@@ -1,6 +1,6 @@
 <template>
     <!-- Our Feature Section starts -->
-    <section class="our-feature-section vld-parent" ref="formContainer">
+    <section class="our-feature-section">
         <div class="container">
             <div class="" id="errorsdiv" style="display: none;"></div> 
             <form class="form" method="post">
