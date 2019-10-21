@@ -192,6 +192,7 @@ export default {
             this.$loadScript(window.adminassets + "/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js")
                 .then(() => {})
                 .catch(() => {});
+            // ajax(route('board.index') + '?page=' + page, 'GET','', this,'','pageloader');
             axios.get(route('board.index') + '?page=' + page, {
                     headers: {
                         'APP-TOKEN': '1l23f134b1'

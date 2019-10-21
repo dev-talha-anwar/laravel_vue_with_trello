@@ -2042,7 +2042,8 @@ __webpack_require__.r(__webpack_exports__);
       var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
       this.$Progress.start();
       this.pageloader = true;
-      this.$loadScript(window.adminassets + "/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js").then(function () {})["catch"](function () {});
+      this.$loadScript(window.adminassets + "/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js").then(function () {})["catch"](function () {}); // ajax(route('board.index') + '?page=' + page, 'GET','', this,'','pageloader');
+
       axios.get(route('board.index') + '?page=' + page, {
         headers: {
           'APP-TOKEN': '1l23f134b1'
