@@ -1,6 +1,5 @@
 function ajax(url, type, data = '', button = null, self = null, model = null, loader = null) {
     if (button != null) {
-        console.log(button);
         var l = Ladda.create(button);
         l.start();
     }
@@ -18,21 +17,21 @@ function ajax(url, type, data = '', button = null, self = null, model = null, lo
                 'APP-TOKEN': '1l23f134b1'
             }
         })
-        .then((data) => {
-            if (data.data.hasOwnProperty('errors')) {
-                $("#errorsdiv").html(makeerrors(data.data.errors));
+        .then((response) => {
+            if (response.data.hasOwnProperty('errors')) {
+                $("#errorsdiv").html(makeerrors(response.data.errors));
                 $("#errorsdiv").css({
                     display: 'block'
                 });
                 if (self != null) self.$Progress.fail();
             }
-            if (data.data.hasOwnProperty('msg')) {
-                if (data.data.msg.type == 'success' && !data.data.hasOwnProperty('url')) {
-                    self.data = data.data.data;
+            if (response.data.hasOwnProperty('msg')) {
+                if (response.data.msg.type == 'success' && !response.data.hasOwnProperty('url')) {
+                    self.data = response.data.data;
                 }
                 showbtnflag = true;
-                if (data.data.hasOwnProperty('refresh')) {
-                    if (data.data.refresh == true) {
+                if (response.data.hasOwnProperty('refresh')) {
+                    if (response.data.refresh == true) {
                         showbtnflag = false;
                     }
                 }
@@ -40,29 +39,32 @@ function ajax(url, type, data = '', button = null, self = null, model = null, lo
                     model.modal('hide');
                 }
                 swal({
-                    title: data.data.msg.type,
-                    type: data.data.msg.type,
-                    text: data.data.msg.msg,
+                    title: response.data.msg.type,
+                    type: response.data.msg.type,
+                    text: response.data.msg.msg,
                     showConfirmButton: showbtnflag
                 });
-            } else if (data.data.hasOwnProperty('data')) {
-                self.data = data.data.data
+            } else if (response.data.hasOwnProperty('data')) {
+                self.data = response.data.data
                 if (model != null) {
                     model.modal('hide');
                 }
             }
-            if (data.data.hasOwnProperty('auth')) {
+            if (response.data.hasOwnProperty('auth')) {
                 if (self != null) {
-                    self.$session.set('auth', data.data.auth);
+                    self.$session.set('auth', response.data.auth);
                 }
             }
-            if (data.data.hasOwnProperty('url')) {
-                location.assign(data.data.url);
+            if (response.data.hasOwnProperty('url')) {
+                location.assign(response.data.url);
             }
-            if (data.data.hasOwnProperty('refresh')) {
-                if (data.data.refresh == true) {
+            if (response.data.hasOwnProperty('refresh')) {
+                if (response.data.refresh == true) {
                     location.reload();
                 }
+            }
+            if(response.data.hasOwnProperty('mounted')){
+                self.__mounted();
             }
         })
         .catch((error) => {

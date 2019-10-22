@@ -1,8 +1,4 @@
 <!DOCTYPE html>
-
-<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
-<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
-<!--[if !IE]><!-->
 <html lang="en">
     <!--<![endif]-->
     <!-- BEGIN HEAD -->
@@ -116,7 +112,7 @@
         <script src="{{asset('adminassets')}}/global/plugins/ladda/ladda.min.js" type="text/javascript"></script>
         <script src="{{asset('adminassets')}}/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
         <script src="{{asset('adminassets')}}/pages/scripts/components-bootstrap-switch.min.js" type="text/javascript"></script>
-        <script src="{{ asset("adminassets/js/main.js") }}" type="text/javascript"></script>
+        <script src="{{ asset("adminassets/js/mainaj.js") }}" type="text/javascript"></script>
         <script>
             $(function(){
                 $('form input').keydown(function (e) {
@@ -127,7 +123,7 @@
                 });
                 $('#submitbtn').on('click',function(e){
                     e.preventDefault();
-                    ajax("{{ route('admin.login.submit') }}",'POST',$('#loginform').serialize(),this);
+                    ajaxaj("{{ route('admin.login.submit') }}",'POST',$('#loginform').serialize(),this);
                 });
             });
         </script>

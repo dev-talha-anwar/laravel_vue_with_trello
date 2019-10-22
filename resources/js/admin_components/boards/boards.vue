@@ -178,7 +178,7 @@ export default {
             this.flag = false;
         },
         del(e) {
-
+            ajax(route('board.delete',$(e).parent().first().attr('id')), 'GET',undefined,undefined ,this,undefined,'pageloader');
         },
         boardsimg(img) {
             return window.storagepath + img;

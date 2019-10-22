@@ -1819,22 +1819,7 @@ __webpack_require__.r(__webpack_exports__);
       ajax(route('admin.update', this.id), 'PUT', $('.ajaxform').serialize(), document.getElementById("submitbtn"), this, null, 'pageloader');
     },
     __mounted: function __mounted() {
-      var _this = this;
-
-      this.$Progress.start();
-      this.pageloader = true;
-      ajax();
-      axios.get(route('admin.edit', this.id)).then(function (data) {
-        _this.data = data.data.admin;
-
-        _this.$Progress.finish();
-
-        _this.pageloader = false;
-      })["catch"](function (error) {
-        _this.$Progress.fail();
-
-        _this.pageloader = false;
-      });
+      ajax(route('admin.edit', this.id), 'GET', undefined, undefined, this, undefined, 'pageloader');
     }
   }
 });
@@ -2030,7 +2015,9 @@ __webpack_require__.r(__webpack_exports__);
       $('#static').modal('show');
       this.flag = false;
     },
-    del: function del(e) {},
+    del: function del(e) {
+      ajax(route('board.delete', $(e).parent().first().attr('id')), 'GET', undefined, undefined, this, undefined, 'pageloader');
+    },
     boardsimg: function boardsimg(img) {
       return window.storagepath + img;
     },
@@ -2158,26 +2145,10 @@ __webpack_require__.r(__webpack_exports__);
       ajax(route('general.update'), 'POST', formData, document.getElementById("submitbtn"), this, null, 'pageloader');
     },
     __mounted: function __mounted() {
-      var _this = this;
-
       this.$Progress.start();
       this.pageloader = true;
       this.$loadScript(window.adminassets + "/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js").then(function () {})["catch"](function () {});
-      axios.get(route('general.index'), {
-        headers: {
-          'APP-TOKEN': '1l23f134b1'
-        }
-      }).then(function (data) {
-        _this.data = data.data.general;
-
-        _this.$Progress.finish();
-
-        _this.pageloader = false;
-      })["catch"](function (error) {
-        _this.$Progress.fail();
-
-        _this.pageloader = false;
-      });
+      ajax(route('general.index'), 'GET', undefined, undefined, this, undefined, 'pageloader');
     }
   }
 });
@@ -56781,7 +56752,7 @@ if (token) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! D:\xampp\htdocs\laravel_vue_with_trello\resources\js\admin_app.js */"./resources/js/admin_app.js");
+module.exports = __webpack_require__(/*! C:\xamp\htdocs\resources\laravel trello project with vue\resources\js\admin_app.js */"./resources/js/admin_app.js");
 
 
 /***/ })

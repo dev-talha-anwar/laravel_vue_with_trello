@@ -37,7 +37,7 @@ class AdminController extends Controller
     public function edit($admin){
         $admin = Admin::find($admin);
         return response()->JSON([
-            'admin' => $admin
+            'data' => $admin
         ]); 
     }
     public function update(Request $request,$admin){

@@ -104,21 +104,7 @@ export default {
             this.$loadScript(window.adminassets + "/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js")
                 .then(() => {})
                 .catch(() => {});
-            axios.get(route('general.index'), {
-                    headers: {
-                        'APP-TOKEN': '1l23f134b1'
-                    }
-                })
-                .then((data) => {
-                    this.data = data.data.general;
-                    this.$Progress.finish();
-                    this.pageloader = false;
-                })
-                .catch((error) => {
-                    this.$Progress.fail();
-                    this.pageloader = false;
-                });
-
+            ajax(route('general.index'), 'GET',undefined,undefined ,this,undefined,'pageloader');
         }
     }
 }

@@ -33,6 +33,7 @@ Route::post('general/update','GeneralController@update')->name('general.update')
 Route::get('board','BoardController@index')->name('board.index');
 Route::post('board','BoardController@store')->name('board.store');
 Route::post('board/update','BoardController@update')->name('board.update');
+Route::get('board/delete/{id}','BoardController@destroy')->name('board.delete');
 
 Route::get("admin/{any}", "AdminController@index")->where("any", ".*");
 Route::get("{any}", "WelcomeController@index")->where("any", ".*");

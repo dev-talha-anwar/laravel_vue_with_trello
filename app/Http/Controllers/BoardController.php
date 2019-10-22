@@ -78,4 +78,22 @@ class BoardController extends Controller
             ]);
         endif;
     }
+    public function destroy($id){
+        if(Board::find($id)):
+            if(Board::destroy($id)):
+                return response()->json([
+                    'msg' => ['msg' => 'Board Deleted Successfully.','type' => 'success'],
+                    'data' => Board::paginate(12)
+                    ]);
+            else:
+                return response()->json([
+                    'msg' => ['msg' => 'Something went wrong.','type' => 'error']
+                    ]);
+            endif;
+        else:
+            return response()->json([
+                'msg' => ['msg' => 'Board Does Not Exist.','type' => 'error']
+            ]);
+        endif;
+    }
 }

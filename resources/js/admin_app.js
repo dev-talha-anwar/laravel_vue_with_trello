@@ -6,7 +6,7 @@ import LoadScript from 'vue-plugin-load-script';
 import VueProgressBar from 'vue-progressbar';
 import VueElementLoading from 'vue-element-loading';
 Vue.component('pagination', require('laravel-vue-pagination'));
-Vue.component('VueElementLoading', VueElementLoading);
+Vue.component('VueElementLoading', VueElementLoading); 
 Vue.use(VueHead)
 Vue.use(VueRouter);
 Vue.use(LoadScript);

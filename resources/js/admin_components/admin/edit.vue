@@ -87,19 +87,7 @@ export default {
             ajax(route('admin.update', this.id), 'PUT', $('.ajaxform').serialize(), document.getElementById("submitbtn"), this, null, 'pageloader');
         },
         __mounted() {
-            this.$Progress.start();
-            this.pageloader = true;
-            ajax();
-            axios.get(route('admin.edit', this.id))
-                .then((data) => {
-                    this.data = data.data.admin;
-                    this.$Progress.finish();
-                    this.pageloader = false;
-                })
-                .catch((error) => {
-                    this.$Progress.fail();
-                    this.pageloader = false;
-                });
+            ajax(route('admin.edit', this.id),'GET',undefined,undefined,this,undefined,'pageloader');
         }
     }
 }

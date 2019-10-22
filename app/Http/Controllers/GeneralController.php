@@ -18,7 +18,7 @@ class GeneralController extends Controller
     {
         $general = General::first();
         return response()->json([
-            'general' => $general
+            'data' => $general
         ]);
     }
     public function update(Request $request)
