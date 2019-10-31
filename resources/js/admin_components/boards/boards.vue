@@ -38,9 +38,9 @@
                                                 <div class="mt-overlay">
                                                     <ul class="mt-info">
                                                         <li>
-                                                            <a class="btn default btn-outline" href="javascript:;">
+                                                            <router-link :to="{ name: 'timeline',params: { id: board.id } }">
                                                                 <i class="glyphicon glyphicon-resize-full"></i>
-                                                            </a>
+                                                            </router-link>
                                                         </li>
                                                     </ul>
                                                 </div>

@@ -25,6 +25,7 @@
     },
     "dependencies": {
         "laravel-vue-pagination": "^2.3.1",
+        "v-runtime-template": "^1.10.0",
         "vue-element-loading": "^1.1.5",
         "vue-head": "^2.1.2",
         "vue-password-strength-meter": "^1.5.0",

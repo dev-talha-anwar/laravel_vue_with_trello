@@ -31,6 +31,7 @@ Route::resource('admin','AdminController')->except('index','show','destroy','cre
 Route::get('general','GeneralController@index')->name('general.index');
 Route::post('general/update','GeneralController@update')->name('general.update');
 Route::get('board','BoardController@index')->name('board.index');
+Route::get('board/show/{id}','BoardController@show')->name('board.show');
 Route::post('board','BoardController@store')->name('board.store');
 Route::post('board/update','BoardController@update')->name('board.update');
 Route::get('board/delete/{id}','BoardController@destroy')->name('board.delete');

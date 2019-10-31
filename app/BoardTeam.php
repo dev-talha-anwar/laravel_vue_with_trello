@@ -2,9 +2,9 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class BoardTeam extends Model
+class BoardTeam extends Pivot
 {
-    //
+    // protected $table = "board_teams";
 }

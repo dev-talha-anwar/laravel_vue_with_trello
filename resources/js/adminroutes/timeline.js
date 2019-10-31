@@ -9,8 +9,9 @@ export default[
 	    props:true,
   	}
   	,{ 
-	    path: "/admin/timeline",
+	    path: "/admin/timeline/:id",
 	    name: "timeline", 
 	    component: timeline, 
+	   	props:true
   	}
 ];

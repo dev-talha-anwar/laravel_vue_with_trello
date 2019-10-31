@@ -7,7 +7,7 @@ class Board extends Model
 		'img','name','owner_id'
 	];
     public function lists(){
-    	return hasMany('App\List');
+    	return hasMany('App\MainList');
     }
     public function users(){
     	return $this->belongsToMany('App\User')->using('App\UserBoard');

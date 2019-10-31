@@ -2335,63 +2335,30 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['id'],
   data: function data() {
     return {
-      data: {}
+      data: {
+        lists: {},
+        teams: {}
+      },
+      flag: false,
+      pageloader: false,
+      modelloader: false
     };
   },
   mounted: function mounted() {
-    var _this = this;
-
-    this.$Progress.start();
-    axios.get(route('board.index')).then(function (data) {
-      _this.data = data.data.data;
-
-      _this.$Progress.finish();
-    })["catch"](function (error) {
-      _this.$Progress.fail();
-    });
+    this.__mounted();
   },
   methods: {
     submitform: function submitform() {
       var form = document.querySelector('.ajaxform');
       var formData = new FormData(form);
       ajax(route('general.update'), 'POST', formData, document.getElementById("submitbtn"), this);
+    },
+    __mounted: function __mounted() {
+      ajax(route('board.show', this.id), 'GET', undefined, undefined, this, undefined, 'pageloader');
     }
   }
 });
@@ -37586,6 +37553,21 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 
 /***/ }),
 
+/***/ "./node_modules/v-runtime-template/dist/v-runtime-template.es.js":
+/*!***********************************************************************!*\
+  !*** ./node_modules/v-runtime-template/dist/v-runtime-template.es.js ***!
+  \***********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var t=function(t,o,e){if(!o.hasOwnProperty(e)){var r=Object.getOwnPropertyDescriptor(t,e);Object.defineProperty(o,e,r)}};/* harmony default export */ __webpack_exports__["default"] = ({props:{template:String,parent:Object,templateProps:{type:Object,default:function(){return{}}}},render:function(o){if(this.template){var e=this.parent||this.$parent,r=e.$data;void 0===r&&(r={});var n=e.$props;void 0===n&&(n={});var a=e.$options;void 0===a&&(a={});var p=a.components;void 0===p&&(p={});var c=a.computed;void 0===c&&(c={});var i=a.methods;void 0===i&&(i={});var s=this.$data;void 0===s&&(s={});var d=this.$props;void 0===d&&(d={});var v=this.$options;void 0===v&&(v={});var f=v.methods;void 0===f&&(f={});var m=v.computed;void 0===m&&(m={});var u=v.components;void 0===u&&(u={});var h={$data:{},$props:{},$options:{},components:{},computed:{},methods:{}};Object.keys(r).forEach(function(t){void 0===s[t]&&(h.$data[t]=r[t])}),Object.keys(n).forEach(function(t){void 0===d[t]&&(h.$props[t]=n[t])}),Object.keys(i).forEach(function(t){void 0===f[t]&&(h.methods[t]=i[t])}),Object.keys(c).forEach(function(t){void 0===m[t]&&(h.computed[t]=c[t])}),Object.keys(p).forEach(function(t){void 0===u[t]&&(h.components[t]=p[t])});var O=Object.keys(h.methods||{}),$=Object.keys(h.$data||{}),b=Object.keys(h.$props||{}),j=Object.keys(this.templateProps),y=$.concat(b).concat(O).concat(j),k=(E=e,P={},O.forEach(function(o){return t(E,P,o)}),P),l=function(o){var e={};return o.forEach(function(o){o&&Object.getOwnPropertyNames(o).forEach(function(r){return t(o,e,r)})}),e}([h.$data,h.$props,k,this.templateProps]);return o({template:this.template||"<div></div>",props:y,computed:h.computed,components:h.components,provide:this.$parent._provided},{props:l})}var E,P}});
+//# sourceMappingURL=v-runtime-template.es.js.map
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-element-loading/lib/vue-element-loading.min.js":
 /*!*************************************************************************!*\
   !*** ./node_modules/vue-element-loading/lib/vue-element-loading.min.js ***!
@@ -38222,7 +38204,33 @@ var render = function() {
                                     attrs: { src: _vm.boardsimg(board.img) }
                                   }),
                                   _vm._v(" "),
-                                  _vm._m(2, true)
+                                  _c("div", { staticClass: "mt-overlay" }, [
+                                    _c("ul", { staticClass: "mt-info" }, [
+                                      _c(
+                                        "li",
+                                        [
+                                          _c(
+                                            "router-link",
+                                            {
+                                              attrs: {
+                                                to: {
+                                                  name: "timeline",
+                                                  params: { id: board.id }
+                                                }
+                                              }
+                                            },
+                                            [
+                                              _c("i", {
+                                                staticClass:
+                                                  "glyphicon glyphicon-resize-full"
+                                              })
+                                            ]
+                                          )
+                                        ],
+                                        1
+                                      )
+                                    ])
+                                  ])
                                 ]
                               ),
                               _vm._v(" "),
@@ -38330,7 +38338,7 @@ var render = function() {
       [
         _c("div", { staticClass: "modal-dialog" }, [
           _c("div", { staticClass: "modal-content" }, [
-            _vm._m(3),
+            _vm._m(2),
             _vm._v(" "),
             _c(
               "div",
@@ -38349,7 +38357,7 @@ var render = function() {
                   attrs: { id: "errorsdiv" }
                 }),
                 _vm._v(" "),
-                _vm._m(4)
+                _vm._m(3)
               ],
               1
             ),
@@ -38367,7 +38375,7 @@ var render = function() {
                   on: { click: _vm.submitform }
                 },
                 [
-                  _vm._m(5),
+                  _vm._m(4),
                   _vm._v(" "),
                   _c("span", { staticClass: "ladda-spinner" })
                 ]
@@ -38420,25 +38428,6 @@ var staticRenderFns = [
         _c("i", { staticClass: "fa fa-angle-down" })
       ]
     )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "mt-overlay" }, [
-      _c("ul", { staticClass: "mt-info" }, [
-        _c("li", [
-          _c(
-            "a",
-            {
-              staticClass: "btn default btn-outline",
-              attrs: { href: "javascript:;" }
-            },
-            [_c("i", { staticClass: "glyphicon glyphicon-resize-full" })]
-          )
-        ])
-      ])
-    ])
   },
   function() {
     var _vm = this
@@ -38851,412 +38840,323 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c(
+    "div",
+    { staticClass: "page-content-wrapper" },
+    [
+      _vm._m(0),
+      _vm._v(" "),
+      _c("v-runtime-template", { attrs: { template: _vm.template } })
+    ],
+    1
+  )
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "page-content-wrapper" }, [
-      _c("div", { staticClass: "page-content" }, [
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-md-12" }, [
-            _c("div", { staticClass: "todo-ui" }, [
-              _c("div", { staticClass: "todo-sidebar" }, [
-                _c("div", { staticClass: "portlet light bordered" }, [
-                  _c("div", { staticClass: "portlet-title" }, [
-                    _c(
-                      "div",
-                      {
-                        staticClass: "caption",
-                        attrs: {
-                          "data-toggle": "collapse",
-                          "data-target": ".todo-project-list-content"
-                        }
-                      },
-                      [
-                        _c(
-                          "span",
-                          {
-                            staticClass:
-                              "caption-subject font-green-sharp bold uppercase"
-                          },
-                          [_vm._v("Boards ")]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "span",
-                          {
-                            staticClass:
-                              "caption-helper visible-sm-inline-block visible-xs-inline-block"
-                          },
-                          [_vm._v("click to view Boards")]
-                        )
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "actions" }, [
-                      _c("div", { staticClass: "btn-group" }, [
-                        _c(
-                          "a",
-                          {
-                            staticClass:
-                              "btn green btn-circle btn-outline btn-sm todo-projects-config",
-                            attrs: {
-                              href: "javascript:;",
-                              "data-toggle": "dropdown",
-                              "data-hover": "dropdown",
-                              "data-close-others": "true",
-                              "aria-expanded": "false"
-                            }
-                          },
-                          [
-                            _c("i", { staticClass: "icon-settings" }),
-                            _vm._v("  \r\n                           "),
-                            _c("i", { staticClass: "fa fa-angle-down" })
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c("ul", { staticClass: "dropdown-menu pull-right" }, [
-                          _c("li", [
-                            _c("a", { attrs: { href: "javascript:;" } }, [
-                              _vm._v(" New Board ")
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _c("li", { staticClass: "divider" }),
-                          _vm._v(" "),
-                          _c("li", [
-                            _c("a", { attrs: { href: "javascript:;" } }, [
-                              _vm._v(" Archived Boards ")
-                            ])
-                          ])
-                        ])
-                      ])
-                    ])
-                  ]),
-                  _vm._v(" "),
+    return _c("div", { staticClass: "page-content" }, [
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-md-12" }, [
+          _c("div", { staticClass: "todo-ui" }, [
+            _c("div", { staticClass: "todo-sidebar" }, [
+              _c("div", { staticClass: "portlet light bordered" }, [
+                _c("div", { staticClass: "portlet-title" }, [
                   _c(
                     "div",
                     {
-                      staticClass: "portlet-body todo-project-list-content",
-                      staticStyle: { height: "auto" }
+                      staticClass: "caption",
+                      attrs: {
+                        "data-toggle": "collapse",
+                        "data-target": ".todo-project-list-content"
+                      }
                     },
                     [
-                      _c("div", { staticClass: "todo-project-list" }, [
-                        _c("ul", { staticClass: "nav nav-stacked" }, [
-                          _c("li", [
-                            _c("a", { attrs: { href: "javascript:;" } }, [
-                              _c("span", { staticClass: "badge badge-info" }, [
-                                _vm._v(" 6 ")
-                              ]),
-                              _vm._v(" AirAsia Ads ")
-                            ])
-                          ])
-                        ])
-                      ])
-                    ]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "portlet light bordered" }, [
-                  _c("div", { staticClass: "portlet-title" }, [
-                    _c(
-                      "div",
-                      {
-                        staticClass: "caption",
-                        attrs: {
-                          "data-toggle": "collapse",
-                          "data-target": ".todo-project-list-content"
-                        }
-                      },
-                      [
-                        _c(
-                          "span",
-                          {
-                            staticClass:
-                              "caption-subject font-green-sharp bold uppercase"
-                          },
-                          [_vm._v("Lists ")]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "span",
-                          {
-                            staticClass:
-                              "caption-helper visible-sm-inline-block visible-xs-inline-block"
-                          },
-                          [_vm._v("click to view Board lists")]
-                        )
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "actions" }, [
-                      _c("div", { staticClass: "btn-group" }, [
-                        _c(
-                          "a",
-                          {
-                            staticClass:
-                              "btn green btn-circle btn-outline btn-sm todo-projects-config",
-                            attrs: {
-                              href: "javascript:;",
-                              "data-toggle": "dropdown",
-                              "data-hover": "dropdown",
-                              "data-close-others": "true",
-                              "aria-expanded": "false"
-                            }
-                          },
-                          [
-                            _c("i", { staticClass: "icon-settings" }),
-                            _vm._v("  \r\n                           "),
-                            _c("i", { staticClass: "fa fa-angle-down" })
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c("ul", { staticClass: "dropdown-menu pull-right" }, [
-                          _c("li", [
-                            _c("a", { attrs: { href: "javascript:;" } }, [
-                              _vm._v(" New List ")
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _c("li", { staticClass: "divider" }),
-                          _vm._v(" "),
-                          _c("li", [
-                            _c("a", { attrs: { href: "javascript:;" } }, [
-                              _vm._v(" Archived Lists ")
-                            ])
-                          ])
-                        ])
-                      ])
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass: "portlet-body todo-project-list-content",
-                      staticStyle: { height: "auto" }
-                    },
-                    [
-                      _c("div", { staticClass: "todo-project-list" }, [
-                        _c("ul", { staticClass: "nav nav-stacked" }, [
-                          _c("li", [
-                            _c("a", { attrs: { href: "javascript:;" } }, [
-                              _c("span", { staticClass: "badge badge-info" }, [
-                                _vm._v(" 6 ")
-                              ]),
-                              _vm._v(" AirAsia Ads ")
-                            ])
-                          ])
-                        ])
-                      ])
-                    ]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "portlet light bordered" }, [
-                  _c("div", { staticClass: "portlet-title" }, [
-                    _c(
-                      "div",
-                      {
-                        staticClass: "caption",
-                        attrs: {
-                          "data-toggle": "collapse",
-                          "data-target": ".todo-project-list-content"
-                        }
-                      },
-                      [
-                        _c(
-                          "span",
-                          {
-                            staticClass:
-                              "caption-subject font-green-sharp bold uppercase"
-                          },
-                          [_vm._v("Teams ")]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "span",
-                          {
-                            staticClass:
-                              "caption-helper visible-sm-inline-block visible-xs-inline-block"
-                          },
-                          [_vm._v("click to view Teams")]
-                        )
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "actions" }, [
-                      _c("div", { staticClass: "btn-group" }, [
-                        _c(
-                          "a",
-                          {
-                            staticClass:
-                              "btn green btn-circle btn-outline btn-sm todo-projects-config",
-                            attrs: {
-                              href: "javascript:;",
-                              "data-toggle": "dropdown",
-                              "data-hover": "dropdown",
-                              "data-close-others": "true",
-                              "aria-expanded": "false"
-                            }
-                          },
-                          [
-                            _c("i", { staticClass: "icon-settings" }),
-                            _vm._v("  \r\n                           "),
-                            _c("i", { staticClass: "fa fa-angle-down" })
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c("ul", { staticClass: "dropdown-menu pull-right" }, [
-                          _c("li", [
-                            _c("a", { attrs: { href: "javascript:;" } }, [
-                              _vm._v(" New Team ")
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _c("li", { staticClass: "divider" }),
-                          _vm._v(" "),
-                          _c("li", [
-                            _c("a", { attrs: { href: "javascript:;" } }, [
-                              _vm._v(" Archived Teams ")
-                            ])
-                          ])
-                        ])
-                      ])
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass: "portlet-body todo-project-list-content",
-                      staticStyle: { height: "auto" }
-                    },
-                    [
-                      _c("div", { staticClass: "todo-project-list" }, [
-                        _c("ul", { staticClass: "nav nav-stacked" }, [
-                          _c("li", [
-                            _c("a", { attrs: { href: "javascript:;" } }, [
-                              _c("span", { staticClass: "badge badge-info" }, [
-                                _vm._v(" 6 ")
-                              ]),
-                              _vm._v(" AirAsia Ads ")
-                            ])
-                          ])
-                        ])
-                      ])
-                    ]
-                  )
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "todo-content" }, [
-                _c("div", { staticClass: "portlet light bordered" }, [
-                  _c("div", { staticClass: "portlet-title" }, [
-                    _c("div", { staticClass: "caption" }, [
-                      _c("i", {
-                        staticClass: "icon-bar-chart font-green-sharp hide"
-                      }),
-                      _vm._v(" "),
                       _c(
                         "span",
                         {
                           staticClass:
                             "caption-subject font-green-sharp bold uppercase"
                         },
-                        [_vm._v("Details")]
+                        [_vm._v("Lists")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "span",
+                        {
+                          staticClass:
+                            "caption-helper visible-sm-inline-block visible-xs-inline-block"
+                        },
+                        [_vm._v("click to view Board lists")]
                       )
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "actions" }, [
-                      _c("div", { staticClass: "btn-group" }, [
-                        _c(
-                          "a",
-                          {
-                            staticClass: "btn green btn-circle btn-sm",
-                            attrs: {
-                              href: "javascript:;",
-                              "data-toggle": "dropdown",
-                              "data-hover": "dropdown",
-                              "data-close-others": "true",
-                              "aria-expanded": "false"
-                            }
-                          },
-                          [
-                            _vm._v(" MANAGE\r\n                           "),
-                            _c("i", { staticClass: "fa fa-angle-down" })
-                          ]
-                        ),
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "actions" }, [
+                    _c("div", { staticClass: "btn-group" }, [
+                      _c(
+                        "a",
+                        {
+                          staticClass:
+                            "btn green btn-circle btn-outline btn-sm todo-projects-config",
+                          attrs: {
+                            href: "javascript:;",
+                            "data-toggle": "dropdown",
+                            "data-hover": "dropdown",
+                            "data-close-others": "true",
+                            "aria-expanded": "false"
+                          }
+                        },
+                        [
+                          _c("i", { staticClass: "icon-settings" }),
+                          _vm._v(
+                            "  \n                                            "
+                          ),
+                          _c("i", { staticClass: "fa fa-angle-down" })
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c("ul", { staticClass: "dropdown-menu pull-right" }, [
+                        _c("li", [
+                          _c("a", { attrs: { href: "javascript:;" } }, [
+                            _vm._v(" New List ")
+                          ])
+                        ]),
                         _vm._v(" "),
-                        _c("ul", { staticClass: "dropdown-menu pull-right" }, [
-                          _c("li", [
-                            _c("a", { attrs: { href: "javascript:;" } }, [
-                              _vm._v(" New Task ")
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _c("li", { staticClass: "divider" }),
-                          _vm._v(" "),
-                          _c("li", [
-                            _c("a", { attrs: { href: "javascript:;" } }, [
-                              _vm._v(
-                                " Pending\r\n                                 "
-                              ),
-                              _c(
-                                "span",
-                                { staticClass: "badge badge-danger" },
-                                [_vm._v(" 4 ")]
-                              )
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _c("li", [
-                            _c("a", { attrs: { href: "javascript:;" } }, [
-                              _vm._v(
-                                " Completed\r\n                                 "
-                              ),
-                              _c(
-                                "span",
-                                { staticClass: "badge badge-success" },
-                                [_vm._v(" 12 ")]
-                              )
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _c("li", [
-                            _c("a", { attrs: { href: "javascript:;" } }, [
-                              _vm._v(
-                                " Overdue\r\n                                 "
-                              ),
-                              _c(
-                                "span",
-                                { staticClass: "badge badge-warning" },
-                                [_vm._v(" 9 ")]
-                              )
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _c("li", { staticClass: "divider" }),
-                          _vm._v(" "),
-                          _c("li", [
-                            _c("a", { attrs: { href: "javascript:;" } }, [
-                              _vm._v(" Delete Project ")
-                            ])
+                        _c("li", { staticClass: "divider" }),
+                        _vm._v(" "),
+                        _c("li", [
+                          _c("a", { attrs: { href: "javascript:;" } }, [
+                            _vm._v(" Archived Lists ")
                           ])
                         ])
                       ])
                     ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "portlet-body todo-project-list-content",
+                    staticStyle: { height: "auto" }
+                  },
+                  [
+                    _c("div", { staticClass: "todo-project-list" }, [
+                      _c("ul", { staticClass: "nav nav-stacked" }, [
+                        _c("li", [
+                          _c("a", { attrs: { href: "javascript:;" } }, [
+                            _c("span", { staticClass: "badge badge-info" }, [
+                              _vm._v(" 6 ")
+                            ]),
+                            _vm._v(" AirAsia Ads ")
+                          ])
+                        ])
+                      ])
+                    ])
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "portlet light bordered" }, [
+                _c("div", { staticClass: "portlet-title" }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass: "caption",
+                      attrs: {
+                        "data-toggle": "collapse",
+                        "data-target": ".todo-project-list-content"
+                      }
+                    },
+                    [
+                      _c(
+                        "span",
+                        {
+                          staticClass:
+                            "caption-subject font-green-sharp bold uppercase"
+                        },
+                        [_vm._v("Teams ")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "span",
+                        {
+                          staticClass:
+                            "caption-helper visible-sm-inline-block visible-xs-inline-block"
+                        },
+                        [_vm._v("click to view Teams")]
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "actions" }, [
+                    _c("div", { staticClass: "btn-group" }, [
+                      _c(
+                        "a",
+                        {
+                          staticClass:
+                            "btn green btn-circle btn-outline btn-sm todo-projects-config",
+                          attrs: {
+                            href: "javascript:;",
+                            "data-toggle": "dropdown",
+                            "data-hover": "dropdown",
+                            "data-close-others": "true",
+                            "aria-expanded": "false"
+                          }
+                        },
+                        [
+                          _c("i", { staticClass: "icon-settings" }),
+                          _vm._v(
+                            "  \n                                            "
+                          ),
+                          _c("i", { staticClass: "fa fa-angle-down" })
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c("ul", { staticClass: "dropdown-menu pull-right" }, [
+                        _c("li", [
+                          _c("a", { attrs: { href: "javascript:;" } }, [
+                            _vm._v(" New Team ")
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("li", { staticClass: "divider" }),
+                        _vm._v(" "),
+                        _c("li", [
+                          _c("a", { attrs: { href: "javascript:;" } }, [
+                            _vm._v(" Archived Teams ")
+                          ])
+                        ])
+                      ])
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "portlet-body todo-project-list-content",
+                    staticStyle: { height: "auto" }
+                  },
+                  [
+                    _c("div", { staticClass: "todo-project-list" }, [
+                      _c("ul", { staticClass: "nav nav-stacked" }, [
+                        _c("li", [
+                          _c("a", { attrs: { href: "javascript:;" } }, [
+                            _c("span", { staticClass: "badge badge-info" }, [
+                              _vm._v(" 6 ")
+                            ]),
+                            _vm._v(" AirAsia Ads ")
+                          ])
+                        ])
+                      ])
+                    ])
+                  ]
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "todo-content" }, [
+              _c("div", { staticClass: "portlet light bordered" }, [
+                _c("div", { staticClass: "portlet-title" }, [
+                  _c("div", { staticClass: "caption" }, [
+                    _c("i", {
+                      staticClass: "icon-bar-chart font-green-sharp hide"
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "span",
+                      {
+                        staticClass:
+                          "caption-subject font-green-sharp bold uppercase"
+                      },
+                      [_vm._v("Details")]
+                    )
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "portlet-body" }, [
-                    _c("div", { staticClass: "row" }, [
-                      _c("div", { staticClass: "col-md-5 col-sm-4" }),
+                  _c("div", { staticClass: "actions" }, [
+                    _c("div", { staticClass: "btn-group" }, [
+                      _c(
+                        "a",
+                        {
+                          staticClass: "btn green btn-circle btn-sm",
+                          attrs: {
+                            href: "javascript:;",
+                            "data-toggle": "dropdown",
+                            "data-hover": "dropdown",
+                            "data-close-others": "true",
+                            "aria-expanded": "false"
+                          }
+                        },
+                        [
+                          _vm._v(
+                            " MANAGE\n                                            "
+                          ),
+                          _c("i", { staticClass: "fa fa-angle-down" })
+                        ]
+                      ),
                       _vm._v(" "),
-                      _c("div", { staticClass: "col-md-7 col-sm-8" })
+                      _c("ul", { staticClass: "dropdown-menu pull-right" }, [
+                        _c("li", [
+                          _c("a", { attrs: { href: "javascript:;" } }, [
+                            _vm._v(" New Task ")
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("li", { staticClass: "divider" }),
+                        _vm._v(" "),
+                        _c("li", [
+                          _c("a", { attrs: { href: "javascript:;" } }, [
+                            _vm._v(
+                              " Pending\n                                                    "
+                            ),
+                            _c("span", { staticClass: "badge badge-danger" }, [
+                              _vm._v(" 4 ")
+                            ])
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("li", [
+                          _c("a", { attrs: { href: "javascript:;" } }, [
+                            _vm._v(
+                              " Completed\n                                                    "
+                            ),
+                            _c("span", { staticClass: "badge badge-success" }, [
+                              _vm._v(" 12 ")
+                            ])
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("li", [
+                          _c("a", { attrs: { href: "javascript:;" } }, [
+                            _vm._v(
+                              " Overdue\n                                                    "
+                            ),
+                            _c("span", { staticClass: "badge badge-warning" }, [
+                              _vm._v(" 9 ")
+                            ])
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("li", { staticClass: "divider" }),
+                        _vm._v(" "),
+                        _c("li", [
+                          _c("a", { attrs: { href: "javascript:;" } }, [
+                            _vm._v(" Delete Project ")
+                          ])
+                        ])
+                      ])
                     ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "portlet-body" }, [
+                  _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "col-md-5 col-sm-4" }),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-7 col-sm-8" })
                   ])
                 ])
               ])
@@ -56126,7 +56026,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_progressbar__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(vue_progressbar__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var vue_element_loading__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue-element-loading */ "./node_modules/vue-element-loading/lib/vue-element-loading.min.js");
 /* harmony import */ var vue_element_loading__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(vue_element_loading__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _adminroutes_routes__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/adminroutes/routes */ "./resources/js/adminroutes/routes.js");
+/* harmony import */ var v_runtime_template__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! v-runtime-template */ "./node_modules/v-runtime-template/dist/v-runtime-template.es.js");
+/* harmony import */ var _adminroutes_routes__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/adminroutes/routes */ "./resources/js/adminroutes/routes.js");
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
@@ -56137,6 +56038,8 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 
 Vue.component('pagination', __webpack_require__(/*! laravel-vue-pagination */ "./node_modules/laravel-vue-pagination/dist/laravel-vue-pagination.common.js"));
 Vue.component('VueElementLoading', vue_element_loading__WEBPACK_IMPORTED_MODULE_4___default.a);
+
+Vue.use(v_runtime_template__WEBPACK_IMPORTED_MODULE_5__["default"]);
 Vue.use(vue_head__WEBPACK_IMPORTED_MODULE_1___default.a);
 Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]);
 Vue.use(vue_plugin_load_script__WEBPACK_IMPORTED_MODULE_2__["default"]);
@@ -56149,7 +56052,7 @@ Vue.use(vue_progressbar__WEBPACK_IMPORTED_MODULE_3___default.a, progressbaroptio
 
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]({
   mode: 'history',
-  routes: _adminroutes_routes__WEBPACK_IMPORTED_MODULE_5__["default"]
+  routes: _adminroutes_routes__WEBPACK_IMPORTED_MODULE_6__["default"]
 });
 var app = new Vue({
   el: '#adminapp',
@@ -56680,9 +56583,10 @@ __webpack_require__.r(__webpack_exports__);
   component: _admin_components_boards_boards__WEBPACK_IMPORTED_MODULE_1__["default"],
   props: true
 }, {
-  path: "/admin/timeline",
+  path: "/admin/timeline/:id",
   name: "timeline",
-  component: _admin_components_timeline__WEBPACK_IMPORTED_MODULE_0__["default"]
+  component: _admin_components_timeline__WEBPACK_IMPORTED_MODULE_0__["default"],
+  props: true
 }]);
 
 /***/ }),

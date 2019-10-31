@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Board;
+use App\MainList;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -96,4 +97,16 @@ class BoardController extends Controller
             ]);
         endif;
     }
+    public function show($id){
+        $lists = MainList::where('board_id',$id)->get();
+        $board = Board::find($id);
+        $teams = $board->teams();
+        return response()->json([
+            'data' => [
+                'lists' => $lists,
+                'teams' => $teams
+            ]
+        ]);
+    }
+
 }
