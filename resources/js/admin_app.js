@@ -7,8 +7,8 @@ import VueProgressBar from 'vue-progressbar';
 import VueElementLoading from 'vue-element-loading';
 Vue.component('pagination', require('laravel-vue-pagination'));
 Vue.component('VueElementLoading', VueElementLoading); 
-import VRuntimeTemplate from "v-runtime-template";
-Vue.use(VRuntimeTemplate)
+// import VRuntimeTemplate from "v-runtime-template";
+// Vue.use(VRuntimeTemplate)
 Vue.use(VueHead)
 Vue.use(VueRouter);
 Vue.use(LoadScript);

@@ -133,24 +133,32 @@
                 </div>
             </div>
         </div>
-        <v-runtime-template :template="template"></v-runtime-template>
+        <div class="sdf">
+            <v-runtime-template :template="template"></v-runtime-template>
+        </div>
     </div>
 </template>
 <script>
+import VRuntimeTemplate from "v-runtime-template";
+import model from "@/admin_components/adminmodals/timelinemodel";
 export default {
     props: [
         'id'
     ],
-
+    components :{
+        'v-runtime-template' : VRuntimeTemplate,
+        'model' :model
+    },
     data() {
         return {
             data: {
                lists :{},
                teams :{}
             },
+            template:'<model></model>',
             flag: false,
             pageloader: false,
-            modelloader: false
+            modelloader: false,
         }
     },
     mounted() {

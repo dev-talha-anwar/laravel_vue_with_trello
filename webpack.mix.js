@@ -17,7 +17,7 @@ mix.js('resources/js/admin_app.js', 'public/js/')
 mix.webpackConfig({    
   resolve: {      
     alias: {
- 	"@": __dirname + '/resources/js'      
+ 	"@": __dirname + '/resources/js',
     },    
   },  
 })
