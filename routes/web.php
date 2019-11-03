@@ -35,6 +35,7 @@ Route::get('board/show/{id}','BoardController@show')->name('board.show');
 Route::post('board','BoardController@store')->name('board.store');
 Route::post('board/update','BoardController@update')->name('board.update');
 Route::get('board/delete/{id}','BoardController@destroy')->name('board.delete');
+Route::post('list/store','ListController@store')->name('list.store');
 
 Route::get("admin/{any}", "AdminController@index")->where("any", ".*");
 Route::get("{any}", "WelcomeController@index")->where("any", ".*");

@@ -36,6 +36,7 @@ function ajax(url, type, data = '', button = null, self = null, model = null, lo
                     }
                 }
                 if (model != null) {
+                    console.log('123');
                     model.modal('hide');
                 }
                 swal({
@@ -47,6 +48,7 @@ function ajax(url, type, data = '', button = null, self = null, model = null, lo
             } else if (response.data.hasOwnProperty('data')) {
                 self.data = response.data.data
                 if (model != null) {
+                    console.log('123');
                     model.modal('hide');
                 }
             }

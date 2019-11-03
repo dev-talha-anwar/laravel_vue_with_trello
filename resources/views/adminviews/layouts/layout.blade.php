@@ -6,6 +6,7 @@
             Admin Panel
         </title>
         @include("adminviews.includes.headcss")
+        @yield('pagecss')
     </head>
     <body class="page-container-bg-solid page-header-fixed page-sidebar-closed-hide-logo">
         <div id="adminapp">

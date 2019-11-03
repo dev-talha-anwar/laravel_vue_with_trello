@@ -20,7 +20,7 @@ class AdminController extends Controller
     public function __construct()
     {
         $this->middleware('auth:admin');
-        $this->middleware('ajax')->only('update');
+        $this->middleware('ajax')->except('index');
     }
 
     /**

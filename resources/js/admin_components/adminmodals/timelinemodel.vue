@@ -1,5 +1,5 @@
 <template>
-            <!-- END CONTENT BODY -->
+        <!-- END CONTENT BODY -->
         <div id="static" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -7,7 +7,7 @@
                         <h4 class="modal-title">Add New Board</h4>
                     </div>
                     <div class="modal-body">
-                        <vue-element-loading :active="modelloader" spinner="bar-fade-scale" color="#8E44AD" />
+                        <vue-element-loading :active="this.$parent.modelloader" spinner="bar-fade-scale" color="#8E44AD" />
                         <div class="" id="errorsdiv" style="display: none;"></div>
                         <form action="#" class="ajaxform form-horizontal form-bordered ">
                             <div class="form-group last">
@@ -36,7 +36,7 @@
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button id="submitbtn" v-on:click="submitform" type="button" class="btn purple uppercase mt-ladda-btn ladda-button" data-style="zoom-in">
+                        <button id="submitbtn" v-on:click="this.$parent.submitform" type="button" class="btn purple uppercase mt-ladda-btn ladda-button" data-style="zoom-in">
                             <span class="ladda-label">
                                 <i class="glyphicon glyphicon-saved"></i>
                                 <span class="ladabtn-text">Create</span>

@@ -20,7 +20,7 @@
                                             </a>
                                             <ul class="dropdown-menu pull-right">
                                                 <li>
-                                                    <a href="javascript:;"> New List </a>
+                                                    <a href="javascript:;" @click="addnewlist"> New List </a>
                                                 </li>
                                                 <li class="divider"> </li>
                                                 <li>
@@ -33,9 +33,8 @@
                                 <div class="portlet-body todo-project-list-content" style="height: auto;">
                                     <div class="todo-project-list">
                                         <ul class="nav nav-stacked">
-                                            <li>
-                                                <a href="javascript:;">
-                                                    <span class="badge badge-info"> 6 </span> AirAsia Ads </a>
+                                            <li v-for="list in data.lists">
+                                                <a href="javascript:;">{{list.name}}</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -133,21 +132,19 @@
                 </div>
             </div>
         </div>
-        <div class="sdf">
-            <v-runtime-template :template="template"></v-runtime-template>
-        </div>
+        <v-runtime-template :templateProps="templateprops" :template="template"></v-runtime-template>
     </div>
 </template>
 <script>
 import VRuntimeTemplate from "v-runtime-template";
-import model from "@/admin_components/adminmodals/timelinemodel";
+import newlistmodel from "@/admin_components/adminmodals/newlistmodal";
 export default {
     props: [
         'id'
     ],
     components :{
         'v-runtime-template' : VRuntimeTemplate,
-        'model' :model
+        'newlistmodel' :newlistmodel
     },
     data() {
         return {
@@ -155,24 +152,26 @@ export default {
                lists :{},
                teams :{}
             },
-            template:'<model></model>',
-            flag: false,
+            template:'<newlistmodel></newlistmodel>',
+            templateprops: {
+                'board_id':this.id
+            },
             pageloader: false,
-            modelloader: false,
+            modelloader:false
         }
     },
     mounted() {
       this.__mounted();
-
     },
     methods: {
-        submitform() {
-            var form = document.querySelector('.ajaxform');
-            var formData = new FormData(form);
-            ajax(route('general.update'), 'POST', formData, document.getElementById("submitbtn"), this);
+        createlist(){
+            ajax(route('list.store'), 'POST', $('.ajaxform').serialize() , document.getElementById("submitbtn"), this, $('#static') ,'modelloader');
         },
         __mounted(){
             ajax(route('board.show',this.id), 'GET',undefined,undefined ,this,undefined,'pageloader');
+        },
+        addnewlist(){
+            $('#static').modal('show');
         }
     }
 }
