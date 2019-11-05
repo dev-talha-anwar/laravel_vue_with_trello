@@ -7,7 +7,7 @@
                         <h4 class="modal-title">Add New List</h4>
                     </div>
                     <div class="modal-body">
-                        <vue-element-loading :active="this.$parent.$parent.modelloader" spinner="bar-fade-scale" color="#8E44AD" />
+                        <vue-element-loading :active="this.$store.state.modelloader" spinner="bar-fade-scale" color="#8E44AD" />
                         <div class="" id="errorsdiv" style="display: none;"></div>
                         <form action="javascript:;" class="ajaxform form-horizontal form-bordered ">
                             <input type="hidden" name="board_id" :value="this.$parent.board_id">
@@ -31,3 +31,7 @@
             </div>
         </div>
 </template>
+<script>
+   export default {
+   }
+</script>

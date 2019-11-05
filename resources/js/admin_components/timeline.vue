@@ -156,8 +156,6 @@ export default {
             templateprops: {
                 'board_id':this.id
             },
-            pageloader: false,
-            modelloader:false
         }
     },
     mounted() {
@@ -165,7 +163,7 @@ export default {
     },
     methods: {
         createlist(){
-            ajax(route('list.store'), 'POST', $('.ajaxform').serialize() , document.getElementById("submitbtn"), this, $('#static') ,'modelloader');
+            ajaxmodel(route('list.store'), 'POST', $('.ajaxform').serialize() , document.getElementById("submitbtn"), this, $('#static') ,'modelloader');
         },
         __mounted(){
             ajax(route('board.show',this.id), 'GET',undefined,undefined ,this,undefined,'pageloader');

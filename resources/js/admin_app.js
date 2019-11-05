@@ -7,6 +7,23 @@ import VueProgressBar from 'vue-progressbar';
 import VueElementLoading from 'vue-element-loading';
 Vue.component('pagination', require('laravel-vue-pagination'));
 Vue.component('VueElementLoading', VueElementLoading); 
+import Vuex from 'vuex'
+Vue.use(Vuex)
+const store = new Vuex.Store({
+  state: {
+    modelloader: false,
+    pageloader : false
+  },
+  mutations: {
+    loaderval (state, type= null, val) {
+    	if(type == 'modelloader'){
+    		state.modelloader = val;
+    	}else{
+    		state.pageloader = val;
+    	}
+    }
+  }
+})
 Vue.use(VueHead)
 Vue.use(VueRouter);
 Vue.use(LoadScript);
