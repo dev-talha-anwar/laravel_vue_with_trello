@@ -17,7 +17,7 @@ class CreateListsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->bigInteger('board_id')->unsigned();
-            $table->foreign('board_id')->references('id')->on('boards');
+            $table->foreign('board_id')->references('id')->on('boards')->onDelete('cascade');
             $table->timestamps();
         });
     }

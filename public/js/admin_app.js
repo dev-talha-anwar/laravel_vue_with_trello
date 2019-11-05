@@ -1826,6 +1826,74 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/admin_components/adminmodals/newboardmodal.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/admin_components/adminmodals/newboardmodal.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  mounted: function mounted() {
+    console.log(this.$parent);
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/admin_components/adminmodals/newlistmodal.vue?vue&type=script&lang=js&":
 /*!*****************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/admin_components/adminmodals/newlistmodal.vue?vue&type=script&lang=js& ***!
@@ -1881,6 +1949,9 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var v_runtime_template__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! v-runtime-template */ "./node_modules/v-runtime-template/dist/v-runtime-template.es.js");
+/* harmony import */ var _admin_components_adminmodals_newboardmodal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/admin_components/adminmodals/newboardmodal */ "./resources/js/admin_components/adminmodals/newboardmodal.vue");
+/* harmony import */ var _admin_components_adminmodals_editboardmodal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/admin_components/adminmodals/editboardmodal */ "./resources/js/admin_components/adminmodals/editboardmodal.vue");
 //
 //
 //
@@ -1963,60 +2034,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    'v-runtime-template': v_runtime_template__WEBPACK_IMPORTED_MODULE_0__["default"],
+    'newboardmodal': _admin_components_adminmodals_newboardmodal__WEBPACK_IMPORTED_MODULE_1__["default"],
+    'editboardmodal': _admin_components_adminmodals_editboardmodal__WEBPACK_IMPORTED_MODULE_2__["default"]
+  },
   data: function data() {
     return {
       data: {},
-      flag: false,
-      pageloader: false,
-      modelloader: false
+      template: '<newboardmodal></newboardmodal>',
+      templateProps: {}
     };
   },
   computed: {},
@@ -2031,38 +2062,31 @@ __webpack_require__.r(__webpack_exports__);
     }]
   },
   methods: {
-    submitform: function submitform() {
+    addnewboard: function addnewboard() {
       var form = document.querySelector('.ajaxform');
       var formData = new FormData(form);
-
-      if (this.flag) {
-        ajax(route('board.store'), 'POST', formData, document.getElementById("submitbtn"), this, $('#static'), 'modelloader');
-      } else {
-        ajax(route('board.update'), 'POST', formData, document.getElementById("submitbtn"), this, $('#static'), 'modelloader');
-      }
-
-      $('.namefield').val('');
-      $('.fileinput').first().fileinput('clear');
+      ajaxmodel(route('board.store'), 'POST', formData, document.getElementById("submitbtn"), this, $('#static'), 'modelloader');
+    },
+    updateboard: function updateboard() {
+      var form = document.querySelector('.ajaxform');
+      var formData = new FormData(form);
+      ajaxmodel(route('board.update'), 'POST', formData, document.getElementById("submitbtn"), this, $('#static'), 'modelloader');
     },
     addnew: function addnew() {
-      $('.modalimg').attr('src', '');
+      this.template = "<newboardmodal></newboardmodal>";
+      $('.fileinput').first().fileinput('clear');
       $('.namefield').val('');
-      $('.recfield').val('');
-      $('.ladabtn-text').html('Create');
       $('#static').modal('show');
-      this.flag = true;
     },
     edit: function edit(e) {
-      $('.fileinput').first().fileinput('clear');
+      this.template = "<editboardmodal></editboardmodal>";
       $('.modalimg').attr('src', $(e).parents('.mt-card-item').find('.boardimages').first().attr('src'));
       $('.namefield').val($(e).parents('.mt-card-item').find('h3').html());
       $('.recfield').val($(e).parent().first().attr('id'));
-      $('.ladabtn-text').html('Update');
       $('#static').modal('show');
-      this.flag = false;
     },
     del: function del(e) {
-      ajax(route('board.delete', $(e).parent().first().attr('id')), 'GET', undefined, undefined, this, undefined, 'pageloader');
+      ajaxmodel(route('board.delete', $(e).parent().first().attr('id')), 'GET', undefined, undefined, this, undefined, 'pageloader');
     },
     boardsimg: function boardsimg(img) {
       return window.storagepath + img;
@@ -2073,7 +2097,7 @@ __webpack_require__.r(__webpack_exports__);
     __mounted: function __mounted() {
       var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
       this.$loadScript(window.adminassets + "/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js").then(function () {})["catch"](function () {});
-      ajax(route('board.index') + '?page=' + page, 'GET', undefined, undefined, this, undefined, 'pageloader');
+      ajaxmodel(route('board.index') + '?page=' + page, 'GET', undefined, undefined, this, undefined, 'pageloader');
     }
   }
 });
@@ -38167,6 +38191,397 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/admin_components/adminmodals/editboardmodal.vue?vue&type=template&id=5210ff86&":
+/*!***********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/admin_components/adminmodals/editboardmodal.vue?vue&type=template&id=5210ff86& ***!
+  \***********************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      staticClass: "modal fade editboard",
+      attrs: {
+        id: "static",
+        tabindex: "-1",
+        "data-backdrop": "static",
+        "data-keyboard": "false"
+      }
+    },
+    [
+      _c("div", { staticClass: "modal-dialog" }, [
+        _c("div", { staticClass: "modal-content" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "modal-body" },
+            [
+              _c("vue-element-loading", {
+                attrs: {
+                  active: this.$store.state.modelloader,
+                  spinner: "bar-fade-scale",
+                  color: "#8E44AD"
+                }
+              }),
+              _vm._v(" "),
+              _c("div", {
+                staticStyle: { display: "none" },
+                attrs: { id: "errorsdiv" }
+              }),
+              _vm._v(" "),
+              _vm._m(1)
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "modal-footer" }, [
+            _c(
+              "button",
+              {
+                staticClass: "btn purple uppercase mt-ladda-btn ladda-button",
+                attrs: {
+                  id: "submitbtn",
+                  type: "button",
+                  "data-style": "zoom-in"
+                },
+                on: { click: this.$parent.updateboard }
+              },
+              [
+                _vm._m(2),
+                _vm._v(" "),
+                _c("span", { staticClass: "ladda-spinner" })
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn red-thunderbird",
+                attrs: { type: "button", "data-dismiss": "modal" }
+              },
+              [_vm._v("Cancel")]
+            )
+          ])
+        ])
+      ])
+    ]
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header bg-purple font-white" }, [
+      _c("h4", { staticClass: "modal-title" }, [_vm._v("Add New Board")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "form",
+      {
+        staticClass: "ajaxform form-horizontal form-bordered ",
+        attrs: { action: "#" }
+      },
+      [
+        _c("div", { staticClass: "form-group last" }, [
+          _c("label", { staticClass: "control-label col-md-3" }, [
+            _vm._v("Image")
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-md-9" }, [
+            _c(
+              "div",
+              {
+                staticClass: "fileinput fileinput-new",
+                attrs: { "data-provides": "fileinput" }
+              },
+              [
+                _c(
+                  "div",
+                  {
+                    staticClass: "fileinput-new thumbnail",
+                    staticStyle: { width: "200px", height: "150px" }
+                  },
+                  [_c("img", { staticClass: "modalimg", attrs: { alt: "" } })]
+                ),
+                _vm._v(" "),
+                _c("div", {
+                  staticClass: "fileinput-preview fileinput-exists thumbnail",
+                  staticStyle: { "max-width": "200px", "max-height": "150px" }
+                }),
+                _vm._v(" "),
+                _c("div", [
+                  _c("span", { staticClass: "btn default btn-file" }, [
+                    _c("span", { staticClass: "fileinput-new" }, [
+                      _vm._v(" Select image ")
+                    ]),
+                    _vm._v(" "),
+                    _c("span", { staticClass: "fileinput-exists" }, [
+                      _vm._v(" Change ")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", { attrs: { type: "file", name: "image" } })
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "a",
+                    {
+                      staticClass: "btn red fileinput-exists",
+                      attrs: {
+                        href: "javascript:;",
+                        "data-dismiss": "fileinput"
+                      }
+                    },
+                    [_vm._v(" Remove ")]
+                  )
+                ])
+              ]
+            )
+          ])
+        ]),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "recfield",
+          attrs: { type: "hidden", name: "recid" }
+        }),
+        _vm._v(" "),
+        _c("div", { staticClass: "p-2" }, [
+          _c("label", { attrs: { for: "" } }, [_vm._v("Title")]),
+          _vm._v(" "),
+          _c("input", {
+            staticClass: "form-control namefield border-purple",
+            attrs: { type: "text", name: "name" }
+          })
+        ])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "ladda-label" }, [
+      _c("i", { staticClass: "glyphicon glyphicon-saved" }),
+      _vm._v(" "),
+      _c("span", { staticClass: "ladabtn-text" }, [_vm._v("Update")])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/admin_components/adminmodals/newboardmodal.vue?vue&type=template&id=3031277c&":
+/*!**********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/admin_components/adminmodals/newboardmodal.vue?vue&type=template&id=3031277c& ***!
+  \**********************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      staticClass: "modal fade newboard",
+      attrs: {
+        id: "static",
+        tabindex: "-1",
+        "data-backdrop": "static",
+        "data-keyboard": "false"
+      }
+    },
+    [
+      _c("div", { staticClass: "modal-dialog" }, [
+        _c("div", { staticClass: "modal-content" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "modal-body" },
+            [
+              _c("vue-element-loading", {
+                attrs: {
+                  active: this.$store.state.modelloader,
+                  spinner: "bar-fade-scale",
+                  color: "#8E44AD"
+                }
+              }),
+              _vm._v(" "),
+              _c("div", {
+                staticStyle: { display: "none" },
+                attrs: { id: "errorsdiv" }
+              }),
+              _vm._v(" "),
+              _vm._m(1)
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "modal-footer" }, [
+            _c(
+              "button",
+              {
+                staticClass: "btn purple uppercase mt-ladda-btn ladda-button",
+                attrs: {
+                  id: "submitbtn",
+                  type: "button",
+                  "data-style": "zoom-in"
+                },
+                on: {
+                  click: function($event) {
+                    this.$parent.addnewboard
+                  }
+                }
+              },
+              [
+                _vm._m(2),
+                _vm._v(" "),
+                _c("span", { staticClass: "ladda-spinner" })
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn red-thunderbird",
+                attrs: { type: "button", "data-dismiss": "modal" }
+              },
+              [_vm._v("Cancel")]
+            )
+          ])
+        ])
+      ])
+    ]
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header bg-purple font-white" }, [
+      _c("h4", { staticClass: "modal-title" }, [_vm._v("Add New Board")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "form",
+      {
+        staticClass: "ajaxform form-horizontal form-bordered ",
+        attrs: { action: "#" }
+      },
+      [
+        _c("div", { staticClass: "form-group last" }, [
+          _c("label", { staticClass: "control-label col-md-3" }, [
+            _vm._v("Image")
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-md-9" }, [
+            _c(
+              "div",
+              {
+                staticClass: "fileinput fileinput-new",
+                attrs: { "data-provides": "fileinput" }
+              },
+              [
+                _c(
+                  "div",
+                  {
+                    staticClass: "fileinput-new thumbnail",
+                    staticStyle: { width: "200px", height: "150px" }
+                  },
+                  [_c("img", { staticClass: "modalimg", attrs: { alt: "" } })]
+                ),
+                _vm._v(" "),
+                _c("div", {
+                  staticClass: "fileinput-preview fileinput-exists thumbnail",
+                  staticStyle: { "max-width": "200px", "max-height": "150px" }
+                }),
+                _vm._v(" "),
+                _c("div", [
+                  _c("span", { staticClass: "btn default btn-file" }, [
+                    _c("span", { staticClass: "fileinput-new" }, [
+                      _vm._v(" Select image ")
+                    ]),
+                    _vm._v(" "),
+                    _c("span", { staticClass: "fileinput-exists" }, [
+                      _vm._v(" Change ")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", { attrs: { type: "file", name: "image" } })
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "a",
+                    {
+                      staticClass: "btn red fileinput-exists",
+                      attrs: {
+                        href: "javascript:;",
+                        "data-dismiss": "fileinput"
+                      }
+                    },
+                    [_vm._v(" Remove ")]
+                  )
+                ])
+              ]
+            )
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "p-2" }, [
+          _c("label", { attrs: { for: "" } }, [_vm._v("Title")]),
+          _vm._v(" "),
+          _c("input", {
+            staticClass: "form-control namefield border-purple",
+            attrs: { type: "text", name: "name" }
+          })
+        ])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "ladda-label" }, [
+      _c("i", { staticClass: "glyphicon glyphicon-saved" }),
+      _vm._v(" "),
+      _c("span", { staticClass: "ladabtn-text" }, [_vm._v("Create")])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/admin_components/adminmodals/newlistmodal.vue?vue&type=template&id=4f0005e4&":
 /*!*********************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/admin_components/adminmodals/newlistmodal.vue?vue&type=template&id=4f0005e4& ***!
@@ -38322,274 +38737,215 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "page-content-wrapper" }, [
-    _c("div", { staticClass: "page-content" }, [
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-md-12" }, [
-          _c("div", { staticClass: "portlet box purple" }, [
-            _c("div", { staticClass: "portlet-title" }, [
-              _vm._m(0),
-              _vm._v(" "),
-              _c("div", { staticClass: "actions" }, [
-                _c("div", { staticClass: "btn-group" }, [
-                  _vm._m(1),
-                  _vm._v(" "),
-                  _c("ul", { staticClass: "dropdown-menu pull-right" }, [
-                    _c("li", [
-                      _c(
-                        "a",
-                        {
-                          attrs: { href: "javascript:;" },
-                          on: { click: _vm.addnew }
-                        },
-                        [_vm._v(" New Board ")]
-                      )
+  return _c(
+    "div",
+    { staticClass: "page-content-wrapper" },
+    [
+      _c("div", { staticClass: "page-content" }, [
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-md-12" }, [
+            _c("div", { staticClass: "portlet box purple" }, [
+              _c("div", { staticClass: "portlet-title" }, [
+                _vm._m(0),
+                _vm._v(" "),
+                _c("div", { staticClass: "actions" }, [
+                  _c("div", { staticClass: "btn-group" }, [
+                    _vm._m(1),
+                    _vm._v(" "),
+                    _c("ul", { staticClass: "dropdown-menu pull-right" }, [
+                      _c("li", [
+                        _c(
+                          "a",
+                          {
+                            attrs: { href: "javascript:;" },
+                            on: { click: _vm.addnew }
+                          },
+                          [_vm._v(" New Board ")]
+                        )
+                      ])
                     ])
                   ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "tools" }, [
+                  _c("a", {
+                    staticClass: "reload font-purple",
+                    attrs: { href: "javascript:;" },
+                    on: { click: _vm.__mounted }
+                  })
                 ])
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "tools" }, [
-                _c("a", {
-                  staticClass: "reload font-purple",
-                  attrs: { href: "javascript:;" },
-                  on: { click: _vm.__mounted }
-                })
-              ])
-            ]),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "portlet-body" },
-              [
-                _c("vue-element-loading", {
-                  attrs: {
-                    active: _vm.pageloader,
-                    spinner: "bar-fade-scale",
-                    color: "#8E44AD"
-                  }
-                }),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    staticClass:
-                      "mt-element-card mt-card-round mt-element-overlay",
-                    staticStyle: { display: "block" }
-                  },
-                  [
-                    _c(
-                      "div",
-                      { staticClass: "row" },
-                      _vm._l(_vm.data.data, function(board) {
-                        return _c(
-                          "div",
-                          {
-                            key: board.id,
-                            staticClass: "col-lg-3 col-md-4 col-sm-6 col-xs-12"
-                          },
-                          [
-                            _c("div", { staticClass: "mt-card-item" }, [
-                              _c(
-                                "div",
-                                { staticClass: "mt-card-avatar mt-overlay-1" },
-                                [
-                                  _c("img", {
-                                    staticClass: "boardimages",
-                                    attrs: { src: _vm.boardsimg(board.img) }
+              _c(
+                "div",
+                { staticClass: "portlet-body" },
+                [
+                  _c("vue-element-loading", {
+                    attrs: {
+                      active: this.$store.state.pageloader,
+                      spinner: "bar-fade-scale",
+                      color: "#8E44AD"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "mt-element-card mt-card-round mt-element-overlay",
+                      staticStyle: { display: "block" }
+                    },
+                    [
+                      _c(
+                        "div",
+                        { staticClass: "row" },
+                        _vm._l(_vm.data.data, function(board) {
+                          return _c(
+                            "div",
+                            {
+                              key: board.id,
+                              staticClass:
+                                "col-lg-3 col-md-4 col-sm-6 col-xs-12"
+                            },
+                            [
+                              _c("div", { staticClass: "mt-card-item" }, [
+                                _c(
+                                  "div",
+                                  {
+                                    staticClass: "mt-card-avatar mt-overlay-1"
+                                  },
+                                  [
+                                    _c("img", {
+                                      staticClass: "boardimages",
+                                      attrs: { src: _vm.boardsimg(board.img) }
+                                    }),
+                                    _vm._v(" "),
+                                    _c("div", { staticClass: "mt-overlay" }, [
+                                      _c("ul", { staticClass: "mt-info" }, [
+                                        _c(
+                                          "li",
+                                          [
+                                            _c(
+                                              "router-link",
+                                              {
+                                                attrs: {
+                                                  to: {
+                                                    name: "timeline",
+                                                    params: { id: board.id }
+                                                  }
+                                                }
+                                              },
+                                              [
+                                                _c("i", {
+                                                  staticClass:
+                                                    "glyphicon glyphicon-resize-full"
+                                                })
+                                              ]
+                                            )
+                                          ],
+                                          1
+                                        )
+                                      ])
+                                    ])
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "mt-card-content" }, [
+                                  _c("h3", { staticClass: "mt-card-name" }, [
+                                    _vm._v(_vm._s(board.name.substring(0, 21)))
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("p", {
+                                    staticClass: "mt-card-desc font-grey-mint"
                                   }),
                                   _vm._v(" "),
-                                  _c("div", { staticClass: "mt-overlay" }, [
-                                    _c("ul", { staticClass: "mt-info" }, [
-                                      _c(
-                                        "li",
-                                        [
-                                          _c(
-                                            "router-link",
-                                            {
-                                              attrs: {
-                                                to: {
-                                                  name: "timeline",
-                                                  params: { id: board.id }
-                                                }
-                                              }
+                                  _c("div", { staticClass: "mt-card-social" }, [
+                                    _c("ul", [
+                                      _c("li", [
+                                        _c(
+                                          "a",
+                                          {
+                                            attrs: {
+                                              href: "javascript:;",
+                                              id: board.id
                                             },
-                                            [
-                                              _c("i", {
-                                                staticClass:
-                                                  "glyphicon glyphicon-resize-full"
-                                              })
-                                            ]
-                                          )
-                                        ],
-                                        1
-                                      )
-                                    ])
-                                  ])
-                                ]
-                              ),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "mt-card-content" }, [
-                                _c("h3", { staticClass: "mt-card-name" }, [
-                                  _vm._v(_vm._s(board.name.substring(0, 21)))
-                                ]),
-                                _vm._v(" "),
-                                _c("p", {
-                                  staticClass: "mt-card-desc font-grey-mint"
-                                }),
-                                _vm._v(" "),
-                                _c("div", { staticClass: "mt-card-social" }, [
-                                  _c("ul", [
-                                    _c("li", [
-                                      _c(
-                                        "a",
-                                        {
-                                          attrs: {
-                                            href: "javascript:;",
-                                            id: board.id
-                                          },
-                                          on: {
-                                            click: function($event) {
-                                              return _vm.edit($event.target)
+                                            on: {
+                                              click: function($event) {
+                                                return _vm.edit($event.target)
+                                              }
                                             }
-                                          }
-                                        },
-                                        [
-                                          _c("i", {
-                                            staticClass:
-                                              "glyphicon glyphicon-edit"
-                                          })
-                                        ]
-                                      )
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("li", [
-                                      _c(
-                                        "a",
-                                        {
-                                          attrs: {
-                                            href: "javascript:;",
-                                            id: board.id
                                           },
-                                          on: {
-                                            click: function($event) {
-                                              return _vm.del($event.target)
+                                          [
+                                            _c("i", {
+                                              staticClass:
+                                                "glyphicon glyphicon-edit"
+                                            })
+                                          ]
+                                        )
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("li", [
+                                        _c(
+                                          "a",
+                                          {
+                                            attrs: {
+                                              href: "javascript:;",
+                                              id: board.id
+                                            },
+                                            on: {
+                                              click: function($event) {
+                                                return _vm.del($event.target)
+                                              }
                                             }
-                                          }
-                                        },
-                                        [
-                                          _c("i", {
-                                            staticClass:
-                                              "glyphicon glyphicon-trash "
-                                          })
-                                        ]
-                                      )
+                                          },
+                                          [
+                                            _c("i", {
+                                              staticClass:
+                                                "glyphicon glyphicon-trash "
+                                            })
+                                          ]
+                                        )
+                                      ])
                                     ])
                                   ])
                                 ])
                               ])
-                            ])
-                          ]
-                        )
-                      }),
-                      0
-                    )
-                  ]
-                )
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass: "portlet-footer bg-white",
-                staticStyle: { "text-align": "center" }
-              },
-              [
-                _c("pagination", {
-                  attrs: { data: _vm.data, align: "center" },
-                  on: { "pagination-change-page": _vm.__mounted }
-                })
-              ],
-              1
-            )
-          ])
-        ])
-      ])
-    ]),
-    _vm._v(" "),
-    _c(
-      "div",
-      {
-        staticClass: "modal fade",
-        attrs: {
-          id: "static",
-          tabindex: "-1",
-          "data-backdrop": "static",
-          "data-keyboard": "false"
-        }
-      },
-      [
-        _c("div", { staticClass: "modal-dialog" }, [
-          _c("div", { staticClass: "modal-content" }, [
-            _vm._m(2),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "modal-body" },
-              [
-                _c("vue-element-loading", {
-                  attrs: {
-                    active: _vm.modelloader,
-                    spinner: "bar-fade-scale",
-                    color: "#8E44AD"
-                  }
-                }),
-                _vm._v(" "),
-                _c("div", {
-                  staticStyle: { display: "none" },
-                  attrs: { id: "errorsdiv" }
-                }),
-                _vm._v(" "),
-                _vm._m(3)
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "modal-footer" }, [
-              _c(
-                "button",
-                {
-                  staticClass: "btn purple uppercase mt-ladda-btn ladda-button",
-                  attrs: {
-                    id: "submitbtn",
-                    type: "button",
-                    "data-style": "zoom-in"
-                  },
-                  on: { click: _vm.submitform }
-                },
-                [
-                  _vm._m(4),
-                  _vm._v(" "),
-                  _c("span", { staticClass: "ladda-spinner" })
-                ]
+                            ]
+                          )
+                        }),
+                        0
+                      )
+                    ]
+                  )
+                ],
+                1
               ),
               _vm._v(" "),
               _c(
-                "button",
+                "div",
                 {
-                  staticClass: "btn red-thunderbird",
-                  attrs: { type: "button", "data-dismiss": "modal" }
+                  staticClass: "portlet-footer bg-white",
+                  staticStyle: { "text-align": "center" }
                 },
-                [_vm._v("Cancel")]
+                [
+                  _c("pagination", {
+                    attrs: { data: _vm.data, align: "center" },
+                    on: { "pagination-change-page": _vm.__mounted }
+                  })
+                ],
+                1
               )
             ])
           ])
         ])
-      ]
-    )
-  ])
+      ]),
+      _vm._v(" "),
+      _c("v-runtime-template", {
+        attrs: { templateProps: _vm.templateProps, template: _vm.template }
+      })
+    ],
+    1
+  )
 }
 var staticRenderFns = [
   function() {
@@ -38623,108 +38979,6 @@ var staticRenderFns = [
         _c("i", { staticClass: "fa fa-angle-down" })
       ]
     )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-header bg-purple font-white" }, [
-      _c("h4", { staticClass: "modal-title" }, [_vm._v("Add New Board")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "form",
-      {
-        staticClass: "ajaxform form-horizontal form-bordered ",
-        attrs: { action: "#" }
-      },
-      [
-        _c("div", { staticClass: "form-group last" }, [
-          _c("label", { staticClass: "control-label col-md-3" }, [
-            _vm._v("Image")
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-md-9" }, [
-            _c(
-              "div",
-              {
-                staticClass: "fileinput fileinput-new",
-                attrs: { "data-provides": "fileinput" }
-              },
-              [
-                _c(
-                  "div",
-                  {
-                    staticClass: "fileinput-new thumbnail",
-                    staticStyle: { width: "200px", height: "150px" }
-                  },
-                  [_c("img", { staticClass: "modalimg", attrs: { alt: "" } })]
-                ),
-                _vm._v(" "),
-                _c("div", {
-                  staticClass: "fileinput-preview fileinput-exists thumbnail",
-                  staticStyle: { "max-width": "200px", "max-height": "150px" }
-                }),
-                _vm._v(" "),
-                _c("div", [
-                  _c("span", { staticClass: "btn default btn-file" }, [
-                    _c("span", { staticClass: "fileinput-new" }, [
-                      _vm._v(" Select image ")
-                    ]),
-                    _vm._v(" "),
-                    _c("span", { staticClass: "fileinput-exists" }, [
-                      _vm._v(" Change ")
-                    ]),
-                    _vm._v(" "),
-                    _c("input", { attrs: { type: "file", name: "image" } })
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "a",
-                    {
-                      staticClass: "btn red fileinput-exists",
-                      attrs: {
-                        href: "javascript:;",
-                        "data-dismiss": "fileinput"
-                      }
-                    },
-                    [_vm._v(" Remove ")]
-                  )
-                ])
-              ]
-            )
-          ])
-        ]),
-        _vm._v(" "),
-        _c("input", {
-          staticClass: "recfield",
-          attrs: { type: "hidden", name: "recid" }
-        }),
-        _vm._v(" "),
-        _c("div", { staticClass: "p-2" }, [
-          _c("label", { attrs: { for: "" } }, [_vm._v("Title")]),
-          _vm._v(" "),
-          _c("input", {
-            staticClass: "form-control namefield border-purple",
-            attrs: { type: "text", name: "name" }
-          })
-        ])
-      ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("span", { staticClass: "ladda-label" }, [
-      _c("i", { staticClass: "glyphicon glyphicon-saved" }),
-      _vm._v(" "),
-      _c("span", { staticClass: "ladabtn-text" }, [_vm._v("Create")])
-    ])
   }
 ]
 render._withStripped = true
@@ -57456,6 +57710,128 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_edit_vue_vue_type_template_id_78824836___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_edit_vue_vue_type_template_id_78824836___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/admin_components/adminmodals/editboardmodal.vue":
+/*!**********************************************************************!*\
+  !*** ./resources/js/admin_components/adminmodals/editboardmodal.vue ***!
+  \**********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _editboardmodal_vue_vue_type_template_id_5210ff86___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./editboardmodal.vue?vue&type=template&id=5210ff86& */ "./resources/js/admin_components/adminmodals/editboardmodal.vue?vue&type=template&id=5210ff86&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+var script = {}
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
+  script,
+  _editboardmodal_vue_vue_type_template_id_5210ff86___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _editboardmodal_vue_vue_type_template_id_5210ff86___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/admin_components/adminmodals/editboardmodal.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/admin_components/adminmodals/editboardmodal.vue?vue&type=template&id=5210ff86&":
+/*!*****************************************************************************************************!*\
+  !*** ./resources/js/admin_components/adminmodals/editboardmodal.vue?vue&type=template&id=5210ff86& ***!
+  \*****************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_editboardmodal_vue_vue_type_template_id_5210ff86___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./editboardmodal.vue?vue&type=template&id=5210ff86& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/admin_components/adminmodals/editboardmodal.vue?vue&type=template&id=5210ff86&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_editboardmodal_vue_vue_type_template_id_5210ff86___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_editboardmodal_vue_vue_type_template_id_5210ff86___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/admin_components/adminmodals/newboardmodal.vue":
+/*!*********************************************************************!*\
+  !*** ./resources/js/admin_components/adminmodals/newboardmodal.vue ***!
+  \*********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _newboardmodal_vue_vue_type_template_id_3031277c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./newboardmodal.vue?vue&type=template&id=3031277c& */ "./resources/js/admin_components/adminmodals/newboardmodal.vue?vue&type=template&id=3031277c&");
+/* harmony import */ var _newboardmodal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./newboardmodal.vue?vue&type=script&lang=js& */ "./resources/js/admin_components/adminmodals/newboardmodal.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _newboardmodal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _newboardmodal_vue_vue_type_template_id_3031277c___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _newboardmodal_vue_vue_type_template_id_3031277c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/admin_components/adminmodals/newboardmodal.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/admin_components/adminmodals/newboardmodal.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************!*\
+  !*** ./resources/js/admin_components/adminmodals/newboardmodal.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_newboardmodal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./newboardmodal.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/admin_components/adminmodals/newboardmodal.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_newboardmodal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/admin_components/adminmodals/newboardmodal.vue?vue&type=template&id=3031277c&":
+/*!****************************************************************************************************!*\
+  !*** ./resources/js/admin_components/adminmodals/newboardmodal.vue?vue&type=template&id=3031277c& ***!
+  \****************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_newboardmodal_vue_vue_type_template_id_3031277c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./newboardmodal.vue?vue&type=template&id=3031277c& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/admin_components/adminmodals/newboardmodal.vue?vue&type=template&id=3031277c&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_newboardmodal_vue_vue_type_template_id_3031277c___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_newboardmodal_vue_vue_type_template_id_3031277c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

@@ -17,9 +17,9 @@ class CreateCommentsTable extends Migration
             $table->bigIncrements('id');
             $table->text('comment');
             $table->bigInteger('card_id')->unsigned();
-            $table->foreign('card_id')->references('id')->on('cards');
+            $table->foreign('card_id')->references('id')->on('cards')->onDelete('cascade');
             $table->bigInteger('admin_id')->unsigned();
-            $table->foreign('admin_id')->references('id')->on('admins');
+            $table->foreign('admin_id')->references('id')->on('admins')->onDelete('cascade');
             $table->timestamps();
         });
     }

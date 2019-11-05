@@ -18,7 +18,7 @@ class CreateBoardsTable extends Migration
             $table->string('name');
             $table->string('img')->nullable();
             $table->bigInteger('owner_id')->unsigned();
-            $table->foreign('owner_id')->references('id')->on('admins');
+            $table->foreign('owner_id')->references('id')->on('admins')->onDelete('cascade');
             $table->timestamps();
         });
     }

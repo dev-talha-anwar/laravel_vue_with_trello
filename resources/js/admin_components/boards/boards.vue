@@ -28,7 +28,7 @@
                             </div>
                         </div>
                         <div class="portlet-body">
-                            <vue-element-loading :active="pageloader" spinner="bar-fade-scale" color="#8E44AD" />
+                            <vue-element-loading :active="this.$store.state.pageloader" spinner="bar-fade-scale" color="#8E44AD" />
                             <div class="mt-element-card mt-card-round mt-element-overlay" style="display: block;">
                                 <div class="row">
                                     <div v-for="board in data.data" :key="board.id" class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
@@ -75,66 +75,29 @@
                 </div>
             </div>
         </div>
-        <!-- END CONTENT BODY -->
-        <div id="static" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header bg-purple font-white">
-                        <h4 class="modal-title">Add New Board</h4>
-                    </div>
-                    <div class="modal-body">
-                        <vue-element-loading :active="modelloader" spinner="bar-fade-scale" color="#8E44AD" />
-                        <div class="" id="errorsdiv" style="display: none;"></div>
-                        <form action="#" class="ajaxform form-horizontal form-bordered ">
-                            <div class="form-group last">
-                                <label class="control-label col-md-3">Image</label>
-                                <div class="col-md-9">
-                                    <div class="fileinput fileinput-new" data-provides="fileinput">
-                                        <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
-                                            <img alt="" class="modalimg">
-                                        </div>
-                                        <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 150px;"> </div>
-                                        <div>
-                                            <span class="btn default btn-file">
-                                                <span class="fileinput-new"> Select image </span>
-                                                <span class="fileinput-exists"> Change </span>
-                                                <input type="file" name="image"> </span>
-                                            <a href="javascript:;" class="btn red fileinput-exists" data-dismiss="fileinput"> Remove </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <input type="hidden" name="recid" class="recfield">
-                            <div class="p-2">
-                                <label for="">Title</label>
-                                <input type="text" class="form-control namefield border-purple" name="name">
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button id="submitbtn" v-on:click="submitform" type="button" class="btn purple uppercase mt-ladda-btn ladda-button" data-style="zoom-in">
-                            <span class="ladda-label">
-                                <i class="glyphicon glyphicon-saved"></i>
-                                <span class="ladabtn-text">Create</span>
-                            </span>
-                            <span class="ladda-spinner"></span>
-                        </button>
-                        <button type="button" class="btn red-thunderbird" data-dismiss="modal">Cancel</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <v-runtime-template :templateProps="templateProps" :template="template"></v-runtime-template>
+
     </div>
     <!-- END CONTENT -->
 </template>
 <script>
+import VRuntimeTemplate from "v-runtime-template";
+import newboardmodal from "@/admin_components/adminmodals/newboardmodal";
+import editboardmodal from "@/admin_components/adminmodals/editboardmodal";
+
 export default {
+    components :{
+        'v-runtime-template' : VRuntimeTemplate,
+        'newboardmodal' :newboardmodal,
+        'editboardmodal' :editboardmodal
+    },
     data() {
         return {
             data: {},
-            flag: false,
-            pageloader: false,
-            modelloader: false
+            template:'<newboardmodal></newboardmodal>',
+            templateProps:{
+
+            }
         }
     },
     computed: {
@@ -149,36 +112,31 @@ export default {
         ]
     },
     methods: {
-        submitform() {
+        addnewboard() {
             var form = document.querySelector('.ajaxform');
             var formData = new FormData(form);
-            if (this.flag) {
-                ajax(route('board.store'), 'POST', formData, document.getElementById("submitbtn"), this, $('#static'), 'modelloader');
-            } else {
-                ajax(route('board.update'), 'POST', formData, document.getElementById("submitbtn"), this, $('#static'), 'modelloader');
-            }
-            $('.namefield').val('');
-            $('.fileinput').first().fileinput('clear');
+            ajaxmodel(route('board.store'), 'POST', formData, document.getElementById("submitbtn"), this, $('#static'), 'modelloader');
+        },
+        updateboard(){
+            var form = document.querySelector('.ajaxform');
+            var formData = new FormData(form);
+            ajaxmodel(route('board.update'), 'POST', formData, document.getElementById("submitbtn"), this, $('#static'), 'modelloader');
         },
         addnew() {
-            $('.modalimg').attr('src', '');
+            this.template = "<newboardmodal></newboardmodal>";
+            $('.fileinput').first().fileinput('clear');
             $('.namefield').val('');
-            $('.recfield').val('');
-            $('.ladabtn-text').html('Create');
             $('#static').modal('show');
-            this.flag = true;
         },
         edit(e) {
-            $('.fileinput').first().fileinput('clear');
+            this.template = "<editboardmodal></editboardmodal>";
             $('.modalimg').attr('src', $(e).parents('.mt-card-item').find('.boardimages').first().attr('src'));
             $('.namefield').val($(e).parents('.mt-card-item').find('h3').html());
             $('.recfield').val($(e).parent().first().attr('id'));
-            $('.ladabtn-text').html('Update');
             $('#static').modal('show');
-            this.flag = false;
         },
         del(e) {
-            ajax(route('board.delete',$(e).parent().first().attr('id')), 'GET',undefined,undefined ,this,undefined,'pageloader');
+            ajaxmodel(route('board.delete',$(e).parent().first().attr('id')), 'GET',undefined,undefined ,this,undefined,'pageloader');
         },
         boardsimg(img) {
             return window.storagepath + img;
@@ -190,7 +148,7 @@ export default {
             this.$loadScript(window.adminassets + "/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js")
                 .then(() => {})
                 .catch(() => {});
-            ajax(route('board.index') + '?page=' + page, 'GET',undefined,undefined ,this,undefined,'pageloader');
+            ajaxmodel(route('board.index') + '?page=' + page, 'GET',undefined,undefined ,this,undefined,'pageloader');
         }
     }
 }

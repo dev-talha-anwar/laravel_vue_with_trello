@@ -16,9 +16,9 @@ class CreateBoardTeamsTable extends Migration
         Schema::create('board_teams', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('board_id')->unsigned();
-            $table->foreign('board_id')->references('id')->on('boards');
+            $table->foreign('board_id')->references('id')->on('boards')->onDelete('cascade');
             $table->bigInteger('team_id')->unsigned();
-            $table->foreign('team_id')->references('id')->on('teams');
+            $table->foreign('team_id')->references('id')->on('teams')->onDelete('cascade');
             $table->timestamps();
         });
     }
