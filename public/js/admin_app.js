@@ -57292,14 +57292,11 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_5__["default"].Store({
     pageloader: false
   },
   mutations: {
-    loaderval: function loaderval(state) {
-      var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
-      var val = arguments.length > 2 ? arguments[2] : undefined;
-
-      if (type == 'modelloader') {
-        state.modelloader = val;
+    loaderval: function loaderval(state, obj) {
+      if (obj.type == 'modelloader') {
+        state.modelloader = obj.val;
       } else {
-        state.pageloader = val;
+        state.pageloader = obj.val;
       }
     }
   }
@@ -57320,7 +57317,8 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]({
 });
 var app = new Vue({
   el: '#adminapp',
-  router: router
+  router: router,
+  store: store
 });
 
 /***/ }),
@@ -57989,7 +57987,7 @@ if (token) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\xamp\htdocs\resources\laravel trello project with vue\resources\js\admin_app.js */"./resources/js/admin_app.js");
+module.exports = __webpack_require__(/*! D:\xampp\htdocs\laravel_vue_with_trello\resources\js\admin_app.js */"./resources/js/admin_app.js");
 
 
 /***/ })

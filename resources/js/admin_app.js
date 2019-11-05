@@ -15,11 +15,11 @@ const store = new Vuex.Store({
     pageloader : false
   },
   mutations: {
-    loaderval (state, type= null, val) {
-    	if(type == 'modelloader'){
-    		state.modelloader = val;
+    loaderval (state, obj) {
+    	if(obj.type == 'modelloader'){
+    		state.modelloader = obj.val;
     	}else{
-    		state.pageloader = val;
+    		state.pageloader = obj.val;
     	}
     }
   }
@@ -41,5 +41,6 @@ const router = new VueRouter({
 });
 const app = new Vue({
     el: '#adminapp',
-    router, 
+    router,
+    store 
 });

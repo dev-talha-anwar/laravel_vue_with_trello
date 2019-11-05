@@ -105,7 +105,7 @@ function ajaxmodel(url, type, data = '', button = null, self = null, model = nul
     if (self != null) {
         self.$Progress.start();
         if (loader != null) {
-            self.$store.commit('loaderval',loader, true);
+            self.$store.commit('loaderval',{type:loader,val: true});
         }
     }
     axios({
@@ -180,7 +180,7 @@ function ajaxmodel(url, type, data = '', button = null, self = null, model = nul
             if (self != null) {
                 self.$Progress.finish();
                 if (loader != null) {
-                    self.$store.commit('loaderval',loader, true);
+                    self.$store.commit('loaderval',{type:loader,val: false});
                 }
             }
         });
