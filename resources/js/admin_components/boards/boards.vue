@@ -96,7 +96,8 @@ export default {
             data: {},
             template:'<newboardmodal></newboardmodal>',
             templateProps:{
-
+                'addnewboard' : this.addnewboard,
+                'updateboard' : this.updateboard
             }
         }
     },
@@ -124,16 +125,21 @@ export default {
         },
         addnew() {
             this.template = "<newboardmodal></newboardmodal>";
-            $('.fileinput').first().fileinput('clear');
-            $('.namefield').val('');
-            $('#static').modal('show');
+            this.$nextTick(() =>{
+                $('.fileinput').first().fileinput('clear');
+                $('.namefield').val('');
+                $('#static').modal('show');
+            });
+            
         },
         edit(e) {
             this.template = "<editboardmodal></editboardmodal>";
+            this.$nextTick(() =>{
             $('.modalimg').attr('src', $(e).parents('.mt-card-item').find('.boardimages').first().attr('src'));
             $('.namefield').val($(e).parents('.mt-card-item').find('h3').html());
             $('.recfield').val($(e).parent().first().attr('id'));
             $('#static').modal('show');
+            });
         },
         del(e) {
             ajaxmodel(route('board.delete',$(e).parent().first().attr('id')), 'GET',undefined,undefined ,this,undefined,'pageloader');

@@ -36,7 +36,7 @@
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button id="submitbtn" @click="this.$parent.updateboard" type="button" class="btn purple uppercase mt-ladda-btn ladda-button" data-style="zoom-in">
+                        <button id="submitbtn" @click="this.$parent.$parent.$parent.updateboard" type="button" class="btn purple uppercase mt-ladda-btn ladda-button" data-style="zoom-in">
                             <span class="ladda-label">
                                 <i class="glyphicon glyphicon-saved"></i>
                                 <span class="ladabtn-text">Update</span>
