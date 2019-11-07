@@ -14,7 +14,7 @@
 
                         </div>
                         <div class="portlet-body form">
-                            <vue-element-loading :active="pageloader" spinner="bar-fade-scale" color="#8E44AD"/>
+                            <vue-element-loading :active="this.$store.state.pageloader" spinner="bar-fade-scale" color="#8E44AD"/>
                             <div class="" id="errorsdiv" style="display: none;"></div>
                             <form action="#" class="ajaxform form-horizontal form-bordered ">
                                 <div class="form-body">
@@ -73,7 +73,6 @@ export default {
     data() {
         return {
             data: {},
-            pageloader : false
         }
     },
     mounted() {
@@ -96,7 +95,7 @@ export default {
         submitform() {
             var form = document.querySelector('.ajaxform');
             var formData = new FormData(form);
-            ajax(route('general.update'), 'POST', formData, document.getElementById("submitbtn"), this,null,'pageloader');
+            ajaxmodel(route('general.update'), 'POST', formData, document.getElementById("submitbtn"), this,null,'pageloader');
         },
         __mounted() {
             this.$Progress.start();
@@ -104,7 +103,7 @@ export default {
             this.$loadScript(window.adminassets + "/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js")
                 .then(() => {})
                 .catch(() => {});
-            ajax(route('general.index'), 'GET',undefined,undefined ,this,undefined,'pageloader');
+            ajaxmodel(route('general.index'), 'GET',undefined,undefined ,this,undefined,'pageloader');
         }
     }
 }

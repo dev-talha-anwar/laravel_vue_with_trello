@@ -38,7 +38,47 @@ class ListController extends Controller
                 'msg' => ['msg' => 'Something went wrong.','type' => 'error']
             ]);
         endif;
-
     }
-
+    public function update(Request $request){
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'recid' => 'required|exists:lists,id'
+        ]);
+        if($validator->fails()):
+            return response()->json(['errors' => $validator->errors()]);
+        endif;
+        $validatedData['name'] = $request->name;
+        if(MainList::find($request->recid)->update($validatedData)):
+            $lists = MainList::all();
+            $teams = Team::all();
+            return response()->json([
+                'msg' => ['msg' => 'List Edited Successfully.','type' => 'success'],
+                'data' => [
+                    'lists' => $lists,
+                    'teams' => $teams
+                ]
+            ]);
+        else:
+            return response()->json([
+                'msg' => ['msg' => 'Something went wrong.','type' => 'error']
+            ]);
+        endif;
+    }
+    public function delete($id){
+        if(MainList::destroy($id)):
+            $lists = MainList::all();
+            $teams = Team::all();
+            return response()->json([
+                'msg' => ['msg' => 'List Deleted Successfully.','type' => 'success'],
+                'data' => [
+                    'lists' => $lists,
+                    'teams' => $teams
+                ]
+            ]);
+        else:
+            return response()->json([
+                'msg' => ['msg' => 'Something went wrong.','type' => 'error']
+            ]);
+        endif;
+    }
 }

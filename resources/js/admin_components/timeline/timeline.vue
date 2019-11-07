@@ -22,22 +22,26 @@
                                                 <li>
                                                     <a href="javascript:;" @click="addnewlist"> New List </a>
                                                 </li>
-                                                <li class="divider"> </li>
-                                                <li>
-                                                    <a href="javascript:;"> Archived Lists </a>
-                                                </li>
                                             </ul>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="portlet-body todo-project-list-content" style="height: auto;">
-                                    <div class="todo-project-list">
-                                        <ul class="nav nav-stacked">
-                                            <li v-for="list in data.lists">
-                                                <a href="javascript:;">{{list.name}}</a>
-                                            </li>
-                                        </ul>
-                                    </div>
+                                <div class="portlet-body todo-project-list-content">
+                                    <perfect-scrollbar class="listscroll">
+                                        <div class="todo-project-list">
+                                            <ul class="nav nav-stacked">
+                                                <li v-for="(list,index) in data.lists">
+                                                    <div>
+                                                        <a href="javascript:;" class="float-left">{{list.name}}</a>
+                                                        <span class="float-right">
+                                                            <i class="glyphicon glyphicon-edit editicon" @click="editlist(index)"></i>
+                                                            <i class="glyphicon glyphicon-trash deleteicon" @click="deletelist(index)"></i>
+                                                        </span>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </perfect-scrollbar>
                                 </div>
                             </div>
                             <div class="portlet light bordered">
@@ -132,46 +136,78 @@
                 </div>
             </div>
         </div>
-        <v-runtime-template :templateProps="templateprops" :template="template"></v-runtime-template>
+        <v-runtime-template :templateProps="templateProps" :template="template"></v-runtime-template>
     </div>
 </template>
 <script>
 import VRuntimeTemplate from "v-runtime-template";
-import newlistmodel from "@/admin_components/adminmodals/newlistmodal";
+import newlistmodel from "@/admin_components/timeline/modals/newlistmodal";
+import editlistmodel from "@/admin_components/timeline/modals/editlistmodal";
 export default {
     props: [
         'id'
     ],
-    components :{
-        'v-runtime-template' : VRuntimeTemplate,
-        'newlistmodel' :newlistmodel
+    components: {
+        'v-runtime-template': VRuntimeTemplate,
+        'newlistmodel': newlistmodel,
+        'editlistmodel': editlistmodel,
     },
     data() {
         return {
             data: {
-               lists :{},
-               teams :{}
+                lists: {},
+                teams: {}
             },
-            template:'<newlistmodel></newlistmodel>',
-            templateprops: {
-                'board_id':this.id
-            },
+            template: '<newlistmodel></newlistmodel>',
+            templateProps:{
+            }
+
         }
     },
     mounted() {
-      this.__mounted();
+        this.__mounted();
     },
     methods: {
-        createlist(){
-            ajaxmodel(route('list.store'), 'POST', $('.ajaxform').serialize() , document.getElementById("submitbtn"), this, $('#static') ,'modelloader');
+        __mounted() {
+            ajaxmodel(route('board.show', this.id), 'GET', undefined, undefined, this, undefined, 'pageloader');
         },
-        __mounted(){
-            ajax(route('board.show',this.id), 'GET',undefined,undefined ,this,undefined,'pageloader');
+        addnewlist() {
+            this.templateProps={};
+            this.templateProps.createlist = this.createlist;
+            this.templateProps.board_id= this.id;
+            this.template = "<newlistmodel></newlistmodel>";
+            this.$nextTick(() =>{
+                $('#static').modal('show');
+            });
         },
-        addnewlist(){
-            $('#static').modal('show');
+        editlist(index){
+            this.templateProps={};
+            this.templateProps.updatelist = this.updatelist;
+            this.template = "<editlistmodel></editlistmodel>";
+            this.$nextTick(() =>{
+                $('.namefield').val(this.data.lists[index].name);
+                $('.recfield').val(this.data.lists[index].id);
+                $('#static').modal('show');
+            });
+        },
+        deletelist(index){
+            ajaxmodel(route('list.delete',this.data.lists[index].id), 'GET', undefined, undefined, this, undefined, undefined);
+        },
+        createlist() {
+            ajaxmodel(route('list.store'), 'POST', $('.ajaxform').serialize(), document.getElementById("submitbtn"), this, $('#static'), 'modelloader');
+        },
+        updatelist(){
+            ajaxmodel(route('list.update'), 'POST', $('.ajaxform').serialize(), document.getElementById("submitbtn"), this, $('#static'), 'modelloader');
         }
     }
 }
 
 </script>
+<style scoped="">
+.listscroll {
+    max-height: 250px;
+}
+.editicon,.deleteicon{
+    cursor: pointer;
+}
+</style>

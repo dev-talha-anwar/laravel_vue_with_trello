@@ -31,7 +31,7 @@
                             <vue-element-loading :active="this.$store.state.pageloader" spinner="bar-fade-scale" color="#8E44AD" />
                             <div class="mt-element-card mt-card-round mt-element-overlay" style="display: block;">
                                 <div class="row">
-                                    <div v-for="board in data.data" :key="board.id" class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                                    <div v-for="(board,index) in data.data" :key="board.id" class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                                         <div class="mt-card-item">
                                             <div class="mt-card-avatar mt-overlay-1">
                                                 <img :src="boardsimg(board.img)" class="boardimages">
@@ -51,12 +51,12 @@
                                                 <div class="mt-card-social">
                                                     <ul>
                                                         <li>
-                                                            <a href="javascript:;" @click="edit($event.target)" :id="board.id">
+                                                            <a href="javascript:;" @click="edit(index)">
                                                                 <i class="glyphicon glyphicon-edit"></i>
                                                             </a>
                                                         </li>
                                                         <li>
-                                                            <a href="javascript:;" @click="del($event.target)" :id="board.id">
+                                                            <a href="javascript:;" @click="del(index)">
                                                                 <i class="glyphicon glyphicon-trash "></i>
                                                             </a>
                                                         </li>
@@ -82,8 +82,8 @@
 </template>
 <script>
 import VRuntimeTemplate from "v-runtime-template";
-import newboardmodal from "@/admin_components/adminmodals/newboardmodal";
-import editboardmodal from "@/admin_components/adminmodals/editboardmodal";
+import newboardmodal from "@/admin_components/boards/modals/newboardmodal";
+import editboardmodal from "@/admin_components/boards/modals/editboardmodal";
 
 export default {
     components :{
@@ -96,8 +96,6 @@ export default {
             data: {},
             template:'<newboardmodal></newboardmodal>',
             templateProps:{
-                'addnewboard' : this.addnewboard,
-                'updateboard' : this.updateboard
             }
         }
     },
@@ -124,6 +122,8 @@ export default {
             ajaxmodel(route('board.update'), 'POST', formData, document.getElementById("submitbtn"), this, $('#static'), 'modelloader');
         },
         addnew() {
+            this.templateProps={};
+            this.addnewboard = this.addnewboard;
             this.template = "<newboardmodal></newboardmodal>";
             this.$nextTick(() =>{
                 $('.fileinput').first().fileinput('clear');
@@ -133,16 +133,18 @@ export default {
             
         },
         edit(e) {
+            this.templateProps={};
+            this.updateboard = this.updateboard;
             this.template = "<editboardmodal></editboardmodal>";
             this.$nextTick(() =>{
-            $('.modalimg').attr('src', $(e).parents('.mt-card-item').find('.boardimages').first().attr('src'));
-            $('.namefield').val($(e).parents('.mt-card-item').find('h3').html());
-            $('.recfield').val($(e).parent().first().attr('id'));
+            $('.modalimg').attr('src', this.boardsimg(this.data.data[e].img));
+            $('.namefield').val(this.data.data[e].name);
+            $('.recfield').val(this.data.data[e].id);
             $('#static').modal('show');
             });
         },
         del(e) {
-            ajaxmodel(route('board.delete',$(e).parent().first().attr('id')), 'GET',undefined,undefined ,this,undefined,'pageloader');
+            ajaxmodel(route('board.delete',this.data.data[e].id), 'GET',undefined,undefined ,this,undefined,'pageloader');
         },
         boardsimg(img) {
             return window.storagepath + img;
