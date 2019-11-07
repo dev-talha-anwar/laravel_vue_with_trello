@@ -9,6 +9,9 @@ Vue.component('pagination', require('laravel-vue-pagination'));
 Vue.component('VueElementLoading', VueElementLoading); 
 import Vuex from 'vuex'
 Vue.use(Vuex)
+import PerfectScrollbar from 'vue2-perfect-scrollbar'
+import 'vue2-perfect-scrollbar/dist/vue2-perfect-scrollbar.css'
+Vue.use(PerfectScrollbar)
 const store = new Vuex.Store({
   state: {
     modelloader: false,

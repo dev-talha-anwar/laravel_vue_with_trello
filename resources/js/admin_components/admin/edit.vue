@@ -16,7 +16,7 @@
                             </div>
                         </div>
                         <div class="portlet-body form">
-                            <vue-element-loading :active="pageloader" spinner="bar-fade-scale" color="#8E44AD" />
+                            <vue-element-loading :active="this.$store.state.pageloader" spinner="bar-fade-scale" color="#8E44AD" />
                             <div class="" id="errorsdiv" style="display: none;"></div>
                             <form autocomplete="off" class="ajaxform form-horizontal form-bordered" role="form">
                                 <div class="form-body">
@@ -74,7 +74,6 @@ export default {
     data() {
         return {
             data: {},
-            pageloader: false,
             password: null
         }
     },
@@ -84,10 +83,10 @@ export default {
     },
     methods: {
         submitform() {
-            ajax(route('admin.update', this.id), 'PUT', $('.ajaxform').serialize(), document.getElementById("submitbtn"), this, null, 'pageloader');
+            ajaxmodel(route('admin.update', this.id), 'PUT', $('.ajaxform').serialize(), document.getElementById("submitbtn"), this, null, 'pageloader');
         },
         __mounted() {
-            ajax(route('admin.edit', this.id),'GET',undefined,undefined,this,undefined,'pageloader');
+            ajaxmodel(route('admin.edit', this.id),'GET',undefined,undefined,this,undefined,'pageloader');
         }
     }
 }

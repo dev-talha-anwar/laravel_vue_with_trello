@@ -1,4 +1,4 @@
-import timeline from '@/admin_components/timeline';
+import timeline from '@/admin_components/timeline/timeline';
 import boards from '@/admin_components/boards/boards';
 
 export default[
