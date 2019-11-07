@@ -5282,7 +5282,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.listscroll[data-v-56f63a84] {\r\n    max-height: 250px;\n}\n.editicon[data-v-56f63a84],.deleteicon[data-v-56f63a84]{\r\n    cursor: pointer;\n}\r\n", ""]);
+exports.push([module.i, "\n.listscroll[data-v-56f63a84] {\r\n    max-height: 250px;\n}\n.editicon[data-v-56f63a84],.deleteicon[data-v-56f63a84]{\r\n    cursor: pointer;\n}\n.singlelistitem[data-v-56f63a84]{\r\n    padding: 10px;\n}\n.singlelistitem[data-v-56f63a84]:hover{\r\n    background-color: #eee;\n}\n.singlelistitem a:hover.singlelistitem a[data-v-56f63a84]:active{\r\n    text-decoration: none;\n}\r\n", ""]);
 
 // exports
 
@@ -39625,7 +39625,7 @@ var render = function() {
                             { staticClass: "nav nav-stacked" },
                             _vm._l(_vm.data.lists, function(list, index) {
                               return _c("li", [
-                                _c("div", [
+                                _c("div", { staticClass: "singlelistitem" }, [
                                   _c(
                                     "a",
                                     {

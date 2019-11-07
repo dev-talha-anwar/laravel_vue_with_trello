@@ -30,8 +30,8 @@
                                     <perfect-scrollbar class="listscroll">
                                         <div class="todo-project-list">
                                             <ul class="nav nav-stacked">
-                                                <li v-for="(list,index) in data.lists">
-                                                    <div>
+                                                <li v-for="(list,index) in data.lists" >
+                                                    <div class="singlelistitem">
                                                         <a href="javascript:;" class="float-left">{{list.name}}</a>
                                                         <span class="float-right">
                                                             <i class="glyphicon glyphicon-edit editicon" @click="editlist(index)"></i>
@@ -209,5 +209,14 @@ export default {
 }
 .editicon,.deleteicon{
     cursor: pointer;
+}
+.singlelistitem{
+    padding: 10px;
+}
+.singlelistitem:hover{
+    background-color: #eee;
+}
+.singlelistitem a:hover.singlelistitem a:active{
+    text-decoration: none;
 }
 </style>
