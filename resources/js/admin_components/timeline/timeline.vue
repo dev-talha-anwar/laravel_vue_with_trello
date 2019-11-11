@@ -6,15 +6,15 @@
                     <!-- BEGIN TODO SIDEBAR -->
                     <div class="todo-ui">
                         <div class="todo-sidebar">
-                            <div class="portlet light bordered">
+                            <div class="portlet box purple">
                                 <div class="portlet-title">
                                     <div class="caption" data-toggle="collapse" data-target=".todo-project-list-content">
-                                        <span class="caption-subject font-green-sharp bold uppercase">Lists</span>
-                                        <span class="caption-helper visible-sm-inline-block visible-xs-inline-block">click to view Board lists</span>
+                                        <span class="caption-subject bold uppercase font-white"><i class="fa fa-list"></i> Lists</span>
+                                        <span class="caption-helper visible-sm-inline-block visible-xs-inline-block font-white-sharp">click to view Board lists</span>
                                     </div>
                                     <div class="actions">
                                         <div class="btn-group">
-                                            <a class="btn green btn-circle btn-outline btn-sm todo-projects-config" href="javascript:;" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" aria-expanded="false">
+                                            <a class="btn white btn-outline btn-sm" href="javascript:;" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" aria-expanded="false">
                                                 <i class="icon-settings"></i> &nbsp;
                                                 <i class="fa fa-angle-down"></i>
                                             </a>
@@ -30,13 +30,17 @@
                                     <perfect-scrollbar class="listscroll">
                                         <div class="todo-project-list">
                                             <ul class="nav nav-stacked">
-                                                <li v-for="(list,index) in data.lists" >
+                                                <li v-for="(list,index) in data.lists">
                                                     <div class="singlelistitem">
-                                                        <a href="javascript:;" class="float-left">{{list.name}}</a>
-                                                        <span class="float-right">
-                                                            <i class="glyphicon glyphicon-edit editicon" @click="editlist(index)"></i>
-                                                            <i class="glyphicon glyphicon-trash deleteicon" @click="deletelist(index)"></i>
-                                                        </span>
+                                                        <div class="row">
+                                                            <div class="col-sm-8">
+                                                                <span class="listname font-purple">{{listname(list.name)}}</span>
+                                                            </div>
+                                                            <div class="col-sm-4 text-right">
+                                                                <i class="glyphicon glyphicon-edit editicon font-purple" @click="editlist(index)"></i>
+                                                                <i class="glyphicon glyphicon-trash deleteicon font-red-thunderbird" @click="deletelist(index)"></i>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </li>
                                             </ul>
@@ -44,78 +48,24 @@
                                     </perfect-scrollbar>
                                 </div>
                             </div>
-                            <div class="portlet light bordered">
-                                <div class="portlet-title">
-                                    <div class="caption" data-toggle="collapse" data-target=".todo-project-list-content">
-                                        <span class="caption-subject font-green-sharp bold uppercase">Teams </span>
-                                        <span class="caption-helper visible-sm-inline-block visible-xs-inline-block">click to view Teams</span>
-                                    </div>
-                                    <div class="actions">
-                                        <div class="btn-group">
-                                            <a class="btn green btn-circle btn-outline btn-sm todo-projects-config" href="javascript:;" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" aria-expanded="false">
-                                                <i class="icon-settings"></i> &nbsp;
-                                                <i class="fa fa-angle-down"></i>
-                                            </a>
-                                            <ul class="dropdown-menu pull-right">
-                                                <li>
-                                                    <a href="javascript:;"> New Team </a>
-                                                </li>
-                                                <li class="divider"> </li>
-                                                <li>
-                                                    <a href="javascript:;"> Archived Teams </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="portlet-body todo-project-list-content" style="height: auto;">
-                                    <div class="todo-project-list">
-                                        <ul class="nav nav-stacked">
-                                            <li>
-                                                <a href="javascript:;">
-                                                    <span class="badge badge-info"> 6 </span> AirAsia Ads </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                         <div class="todo-content">
-                            <div class="portlet light bordered">
+                            <div class="portlet box purple bordered">
                                 <!-- PROJECT HEAD -->
                                 <div class="portlet-title">
                                     <div class="caption">
-                                        <i class="icon-bar-chart font-green-sharp hide"></i>
-                                        <span class="caption-subject font-green-sharp bold uppercase">Details</span>
+                                        <i class="icon-bar-chart font-purple-sharp hide"></i>
+                                        <span class="caption-subject font-white-sharp bold uppercase"><i class="fa fa-list"></i> Details</span>
                                     </div>
                                     <div class="actions">
                                         <div class="btn-group">
-                                            <a class="btn green btn-circle btn-sm" href="javascript:;" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" aria-expanded="false"> MANAGE
+                                            <a class="btn white btn-outline btn-sm" href="javascript:;" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" aria-expanded="false">
+                                                <i class="icon-settings"></i>&nbsp;
                                                 <i class="fa fa-angle-down"></i>
                                             </a>
                                             <ul class="dropdown-menu pull-right">
                                                 <li>
                                                     <a href="javascript:;"> New Task </a>
-                                                </li>
-                                                <li class="divider"> </li>
-                                                <li>
-                                                    <a href="javascript:;"> Pending
-                                                        <span class="badge badge-danger"> 4 </span>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="javascript:;"> Completed
-                                                        <span class="badge badge-success"> 12 </span>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="javascript:;"> Overdue
-                                                        <span class="badge badge-warning"> 9 </span>
-                                                    </a>
-                                                </li>
-                                                <li class="divider"> </li>
-                                                <li>
-                                                    <a href="javascript:;"> Delete Project </a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -124,7 +74,19 @@
                                 <!-- end PROJECT HEAD -->
                                 <div class="portlet-body">
                                     <div class="row">
-                                        <div class="col-md-5 col-sm-4">
+                                        <div class="col-md-5 col-sm-4">\
+                                            <div class="todo-tasklist">
+                                                <div class="todo-tasklist-item todo-tasklist-item-border-green">
+                                                    <img class="todo-userpic pull-left" src="" width="27px" height="27px">
+                                                    <div class="todo-tasklist-item-title"> Slider Redesign </div>
+                                                    <div class="todo-tasklist-item-text"> Lorem dolor sit amet ipsum dolor sit consectetuer dolore. </div>
+                                                    <div class="todo-tasklist-controls pull-left">
+                                                        <span class="todo-tasklist-date">
+                                                            <i class="fa fa-calendar"></i> 21 Sep 2014 </span>
+                                                        <span class="todo-tasklist-badge badge badge-roundless">Urgent</span>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="col-md-7 col-sm-8">
                                         </div>
@@ -159,8 +121,7 @@ export default {
                 teams: {}
             },
             template: '<newlistmodel></newlistmodel>',
-            templateProps:{
-            }
+            templateProps: {}
 
         }
     },
@@ -172,32 +133,36 @@ export default {
             ajaxmodel(route('board.show', this.id), 'GET', undefined, undefined, this, undefined, 'pageloader');
         },
         addnewlist() {
-            this.templateProps={};
+            this.templateProps = {};
             this.templateProps.createlist = this.createlist;
-            this.templateProps.board_id= this.id;
+            this.templateProps.board_id = this.id;
             this.template = "<newlistmodel></newlistmodel>";
-            this.$nextTick(() =>{
+            this.$nextTick(() => {
                 $('#static').modal('show');
             });
         },
-        editlist(index){
-            this.templateProps={};
+        editlist(index) {
+            this.templateProps = {};
             this.templateProps.updatelist = this.updatelist;
             this.template = "<editlistmodel></editlistmodel>";
-            this.$nextTick(() =>{
+            this.$nextTick(() => {
                 $('.namefield').val(this.data.lists[index].name);
                 $('.recfield').val(this.data.lists[index].id);
                 $('#static').modal('show');
             });
         },
-        deletelist(index){
-            ajaxmodel(route('list.delete',this.data.lists[index].id), 'GET', undefined, undefined, this, undefined, undefined);
+        deletelist(index) {
+            ajaxmodel(route('list.delete', this.data.lists[index].id), 'GET', undefined, undefined, this, undefined, undefined);
         },
         createlist() {
             ajaxmodel(route('list.store'), 'POST', $('.ajaxform').serialize(), document.getElementById("submitbtn"), this, $('#static'), 'modelloader');
         },
-        updatelist(){
+        updatelist() {
             ajaxmodel(route('list.update'), 'POST', $('.ajaxform').serialize(), document.getElementById("submitbtn"), this, $('#static'), 'modelloader');
+        },
+        listname(name) {
+            console.log(name.substr())
+            return name.substr(0, 12);
         }
     }
 }
@@ -205,18 +170,29 @@ export default {
 </script>
 <style scoped="">
 .listscroll {
-    max-height: 250px;
+    max-height: 300px;
+    padding: 5px;
 }
-.editicon,.deleteicon{
+
+.listname {
     cursor: pointer;
 }
-.singlelistitem{
-    padding: 10px;
+
+.editicon,
+.deleteicon {
+    cursor: pointer;
 }
-.singlelistitem:hover{
+
+.singlelistitem {
+    padding: 10px 0px;
+}
+
+.singlelistitem:hover {
     background-color: #eee;
 }
-.singlelistitem a:hover.singlelistitem a:active{
+
+.singlelistitem a:hover.singlelistitem a:active {
     text-decoration: none;
 }
+
 </style>

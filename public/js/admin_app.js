@@ -1987,7 +1987,7 @@ __webpack_require__.r(__webpack_exports__);
       return window.storagepath + img;
     },
     substring: function substring(str) {
-      return substr(str, 0, 20);
+      return str.substr(0, 20);
     },
     __mounted: function __mounted() {
       var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
@@ -2426,44 +2426,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -2520,6 +2482,10 @@ __webpack_require__.r(__webpack_exports__);
     },
     updatelist: function updatelist() {
       ajaxmodel(route('list.update'), 'POST', $('.ajaxform').serialize(), document.getElementById("submitbtn"), this, $('#static'), 'modelloader');
+    },
+    listname: function listname(name) {
+      console.log(name.substr());
+      return name.substr(0, 12);
     }
   }
 });
@@ -5282,7 +5248,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.listscroll[data-v-56f63a84] {\r\n    max-height: 250px;\n}\n.editicon[data-v-56f63a84],.deleteicon[data-v-56f63a84]{\r\n    cursor: pointer;\n}\n.singlelistitem[data-v-56f63a84]{\r\n    padding: 10px;\n}\n.singlelistitem[data-v-56f63a84]:hover{\r\n    background-color: #eee;\n}\n.singlelistitem a:hover.singlelistitem a[data-v-56f63a84]:active{\r\n    text-decoration: none;\n}\r\n", ""]);
+exports.push([module.i, "\n.listscroll[data-v-56f63a84] {\r\n    max-height: 300px;\r\n    padding: 5px;\n}\n.listname[data-v-56f63a84] {\r\n    cursor: pointer;\n}\n.editicon[data-v-56f63a84],\r\n.deleteicon[data-v-56f63a84] {\r\n    cursor: pointer;\n}\n.singlelistitem[data-v-56f63a84] {\r\n    padding: 10px 0px;\n}\n.singlelistitem[data-v-56f63a84]:hover {\r\n    background-color: #eee;\n}\n.singlelistitem a:hover.singlelistitem a[data-v-56f63a84]:active {\r\n    text-decoration: none;\n}\r\n\r\n", ""]);
 
 // exports
 
@@ -38388,6 +38354,7 @@ var render = function() {
                         _c(
                           "a",
                           {
+                            staticClass: "font-purple",
                             attrs: { href: "javascript:;" },
                             on: { click: _vm.addnew }
                           },
@@ -38482,9 +38449,15 @@ var render = function() {
                                 ),
                                 _vm._v(" "),
                                 _c("div", { staticClass: "mt-card-content" }, [
-                                  _c("h3", { staticClass: "mt-card-name" }, [
-                                    _vm._v(_vm._s(board.name.substring(0, 21)))
-                                  ]),
+                                  _c(
+                                    "h3",
+                                    { staticClass: "mt-card-name font-purple" },
+                                    [
+                                      _vm._v(
+                                        _vm._s(board.name.substring(0, 21))
+                                      )
+                                    ]
+                                  ),
                                   _vm._v(" "),
                                   _c("p", {
                                     staticClass: "mt-card-desc font-grey-mint"
@@ -38506,7 +38479,7 @@ var render = function() {
                                           [
                                             _c("i", {
                                               staticClass:
-                                                "glyphicon glyphicon-edit"
+                                                "glyphicon glyphicon-edit font-purple"
                                             })
                                           ]
                                         )
@@ -38526,7 +38499,7 @@ var render = function() {
                                           [
                                             _c("i", {
                                               staticClass:
-                                                "glyphicon glyphicon-trash "
+                                                "glyphicon glyphicon-trash font-red-thunderbird"
                                             })
                                           ]
                                         )
@@ -39590,7 +39563,7 @@ var render = function() {
           _c("div", { staticClass: "col-md-12" }, [
             _c("div", { staticClass: "todo-ui" }, [
               _c("div", { staticClass: "todo-sidebar" }, [
-                _c("div", { staticClass: "portlet light bordered" }, [
+                _c("div", { staticClass: "portlet box purple" }, [
                   _c("div", { staticClass: "portlet-title" }, [
                     _vm._m(0),
                     _vm._v(" "),
@@ -39626,35 +39599,44 @@ var render = function() {
                             _vm._l(_vm.data.lists, function(list, index) {
                               return _c("li", [
                                 _c("div", { staticClass: "singlelistitem" }, [
-                                  _c(
-                                    "a",
-                                    {
-                                      staticClass: "float-left",
-                                      attrs: { href: "javascript:;" }
-                                    },
-                                    [_vm._v(_vm._s(list.name))]
-                                  ),
-                                  _vm._v(" "),
-                                  _c("span", { staticClass: "float-right" }, [
-                                    _c("i", {
-                                      staticClass:
-                                        "glyphicon glyphicon-edit editicon",
-                                      on: {
-                                        click: function($event) {
-                                          return _vm.editlist(index)
-                                        }
-                                      }
-                                    }),
+                                  _c("div", { staticClass: "row" }, [
+                                    _c("div", { staticClass: "col-sm-8" }, [
+                                      _c(
+                                        "span",
+                                        { staticClass: "listname font-purple" },
+                                        [
+                                          _vm._v(
+                                            _vm._s(_vm.listname(list.name))
+                                          )
+                                        ]
+                                      )
+                                    ]),
                                     _vm._v(" "),
-                                    _c("i", {
-                                      staticClass:
-                                        "glyphicon glyphicon-trash deleteicon",
-                                      on: {
-                                        click: function($event) {
-                                          return _vm.deletelist(index)
-                                        }
-                                      }
-                                    })
+                                    _c(
+                                      "div",
+                                      { staticClass: "col-sm-4 text-right" },
+                                      [
+                                        _c("i", {
+                                          staticClass:
+                                            "glyphicon glyphicon-edit editicon font-purple",
+                                          on: {
+                                            click: function($event) {
+                                              return _vm.editlist(index)
+                                            }
+                                          }
+                                        }),
+                                        _vm._v(" "),
+                                        _c("i", {
+                                          staticClass:
+                                            "glyphicon glyphicon-trash deleteicon font-red-thunderbird",
+                                          on: {
+                                            click: function($event) {
+                                              return _vm.deletelist(index)
+                                            }
+                                          }
+                                        })
+                                      ]
+                                    )
                                   ])
                                 ])
                               ])
@@ -39666,12 +39648,10 @@ var render = function() {
                     ],
                     1
                   )
-                ]),
-                _vm._v(" "),
-                _vm._m(2)
+                ])
               ]),
               _vm._v(" "),
-              _vm._m(3)
+              _vm._m(2)
             ])
           ])
         ])
@@ -39701,15 +39681,15 @@ var staticRenderFns = [
       [
         _c(
           "span",
-          { staticClass: "caption-subject font-green-sharp bold uppercase" },
-          [_vm._v("Lists")]
+          { staticClass: "caption-subject bold uppercase font-white" },
+          [_c("i", { staticClass: "fa fa-list" }), _vm._v(" Lists")]
         ),
         _vm._v(" "),
         _c(
           "span",
           {
             staticClass:
-              "caption-helper visible-sm-inline-block visible-xs-inline-block"
+              "caption-helper visible-sm-inline-block visible-xs-inline-block font-white-sharp"
           },
           [_vm._v("click to view Board lists")]
         )
@@ -39723,8 +39703,7 @@ var staticRenderFns = [
     return _c(
       "a",
       {
-        staticClass:
-          "btn green btn-circle btn-outline btn-sm todo-projects-config",
+        staticClass: "btn white btn-outline btn-sm",
         attrs: {
           href: "javascript:;",
           "data-toggle": "dropdown",
@@ -39744,117 +39723,18 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "portlet light bordered" }, [
-      _c("div", { staticClass: "portlet-title" }, [
-        _c(
-          "div",
-          {
-            staticClass: "caption",
-            attrs: {
-              "data-toggle": "collapse",
-              "data-target": ".todo-project-list-content"
-            }
-          },
-          [
-            _c(
-              "span",
-              {
-                staticClass: "caption-subject font-green-sharp bold uppercase"
-              },
-              [_vm._v("Teams ")]
-            ),
-            _vm._v(" "),
-            _c(
-              "span",
-              {
-                staticClass:
-                  "caption-helper visible-sm-inline-block visible-xs-inline-block"
-              },
-              [_vm._v("click to view Teams")]
-            )
-          ]
-        ),
-        _vm._v(" "),
-        _c("div", { staticClass: "actions" }, [
-          _c("div", { staticClass: "btn-group" }, [
-            _c(
-              "a",
-              {
-                staticClass:
-                  "btn green btn-circle btn-outline btn-sm todo-projects-config",
-                attrs: {
-                  href: "javascript:;",
-                  "data-toggle": "dropdown",
-                  "data-hover": "dropdown",
-                  "data-close-others": "true",
-                  "aria-expanded": "false"
-                }
-              },
-              [
-                _c("i", { staticClass: "icon-settings" }),
-                _vm._v("  \n                                            "),
-                _c("i", { staticClass: "fa fa-angle-down" })
-              ]
-            ),
-            _vm._v(" "),
-            _c("ul", { staticClass: "dropdown-menu pull-right" }, [
-              _c("li", [
-                _c("a", { attrs: { href: "javascript:;" } }, [
-                  _vm._v(" New Team ")
-                ])
-              ]),
-              _vm._v(" "),
-              _c("li", { staticClass: "divider" }),
-              _vm._v(" "),
-              _c("li", [
-                _c("a", { attrs: { href: "javascript:;" } }, [
-                  _vm._v(" Archived Teams ")
-                ])
-              ])
-            ])
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass: "portlet-body todo-project-list-content",
-          staticStyle: { height: "auto" }
-        },
-        [
-          _c("div", { staticClass: "todo-project-list" }, [
-            _c("ul", { staticClass: "nav nav-stacked" }, [
-              _c("li", [
-                _c("a", { attrs: { href: "javascript:;" } }, [
-                  _c("span", { staticClass: "badge badge-info" }, [
-                    _vm._v(" 6 ")
-                  ]),
-                  _vm._v(" AirAsia Ads ")
-                ])
-              ])
-            ])
-          ])
-        ]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "todo-content" }, [
-      _c("div", { staticClass: "portlet light bordered" }, [
+      _c("div", { staticClass: "portlet box purple bordered" }, [
         _c("div", { staticClass: "portlet-title" }, [
           _c("div", { staticClass: "caption" }, [
-            _c("i", { staticClass: "icon-bar-chart font-green-sharp hide" }),
+            _c("i", { staticClass: "icon-bar-chart font-purple-sharp hide" }),
             _vm._v(" "),
             _c(
               "span",
               {
-                staticClass: "caption-subject font-green-sharp bold uppercase"
+                staticClass: "caption-subject font-white-sharp bold uppercase"
               },
-              [_vm._v("Details")]
+              [_c("i", { staticClass: "fa fa-list" }), _vm._v(" Details")]
             )
           ]),
           _vm._v(" "),
@@ -39863,7 +39743,7 @@ var staticRenderFns = [
               _c(
                 "a",
                 {
-                  staticClass: "btn green btn-circle btn-sm",
+                  staticClass: "btn white btn-outline btn-sm",
                   attrs: {
                     href: "javascript:;",
                     "data-toggle": "dropdown",
@@ -39873,9 +39753,8 @@ var staticRenderFns = [
                   }
                 },
                 [
-                  _vm._v(
-                    " MANAGE\n                                            "
-                  ),
+                  _c("i", { staticClass: "icon-settings" }),
+                  _vm._v(" \n                                            "),
                   _c("i", { staticClass: "fa fa-angle-down" })
                 ]
               ),
@@ -39885,49 +39764,6 @@ var staticRenderFns = [
                   _c("a", { attrs: { href: "javascript:;" } }, [
                     _vm._v(" New Task ")
                   ])
-                ]),
-                _vm._v(" "),
-                _c("li", { staticClass: "divider" }),
-                _vm._v(" "),
-                _c("li", [
-                  _c("a", { attrs: { href: "javascript:;" } }, [
-                    _vm._v(
-                      " Pending\n                                                    "
-                    ),
-                    _c("span", { staticClass: "badge badge-danger" }, [
-                      _vm._v(" 4 ")
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("li", [
-                  _c("a", { attrs: { href: "javascript:;" } }, [
-                    _vm._v(
-                      " Completed\n                                                    "
-                    ),
-                    _c("span", { staticClass: "badge badge-success" }, [
-                      _vm._v(" 12 ")
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("li", [
-                  _c("a", { attrs: { href: "javascript:;" } }, [
-                    _vm._v(
-                      " Overdue\n                                                    "
-                    ),
-                    _c("span", { staticClass: "badge badge-warning" }, [
-                      _vm._v(" 9 ")
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("li", { staticClass: "divider" }),
-                _vm._v(" "),
-                _c("li", [
-                  _c("a", { attrs: { href: "javascript:;" } }, [
-                    _vm._v(" Delete Project ")
-                  ])
                 ])
               ])
             ])
@@ -39936,7 +39772,54 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("div", { staticClass: "portlet-body" }, [
           _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-md-5 col-sm-4" }),
+            _c("div", { staticClass: "col-md-5 col-sm-4" }, [
+              _vm._v("\\\n                                        "),
+              _c("div", { staticClass: "todo-tasklist" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "todo-tasklist-item todo-tasklist-item-border-green"
+                  },
+                  [
+                    _c("img", {
+                      staticClass: "todo-userpic pull-left",
+                      attrs: { src: "", width: "27px", height: "27px" }
+                    }),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "todo-tasklist-item-title" }, [
+                      _vm._v(" Slider Redesign ")
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "todo-tasklist-item-text" }, [
+                      _vm._v(
+                        " Lorem dolor sit amet ipsum dolor sit consectetuer dolore. "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "todo-tasklist-controls pull-left" },
+                      [
+                        _c("span", { staticClass: "todo-tasklist-date" }, [
+                          _c("i", { staticClass: "fa fa-calendar" }),
+                          _vm._v(" 21 Sep 2014 ")
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "span",
+                          {
+                            staticClass:
+                              "todo-tasklist-badge badge badge-roundless"
+                          },
+                          [_vm._v("Urgent")]
+                        )
+                      ]
+                    )
+                  ]
+                )
+              ])
+            ]),
             _vm._v(" "),
             _c("div", { staticClass: "col-md-7 col-sm-8" })
           ])
@@ -60211,7 +60094,7 @@ if (token) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\xamp\htdocs\resources\laravel trello project with vue\resources\js\admin_app.js */"./resources/js/admin_app.js");
+module.exports = __webpack_require__(/*! D:\xampp\htdocs\laravel_vue_with_trello\resources\js\admin_app.js */"./resources/js/admin_app.js");
 
 
 /***/ })

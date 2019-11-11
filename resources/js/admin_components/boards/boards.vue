@@ -18,7 +18,7 @@
                                     </a>
                                     <ul class="dropdown-menu pull-right">
                                         <li>
-                                            <a href="javascript:;" @click="addnew"> New Board </a>
+                                            <a class="font-purple" href="javascript:;" @click="addnew"> New Board </a>
                                         </li>
                                     </ul>
                                 </div>
@@ -46,18 +46,18 @@
                                                 </div>
                                             </div>
                                             <div class="mt-card-content">
-                                                <h3 class="mt-card-name">{{board.name.substring(0,21)}}</h3>
+                                                <h3 class="mt-card-name font-purple">{{board.name.substring(0,21)}}</h3>
                                                 <p class="mt-card-desc font-grey-mint"></p>
                                                 <div class="mt-card-social">
                                                     <ul>
                                                         <li>
                                                             <a href="javascript:;" @click="edit(index)">
-                                                                <i class="glyphicon glyphicon-edit"></i>
+                                                                <i class="glyphicon glyphicon-edit font-purple"></i>
                                                             </a>
                                                         </li>
                                                         <li>
                                                             <a href="javascript:;" @click="del(index)">
-                                                                <i class="glyphicon glyphicon-trash "></i>
+                                                                <i class="glyphicon glyphicon-trash font-red-thunderbird"></i>
                                                             </a>
                                                         </li>
                                                     </ul>
@@ -150,7 +150,7 @@ export default {
             return window.storagepath + img;
         },
         substring(str) {
-            return substr(str, 0, 20);
+            return str.substr(0, 20);
         },
         __mounted(page = 1) {
             this.$loadScript(window.adminassets + "/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js")
@@ -174,7 +174,6 @@ export default {
         height: auto !important;
     }
 }
-
 .reload {
     margin: 0px 10px;
 }
