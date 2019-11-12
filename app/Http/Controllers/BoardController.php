@@ -100,11 +100,9 @@ class BoardController extends Controller
     public function show($id){
         $lists = MainList::where('board_id',$id)->get();
         $board = Board::find($id);
-        $teams = $board->teams();
         return response()->json([
             'data' => [
                 'lists' => $lists,
-                'teams' => $teams
             ]
         ]);
     }

@@ -1,4 +1,4 @@
-function ajaxmodel(url, type, data = '', button = null, self = null, model = null, loader = null) {
+function ajaxmodel(url, type, data = '', button = null, self = null, model = null, loader = null, property=null) {
     if (button != null) {
         var l = Ladda.create(button);
         l.start();
@@ -27,7 +27,9 @@ function ajaxmodel(url, type, data = '', button = null, self = null, model = nul
             }
             if (response.data.hasOwnProperty('msg')) {
                 if (response.data.msg.type == 'success' && !response.data.hasOwnProperty('url')) {
-                    self.data = response.data.data;
+                    if (response.data.hasOwnProperty('data')){
+                        self.data = response.data.data;
+                    }
                 }
                 showbtnflag = true;
                 if (response.data.hasOwnProperty('refresh')) {
@@ -48,6 +50,11 @@ function ajaxmodel(url, type, data = '', button = null, self = null, model = nul
                 self.data = response.data.data
                 if (model != null) {
                     model.modal('hide');
+                }
+            }
+            if(response.data.hasOwnProperty('property')){
+                if(property !=null){
+                    self.property = response.data.property;
                 }
             }
             if (response.data.hasOwnProperty('auth')) {

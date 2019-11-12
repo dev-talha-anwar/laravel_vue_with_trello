@@ -17,6 +17,7 @@ class CreateCardsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->text('details')->nullable();
+            $table->string('image')->nullable();
             $table->bigInteger('list_id')->unsigned();
             $table->foreign('list_id')->references('id')->on('lists')->onDelete('cascade');
             $table->timestamps();

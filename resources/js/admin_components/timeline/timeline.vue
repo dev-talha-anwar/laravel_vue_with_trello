@@ -34,7 +34,7 @@
                                                     <div class="singlelistitem">
                                                         <div class="row">
                                                             <div class="col-sm-8">
-                                                                <span class="listname font-purple">{{listname(list.name)}}</span>
+                                                                <span class="listname font-purple" @click="listdetail(index)">{{listname(list.name)}}</span>
                                                             </div>
                                                             <div class="col-sm-4 text-right">
                                                                 <i class="glyphicon glyphicon-edit editicon font-purple" @click="editlist(index)"></i>
@@ -65,7 +65,7 @@
                                             </a>
                                             <ul class="dropdown-menu pull-right">
                                                 <li>
-                                                    <a href="javascript:;"> New Task </a>
+                                                    <a href="javascript:;" @click="addnewcard" id=""> New Card </a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -74,7 +74,7 @@
                                 <!-- end PROJECT HEAD -->
                                 <div class="portlet-body">
                                     <div class="row">
-                                        <div class="col-md-5 col-sm-4">\
+                                        <div class="col-md-5 col-sm-4">
                                             <div class="todo-tasklist">
                                                 <div class="todo-tasklist-item todo-tasklist-item-border-green">
                                                     <img class="todo-userpic pull-left" src="" width="27px" height="27px">
@@ -104,6 +104,7 @@
 <script>
 import VRuntimeTemplate from "v-runtime-template";
 import newlistmodel from "@/admin_components/timeline/modals/newlistmodal";
+import newcardmodel from "@/admin_components/timeline/modals/newcardmodal";
 import editlistmodel from "@/admin_components/timeline/modals/editlistmodal";
 export default {
     props: [
@@ -112,21 +113,27 @@ export default {
     components: {
         'v-runtime-template': VRuntimeTemplate,
         'newlistmodel': newlistmodel,
+        'newcardmodel': newcardmodel,
         'editlistmodel': editlistmodel,
     },
     data() {
         return {
             data: {
                 lists: {},
-                teams: {}
             },
             template: '<newlistmodel></newlistmodel>',
-            templateProps: {}
-
+            templateProps: {},
+            listid:'',
+            cards:{}
         }
     },
     mounted() {
         this.__mounted();
+    },
+    head: {
+        link: [
+            { r: 'stylesheet', h: window.adminassets + '/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css', t: 'text/css' }
+        ]
     },
     methods: {
         __mounted() {
@@ -152,7 +159,7 @@ export default {
             });
         },
         deletelist(index) {
-            ajaxmodel(route('list.delete', this.data.lists[index].id), 'GET', undefined, undefined, this, undefined, undefined);
+            ajaxmodel(route('list.delete', this.data.lists[index]), 'GET', undefined, undefined, this, undefined, undefined);
         },
         createlist() {
             ajaxmodel(route('list.store'), 'POST', $('.ajaxform').serialize(), document.getElementById("submitbtn"), this, $('#static'), 'modelloader');
@@ -163,6 +170,26 @@ export default {
         listname(name) {
             console.log(name.substr())
             return name.substr(0, 12);
+        },
+        listdetail(index){
+            this.listid = index;
+        },
+        addnewcard(){
+            this.$loadScript(window.adminassets + "/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js")
+                .then(() => {})
+                .catch(() => {});
+            this.templateProps = {};
+            this.templateProps.createcard = this.createcard;
+            this.templateProps.list_id = this.data.lists[this.listid].id;
+            this.template = "<newcardmodel></newcardmodel>";
+            this.$nextTick(() => {
+                $('#static').modal('show');
+            });
+        },
+        createcard() {
+            var form = document.querySelector('.ajaxform');
+            var formData = new FormData(form);
+            ajaxmodel(route('card.store'), 'POST', formData, document.getElementById("submitbtn"), this, $('#static'), 'modelloader',this.cards);
         }
     }
 }
@@ -173,13 +200,7 @@ export default {
     max-height: 300px;
     padding: 5px;
 }
-
-.listname {
-    cursor: pointer;
-}
-
-.editicon,
-.deleteicon {
+.editicon,.deleteicon,.listname {
     cursor: pointer;
 }
 

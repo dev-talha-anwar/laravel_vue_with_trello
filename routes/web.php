@@ -38,6 +38,7 @@ Route::get('board/delete/{id}','BoardController@destroy')->name('board.delete');
 Route::post('list/store','ListController@store')->name('list.store');
 Route::post('list/update','ListController@update')->name('list.update');
 Route::get('list/delete/{id}','ListController@delete')->name('list.delete');
+Route::post('card/store','CardController@store')->name('card.store');
 
 Route::get("admin/{any}", "AdminController@index")->where("any", ".*");
 Route::get("{any}", "WelcomeController@index")->where("any", ".*");

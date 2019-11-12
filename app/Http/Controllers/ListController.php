@@ -25,12 +25,10 @@ class ListController extends Controller
         endif;
         if(MainList::create($request->all())):
         	$lists = MainList::all();
-        	$teams = Team::all();
         	return response()->json([
                 'msg' => ['msg' => 'List Saved Successfully.','type' => 'success'],
                 'data' => [
                 	'lists' => $lists,
-                	'teams' => $teams
                 ]
             ]);
         else:
@@ -50,12 +48,10 @@ class ListController extends Controller
         $validatedData['name'] = $request->name;
         if(MainList::find($request->recid)->update($validatedData)):
             $lists = MainList::all();
-            $teams = Team::all();
             return response()->json([
                 'msg' => ['msg' => 'List Edited Successfully.','type' => 'success'],
                 'data' => [
                     'lists' => $lists,
-                    'teams' => $teams
                 ]
             ]);
         else:
@@ -67,12 +63,10 @@ class ListController extends Controller
     public function delete($id){
         if(MainList::destroy($id)):
             $lists = MainList::all();
-            $teams = Team::all();
             return response()->json([
                 'msg' => ['msg' => 'List Deleted Successfully.','type' => 'success'],
                 'data' => [
                     'lists' => $lists,
-                    'teams' => $teams
                 ]
             ]);
         else:
