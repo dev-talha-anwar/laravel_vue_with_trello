@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Card;
 use App\MainList;
 use App\Team;
 use Illuminate\Http\Request;
@@ -74,5 +75,11 @@ class ListController extends Controller
                 'msg' => ['msg' => 'Something went wrong.','type' => 'error']
             ]);
         endif;
+    }
+    public function show($id){
+        $cards = Card::where('list_id',$id)->get();
+        return response()->json([
+            'property' => $cards
+        ]);
     }
 }

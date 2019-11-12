@@ -55,7 +55,7 @@
                                 <div class="portlet-title">
                                     <div class="caption">
                                         <i class="icon-bar-chart font-purple-sharp hide"></i>
-                                        <span class="caption-subject font-white-sharp bold uppercase"><i class="fa fa-list"></i> Details</span>
+                                        <span class="caption-subject font-white-sharp bold uppercase"><i class="fa fa-list"></i> List Details</span>
                                     </div>
                                     <div class="actions">
                                         <div class="btn-group">
@@ -76,19 +76,97 @@
                                     <div class="row">
                                         <div class="col-md-5 col-sm-4">
                                             <div class="todo-tasklist">
-                                                <div class="todo-tasklist-item todo-tasklist-item-border-green">
-                                                    <img class="todo-userpic pull-left" src="" width="27px" height="27px">
-                                                    <div class="todo-tasklist-item-title"> Slider Redesign </div>
-                                                    <div class="todo-tasklist-item-text"> Lorem dolor sit amet ipsum dolor sit consectetuer dolore. </div>
+                                                <div v-for="(card,index) in this.cards" class="todo-tasklist-item todo-tasklist-item-border-red" @click="carddetails(index)">
+                                                    <img class="todo-userpic pull-left" :src="cardpic(card.image)" width="50px" height="50px">
+                                                    <div class="todo-tasklist-item-title font-purple"> {{card.name}} </div>
+                                                    <div class="todo-tasklist-item-text"> {{card.details}} </div>
                                                     <div class="todo-tasklist-controls pull-left">
                                                         <span class="todo-tasklist-date">
-                                                            <i class="fa fa-calendar"></i> 21 Sep 2014 </span>
-                                                        <span class="todo-tasklist-badge badge badge-roundless">Urgent</span>
+                                                            <i class="fa fa-calendar"></i> {{card.updated_at}}
+                                                        </span>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-7 col-sm-8">
+                                            <!-- TASK HEAD -->
+                                            <template v-if="selectedcardstatus">
+                                            <div class="form">
+                                                <div class="form-group">
+                                                    <div class="col-md-8 col-sm-8">
+                                                        <div class="todo-taskbody-user">
+                                                            <img class="todo-userpic pull-left" :src="cardpic(this.cards[this.selectedcard].image)" width="50px" height="50px">
+                                                            <span class="todo-username pull-left">{{this.cards[this.selectedcard].name}}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4 col-sm-4">
+                                                        <div class="todo-taskbody-date pull-right">
+                                                            <button type="button" class="todo-username-btn btn btn-circle purple btn-sm">&nbsp; Edit &nbsp;</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- END TASK HEAD -->
+                                                <!-- TASK DESC -->
+                                                <div class="form-group">
+                                                    <div class="col-md-12">
+                                                        <textarea class="form-control todo-taskbody-taskdesc" rows="8" placeholder="Task Description...">{{this.cards[this.selectedcard].details}}</textarea>
+                                                    </div>
+                                                </div>
+                                                <!-- END TASK DESC -->
+                                                <!-- TASK TAGS -->
+                                                <div class="form-actions right todo-form-actions">
+                                                    <button class="btn btn-circle btn-sm purple">Save Changes</button>
+                                                    <button class="btn btn-circle btn-sm red-thunderbird">Cancel</button>
+                                                </div>
+                                            </div>
+                                            <div class="tabbable-line">
+                                                <ul class="nav nav-tabs ">
+                                                    <li class="active">
+                                                        <a href="#tab_1" data-toggle="tab"> Comments </a>
+                                                    </li>
+                                                </ul>
+                                                <div class="tab-content">
+                                                    <div class="tab-pane active" id="tab_1">
+                                                        <!-- TASK COMMENTS -->
+                                                        <div class="form-group">
+                                                            <div class="col-md-12">
+                                                                <ul class="media-list">
+                                                                    <li class="media" v-for="(comment,index) in this.comments">
+                                                                        <a class="pull-left" href="javascript:;">
+                                                                            <img class="todo-userpic" :src="cardpic(this.cards[this.selectedcard].image)" width="27px" height="27px"> </a>
+                                                                        <div class="media-body todo-comment">
+                                                                            <button type="button" class="todo-comment-btn btn btn-circle purple btn-sm">&nbsp; Edit &nbsp;</button>
+                                                                            <p class="todo-comment-head">
+                                                                                <span class="todo-comment-username">{{comment.admins.name}}</span> &nbsp;
+                                                                                <span class="todo-comment-date">{{comment.updated_at}}</span>
+                                                                            </p>
+                                                                            <p class="todo-text-color"> {{comment.comment}} </p>
+                                                                        </div>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                        <!-- END TASK COMMENTS -->
+                                                        <!-- TASK COMMENT FORM -->
+                                                        <div class="form-group">
+                                                            <div class="col-md-12">
+                                                                <ul class="media-list">
+                                                                    <li class="media">
+                                                                        <a class="pull-left" href="javascript:;">
+                                                                            <img class="todo-userpic" :src="cardpic(this.cards[this.selectedcard].image)" width="27px" height="27px"> </a>
+                                                                        <div class="media-body">
+                                                                            <textarea class="form-control todo-taskbody-taskdesc" rows="4" placeholder="Type comment..."></textarea>
+                                                                        </div>
+                                                                    </li>
+                                                                </ul>
+                                                                <button type="button" class="pull-right btn btn-sm btn-circle purple"> &nbsp; Submit &nbsp; </button>
+                                                            </div>
+                                                        </div>
+                                                        <!-- END TASK COMMENT FORM -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            </template>
                                         </div>
                                     </div>
                                 </div>
@@ -123,8 +201,11 @@ export default {
             },
             template: '<newlistmodel></newlistmodel>',
             templateProps: {},
-            listid:'',
-            cards:{}
+            listid: null,
+            cards: {},
+            selectedcard: 0,
+            selectedcardstatus:false,
+            comments: {}
         }
     },
     mounted() {
@@ -132,7 +213,8 @@ export default {
     },
     head: {
         link: [
-            { r: 'stylesheet', h: window.adminassets + '/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css', t: 'text/css' }
+            { r: 'stylesheet', h: window.adminassets + '/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css', t: 'text/css' },
+            { r: 'stylesheet', h: window.adminassets + '/apps/css/todo-2.min.css', t: 'text/css' }
         ]
     },
     methods: {
@@ -171,25 +253,38 @@ export default {
             console.log(name.substr())
             return name.substr(0, 12);
         },
-        listdetail(index){
+        listdetail(index) {
             this.listid = index;
+            ajaxmodel(route('list.show', this.data.lists[index].id), 'GET', undefined, undefined, this, undefined, undefined, 'cards');
+
         },
-        addnewcard(){
-            this.$loadScript(window.adminassets + "/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js")
-                .then(() => {})
-                .catch(() => {});
-            this.templateProps = {};
-            this.templateProps.createcard = this.createcard;
-            this.templateProps.list_id = this.data.lists[this.listid].id;
-            this.template = "<newcardmodel></newcardmodel>";
-            this.$nextTick(() => {
-                $('#static').modal('show');
-            });
+        addnewcard() {
+            if (this.listid != null) {
+                this.$loadScript(window.adminassets + "/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js")
+                    .then(() => {})
+                    .catch(() => {});
+                this.templateProps = {};
+                this.templateProps.createcard = this.createcard;
+                this.templateProps.list_id = this.data.lists[this.listid].id;
+                this.template = "<newcardmodel></newcardmodel>";
+                this.$nextTick(() => {
+                    $('#static').modal('show');
+                });
+            }
+
         },
         createcard() {
             var form = document.querySelector('.ajaxform');
             var formData = new FormData(form);
-            ajaxmodel(route('card.store'), 'POST', formData, document.getElementById("submitbtn"), this, $('#static'), 'modelloader',this.cards);
+            ajaxmodel(route('card.store'), 'POST', formData, document.getElementById("submitbtn"), this, $('#static'), 'modelloader', 'cards');
+        },
+        cardpic(image) {
+            return window.storagepath + image;
+        },
+        carddetails(index) {
+            this.selectedcard = index;
+            ajaxmodel(route('card.show', this.cards[index].id), 'GET', undefined, undefined, this, undefined, undefined, 'comments');
+            this.selectedcardstatus = true;
         }
     }
 }
@@ -200,7 +295,10 @@ export default {
     max-height: 300px;
     padding: 5px;
 }
-.editicon,.deleteicon,.listname {
+
+.editicon,
+.deleteicon,
+.listname {
     cursor: pointer;
 }
 

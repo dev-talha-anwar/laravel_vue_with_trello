@@ -2495,6 +2495,84 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2514,8 +2592,11 @@ __webpack_require__.r(__webpack_exports__);
       },
       template: '<newlistmodel></newlistmodel>',
       templateProps: {},
-      listid: '',
-      cards: {}
+      listid: null,
+      cards: {},
+      selectedcard: 0,
+      selectedcardstatus: false,
+      comments: {}
     };
   },
   mounted: function mounted() {
@@ -2525,6 +2606,10 @@ __webpack_require__.r(__webpack_exports__);
     link: [{
       r: 'stylesheet',
       h: window.adminassets + '/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css',
+      t: 'text/css'
+    }, {
+      r: 'stylesheet',
+      h: window.adminassets + '/apps/css/todo-2.min.css',
       t: 'text/css'
     }]
   },
@@ -2568,21 +2653,32 @@ __webpack_require__.r(__webpack_exports__);
     },
     listdetail: function listdetail(index) {
       this.listid = index;
+      ajaxmodel(route('list.show', this.data.lists[index].id), 'GET', undefined, undefined, this, undefined, undefined, 'cards');
     },
     addnewcard: function addnewcard() {
-      this.$loadScript(window.adminassets + "/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js").then(function () {})["catch"](function () {});
-      this.templateProps = {};
-      this.templateProps.createcard = this.createcard;
-      this.templateProps.list_id = this.data.lists[this.listid].id;
-      this.template = "<newcardmodel></newcardmodel>";
-      this.$nextTick(function () {
-        $('#static').modal('show');
-      });
+      if (this.listid != null) {
+        this.$loadScript(window.adminassets + "/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js").then(function () {})["catch"](function () {});
+        this.templateProps = {};
+        this.templateProps.createcard = this.createcard;
+        this.templateProps.list_id = this.data.lists[this.listid].id;
+        this.template = "<newcardmodel></newcardmodel>";
+        this.$nextTick(function () {
+          $('#static').modal('show');
+        });
+      }
     },
     createcard: function createcard() {
       var form = document.querySelector('.ajaxform');
       var formData = new FormData(form);
-      ajaxmodel(route('card.store'), 'POST', formData, document.getElementById("submitbtn"), this, $('#static'), 'modelloader', this.cards);
+      ajaxmodel(route('card.store'), 'POST', formData, document.getElementById("submitbtn"), this, $('#static'), 'modelloader', 'cards');
+    },
+    cardpic: function cardpic(image) {
+      return window.storagepath + image;
+    },
+    carddetails: function carddetails(index) {
+      this.selectedcard = index;
+      ajaxmodel(route('card.show', this.cards[index].id), 'GET', undefined, undefined, this, undefined, undefined, 'comments');
+      this.selectedcardstatus = true;
     }
   }
 });
@@ -5345,7 +5441,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.listscroll[data-v-56f63a84] {\r\n    max-height: 300px;\r\n    padding: 5px;\n}\n.editicon[data-v-56f63a84],.deleteicon[data-v-56f63a84],.listname[data-v-56f63a84] {\r\n    cursor: pointer;\n}\n.singlelistitem[data-v-56f63a84] {\r\n    padding: 10px 0px;\n}\n.singlelistitem[data-v-56f63a84]:hover {\r\n    background-color: #eee;\n}\n.singlelistitem a:hover.singlelistitem a[data-v-56f63a84]:active {\r\n    text-decoration: none;\n}\r\n\r\n", ""]);
+exports.push([module.i, "\n.listscroll[data-v-56f63a84] {\r\n    max-height: 300px;\r\n    padding: 5px;\n}\n.editicon[data-v-56f63a84],\r\n.deleteicon[data-v-56f63a84],\r\n.listname[data-v-56f63a84] {\r\n    cursor: pointer;\n}\n.singlelistitem[data-v-56f63a84] {\r\n    padding: 10px 0px;\n}\n.singlelistitem[data-v-56f63a84]:hover {\r\n    background-color: #eee;\n}\n.singlelistitem a:hover.singlelistitem a[data-v-56f63a84]:active {\r\n    text-decoration: none;\n}\r\n\r\n", ""]);
 
 // exports
 
@@ -39994,7 +40090,388 @@ var render = function() {
                     ])
                   ]),
                   _vm._v(" "),
-                  _vm._m(4)
+                  _c("div", { staticClass: "portlet-body" }, [
+                    _c("div", { staticClass: "row" }, [
+                      _c("div", { staticClass: "col-md-5 col-sm-4" }, [
+                        _c(
+                          "div",
+                          { staticClass: "todo-tasklist" },
+                          _vm._l(this.cards, function(card, index) {
+                            return _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "todo-tasklist-item todo-tasklist-item-border-red",
+                                on: {
+                                  click: function($event) {
+                                    return _vm.carddetails(index)
+                                  }
+                                }
+                              },
+                              [
+                                _c("img", {
+                                  staticClass: "todo-userpic pull-left",
+                                  attrs: {
+                                    src: _vm.cardpic(card.image),
+                                    width: "50px",
+                                    height: "50px"
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  {
+                                    staticClass:
+                                      "todo-tasklist-item-title font-purple"
+                                  },
+                                  [_vm._v(" " + _vm._s(card.name) + " ")]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  { staticClass: "todo-tasklist-item-text" },
+                                  [_vm._v(" " + _vm._s(card.details) + " ")]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  {
+                                    staticClass:
+                                      "todo-tasklist-controls pull-left"
+                                  },
+                                  [
+                                    _c(
+                                      "span",
+                                      { staticClass: "todo-tasklist-date" },
+                                      [
+                                        _c("i", {
+                                          staticClass: "fa fa-calendar"
+                                        }),
+                                        _vm._v(
+                                          " " +
+                                            _vm._s(card.updated_at) +
+                                            "\n                                                    "
+                                        )
+                                      ]
+                                    )
+                                  ]
+                                )
+                              ]
+                            )
+                          }),
+                          0
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "col-md-7 col-sm-8" },
+                        [
+                          _vm.selectedcardstatus
+                            ? [
+                                _c("div", { staticClass: "form" }, [
+                                  _c("div", { staticClass: "form-group" }, [
+                                    _c(
+                                      "div",
+                                      { staticClass: "col-md-8 col-sm-8" },
+                                      [
+                                        _c(
+                                          "div",
+                                          { staticClass: "todo-taskbody-user" },
+                                          [
+                                            _c("img", {
+                                              staticClass:
+                                                "todo-userpic pull-left",
+                                              attrs: {
+                                                src: _vm.cardpic(
+                                                  this.cards[this.selectedcard]
+                                                    .image
+                                                ),
+                                                width: "50px",
+                                                height: "50px"
+                                              }
+                                            }),
+                                            _vm._v(" "),
+                                            _c(
+                                              "span",
+                                              {
+                                                staticClass:
+                                                  "todo-username pull-left"
+                                              },
+                                              [
+                                                _vm._v(
+                                                  _vm._s(
+                                                    this.cards[
+                                                      this.selectedcard
+                                                    ].name
+                                                  )
+                                                )
+                                              ]
+                                            )
+                                          ]
+                                        )
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _vm._m(4)
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("div", { staticClass: "form-group" }, [
+                                    _c("div", { staticClass: "col-md-12" }, [
+                                      _c(
+                                        "textarea",
+                                        {
+                                          staticClass:
+                                            "form-control todo-taskbody-taskdesc",
+                                          attrs: {
+                                            rows: "8",
+                                            placeholder: "Task Description..."
+                                          }
+                                        },
+                                        [
+                                          _vm._v(
+                                            _vm._s(
+                                              this.cards[this.selectedcard]
+                                                .details
+                                            )
+                                          )
+                                        ]
+                                      )
+                                    ])
+                                  ]),
+                                  _vm._v(" "),
+                                  _vm._m(5)
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "tabbable-line" }, [
+                                  _vm._m(6),
+                                  _vm._v(" "),
+                                  _c("div", { staticClass: "tab-content" }, [
+                                    _c(
+                                      "div",
+                                      {
+                                        staticClass: "tab-pane active",
+                                        attrs: { id: "tab_1" }
+                                      },
+                                      [
+                                        _c(
+                                          "div",
+                                          { staticClass: "form-group" },
+                                          [
+                                            _c(
+                                              "div",
+                                              { staticClass: "col-md-12" },
+                                              [
+                                                _c(
+                                                  "ul",
+                                                  { staticClass: "media-list" },
+                                                  _vm._l(
+                                                    this.comments,
+                                                    function(comment, index) {
+                                                      return _c(
+                                                        "li",
+                                                        {
+                                                          staticClass: "media"
+                                                        },
+                                                        [
+                                                          _c(
+                                                            "a",
+                                                            {
+                                                              staticClass:
+                                                                "pull-left",
+                                                              attrs: {
+                                                                href:
+                                                                  "javascript:;"
+                                                              }
+                                                            },
+                                                            [
+                                                              _c("img", {
+                                                                staticClass:
+                                                                  "todo-userpic",
+                                                                attrs: {
+                                                                  src: _vm.cardpic(
+                                                                    this.cards[
+                                                                      this
+                                                                        .selectedcard
+                                                                    ].image
+                                                                  ),
+                                                                  width: "27px",
+                                                                  height: "27px"
+                                                                }
+                                                              })
+                                                            ]
+                                                          ),
+                                                          _vm._v(" "),
+                                                          _c(
+                                                            "div",
+                                                            {
+                                                              staticClass:
+                                                                "media-body todo-comment"
+                                                            },
+                                                            [
+                                                              _c(
+                                                                "button",
+                                                                {
+                                                                  staticClass:
+                                                                    "todo-comment-btn btn btn-circle purple btn-sm",
+                                                                  attrs: {
+                                                                    type:
+                                                                      "button"
+                                                                  }
+                                                                },
+                                                                [
+                                                                  _vm._v(
+                                                                    "  Edit  "
+                                                                  )
+                                                                ]
+                                                              ),
+                                                              _vm._v(" "),
+                                                              _c(
+                                                                "p",
+                                                                {
+                                                                  staticClass:
+                                                                    "todo-comment-head"
+                                                                },
+                                                                [
+                                                                  _c(
+                                                                    "span",
+                                                                    {
+                                                                      staticClass:
+                                                                        "todo-comment-username"
+                                                                    },
+                                                                    [
+                                                                      _vm._v(
+                                                                        _vm._s(
+                                                                          comment
+                                                                            .admins
+                                                                            .name
+                                                                        )
+                                                                      )
+                                                                    ]
+                                                                  ),
+                                                                  _vm._v(
+                                                                    "  \n                                                                            "
+                                                                  ),
+                                                                  _c(
+                                                                    "span",
+                                                                    {
+                                                                      staticClass:
+                                                                        "todo-comment-date"
+                                                                    },
+                                                                    [
+                                                                      _vm._v(
+                                                                        _vm._s(
+                                                                          comment.updated_at
+                                                                        )
+                                                                      )
+                                                                    ]
+                                                                  )
+                                                                ]
+                                                              ),
+                                                              _vm._v(" "),
+                                                              _c(
+                                                                "p",
+                                                                {
+                                                                  staticClass:
+                                                                    "todo-text-color"
+                                                                },
+                                                                [
+                                                                  _vm._v(
+                                                                    " " +
+                                                                      _vm._s(
+                                                                        comment.comment
+                                                                      ) +
+                                                                      " "
+                                                                  )
+                                                                ]
+                                                              )
+                                                            ]
+                                                          )
+                                                        ]
+                                                      )
+                                                    }
+                                                  ),
+                                                  0
+                                                )
+                                              ]
+                                            )
+                                          ]
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "div",
+                                          { staticClass: "form-group" },
+                                          [
+                                            _c(
+                                              "div",
+                                              { staticClass: "col-md-12" },
+                                              [
+                                                _c(
+                                                  "ul",
+                                                  { staticClass: "media-list" },
+                                                  [
+                                                    _c(
+                                                      "li",
+                                                      { staticClass: "media" },
+                                                      [
+                                                        _c(
+                                                          "a",
+                                                          {
+                                                            staticClass:
+                                                              "pull-left",
+                                                            attrs: {
+                                                              href:
+                                                                "javascript:;"
+                                                            }
+                                                          },
+                                                          [
+                                                            _c("img", {
+                                                              staticClass:
+                                                                "todo-userpic",
+                                                              attrs: {
+                                                                src: _vm.cardpic(
+                                                                  this.cards[
+                                                                    this
+                                                                      .selectedcard
+                                                                  ].image
+                                                                ),
+                                                                width: "27px",
+                                                                height: "27px"
+                                                              }
+                                                            })
+                                                          ]
+                                                        ),
+                                                        _vm._v(" "),
+                                                        _vm._m(7)
+                                                      ]
+                                                    )
+                                                  ]
+                                                ),
+                                                _vm._v(" "),
+                                                _c(
+                                                  "button",
+                                                  {
+                                                    staticClass:
+                                                      "pull-right btn btn-sm btn-circle purple",
+                                                    attrs: { type: "button" }
+                                                  },
+                                                  [_vm._v("   Submit   ")]
+                                                )
+                                              ]
+                                            )
+                                          ]
+                                        )
+                                      ]
+                                    )
+                                  ])
+                                ])
+                              ]
+                            : _vm._e()
+                        ],
+                        2
+                      )
+                    ])
+                  ])
                 ])
               ])
             ])
@@ -40074,7 +40551,7 @@ var staticRenderFns = [
       _c(
         "span",
         { staticClass: "caption-subject font-white-sharp bold uppercase" },
-        [_c("i", { staticClass: "fa fa-list" }), _vm._v(" Details")]
+        [_c("i", { staticClass: "fa fa-list" }), _vm._v(" List Details")]
       )
     ])
   },
@@ -40105,53 +40582,54 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "portlet-body" }, [
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-md-5 col-sm-4" }, [
-          _c("div", { staticClass: "todo-tasklist" }, [
-            _c(
-              "div",
-              {
-                staticClass:
-                  "todo-tasklist-item todo-tasklist-item-border-green"
-              },
-              [
-                _c("img", {
-                  staticClass: "todo-userpic pull-left",
-                  attrs: { src: "", width: "27px", height: "27px" }
-                }),
-                _vm._v(" "),
-                _c("div", { staticClass: "todo-tasklist-item-title" }, [
-                  _vm._v(" Slider Redesign ")
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "todo-tasklist-item-text" }, [
-                  _vm._v(
-                    " Lorem dolor sit amet ipsum dolor sit consectetuer dolore. "
-                  )
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "todo-tasklist-controls pull-left" }, [
-                  _c("span", { staticClass: "todo-tasklist-date" }, [
-                    _c("i", { staticClass: "fa fa-calendar" }),
-                    _vm._v(" 21 Sep 2014 ")
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "span",
-                    {
-                      staticClass: "todo-tasklist-badge badge badge-roundless"
-                    },
-                    [_vm._v("Urgent")]
-                  )
-                ])
-              ]
-            )
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-md-7 col-sm-8" })
+    return _c("div", { staticClass: "col-md-4 col-sm-4" }, [
+      _c("div", { staticClass: "todo-taskbody-date pull-right" }, [
+        _c(
+          "button",
+          {
+            staticClass: "todo-username-btn btn btn-circle purple btn-sm",
+            attrs: { type: "button" }
+          },
+          [_vm._v("  Edit  ")]
+        )
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-actions right todo-form-actions" }, [
+      _c("button", { staticClass: "btn btn-circle btn-sm purple" }, [
+        _vm._v("Save Changes")
+      ]),
+      _vm._v(" "),
+      _c("button", { staticClass: "btn btn-circle btn-sm red-thunderbird" }, [
+        _vm._v("Cancel")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("ul", { staticClass: "nav nav-tabs " }, [
+      _c("li", { staticClass: "active" }, [
+        _c("a", { attrs: { href: "#tab_1", "data-toggle": "tab" } }, [
+          _vm._v(" Comments ")
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "media-body" }, [
+      _c("textarea", {
+        staticClass: "form-control todo-taskbody-taskdesc",
+        attrs: { rows: "4", placeholder: "Type comment..." }
+      })
     ])
   }
 ]
@@ -60490,7 +60968,7 @@ if (token) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\xamp\htdocs\resources\laravel trello project with vue\resources\js\admin_app.js */"./resources/js/admin_app.js");
+module.exports = __webpack_require__(/*! D:\xampp\htdocs\laravel_vue_with_trello\resources\js\admin_app.js */"./resources/js/admin_app.js");
 
 
 /***/ })

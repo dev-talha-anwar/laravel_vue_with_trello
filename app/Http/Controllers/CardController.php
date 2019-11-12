@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Card;
+use App\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -20,6 +21,8 @@ class CardController extends Controller
             'list_id' => 'required|exists:lists,id',
             'image' => 'nullable|file|mimes:jpg,jpeg,png',
             'details' => 'nullable|string'
+        ],[
+            'list_id.required' => "You Must Select A List To Add Card."
         ]);
         if($validator->fails()):
             return response()->json(['errors' => $validator->errors()]);
@@ -40,5 +43,11 @@ class CardController extends Controller
                 'msg' => ['msg' => 'Something went wrong.','type' => 'error']
             ]);
         endif;
+    }
+    public function show($id){
+        $comments = Comment::with('admins:id,name')->where('card_id',$id)->get();
+        return response()->json([
+            'property' => $comments
+        ]);
     }
 }

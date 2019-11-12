@@ -54,7 +54,7 @@ function ajaxmodel(url, type, data = '', button = null, self = null, model = nul
             }
             if(response.data.hasOwnProperty('property')){
                 if(property !=null){
-                    self.property = response.data.property;
+                    self[property] = response.data.property;
                 }
             }
             if (response.data.hasOwnProperty('auth')) {
