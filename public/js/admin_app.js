@@ -2572,7 +2572,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 
@@ -2594,7 +2593,7 @@ __webpack_require__.r(__webpack_exports__);
       templateProps: {},
       listid: null,
       cards: {},
-      selectedcard: 0,
+      selectedcard: null,
       selectedcardstatus: false,
       comments: {}
     };
@@ -2653,6 +2652,8 @@ __webpack_require__.r(__webpack_exports__);
     },
     listdetail: function listdetail(index) {
       this.listid = index;
+      this.selectedcard = null;
+      this.selectedcardstatus = false;
       ajaxmodel(route('list.show', this.data.lists[index].id), 'GET', undefined, undefined, this, undefined, undefined, 'cards');
     },
     addnewcard: function addnewcard() {
@@ -40217,27 +40218,25 @@ var render = function() {
                                   ]),
                                   _vm._v(" "),
                                   _c("div", { staticClass: "form-group" }, [
-                                    _c("div", { staticClass: "col-md-12" }, [
-                                      _c(
-                                        "textarea",
-                                        {
-                                          staticClass:
-                                            "form-control todo-taskbody-taskdesc",
-                                          attrs: {
-                                            rows: "8",
-                                            placeholder: "Task Description..."
-                                          }
-                                        },
-                                        [
-                                          _vm._v(
-                                            _vm._s(
-                                              this.cards[this.selectedcard]
-                                                .details
-                                            )
+                                    _c(
+                                      "textarea",
+                                      {
+                                        staticClass:
+                                          "form-control todo-taskbody-taskdesc",
+                                        attrs: {
+                                          rows: "8",
+                                          placeholder: "Task Description..."
+                                        }
+                                      },
+                                      [
+                                        _vm._v(
+                                          _vm._s(
+                                            this.cards[this.selectedcard]
+                                              .details
                                           )
-                                        ]
-                                      )
-                                    ])
+                                        )
+                                      ]
+                                    )
                                   ]),
                                   _vm._v(" "),
                                   _vm._m(5)
@@ -60968,7 +60967,7 @@ if (token) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! D:\xampp\htdocs\laravel_vue_with_trello\resources\js\admin_app.js */"./resources/js/admin_app.js");
+module.exports = __webpack_require__(/*! C:\xamp\htdocs\resources\laravel trello project with vue\resources\js\admin_app.js */"./resources/js/admin_app.js");
 
 
 /***/ })

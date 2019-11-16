@@ -108,9 +108,7 @@
                                                 <!-- END TASK HEAD -->
                                                 <!-- TASK DESC -->
                                                 <div class="form-group">
-                                                    <div class="col-md-12">
                                                         <textarea class="form-control todo-taskbody-taskdesc" rows="8" placeholder="Task Description...">{{this.cards[this.selectedcard].details}}</textarea>
-                                                    </div>
                                                 </div>
                                                 <!-- END TASK DESC -->
                                                 <!-- TASK TAGS -->
@@ -155,7 +153,8 @@
                                                                         <a class="pull-left" href="javascript:;">
                                                                             <img class="todo-userpic" :src="cardpic(this.cards[this.selectedcard].image)" width="27px" height="27px"> </a>
                                                                         <div class="media-body">
-                                                                            <textarea class="form-control todo-taskbody-taskdesc" rows="4" placeholder="Type comment..."></textarea>
+                                                                            <textarea class="form-control todo-taskbody-taskdesc" rows="4" placeholder="Type comment...">
+                                                                            </textarea>
                                                                         </div>
                                                                     </li>
                                                                 </ul>
@@ -203,7 +202,7 @@ export default {
             templateProps: {},
             listid: null,
             cards: {},
-            selectedcard: 0,
+            selectedcard: null,
             selectedcardstatus:false,
             comments: {}
         }
@@ -255,6 +254,8 @@ export default {
         },
         listdetail(index) {
             this.listid = index;
+            this.selectedcard = null;
+            this.selectedcardstatus = false;
             ajaxmodel(route('list.show', this.data.lists[index].id), 'GET', undefined, undefined, this, undefined, undefined, 'cards');
 
         },
