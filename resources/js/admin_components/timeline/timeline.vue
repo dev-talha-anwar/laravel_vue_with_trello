@@ -77,7 +77,7 @@
                                         <div class="col-md-5 col-sm-4">
                                             <div class="todo-tasklist">
                                                 <div v-for="(card,index) in this.cards" class="todo-tasklist-item todo-tasklist-item-border-red" @click="carddetails(index)">
-                                                    <img class="todo-userpic pull-left" :src="cardpic(card.image)" width="50px" height="50px">
+                                                    <img class="todo-userpic pull-left" :src="cardpic(card.image)" width="30px" height="30px">
                                                     <div class="todo-tasklist-item-title font-purple"> {{card.name}} </div>
                                                     <div class="todo-tasklist-item-text"> {{card.details}} </div>
                                                     <div class="todo-tasklist-controls pull-left">
@@ -93,22 +93,18 @@
                                             <template v-if="selectedcardstatus">
                                             <div class="form">
                                                 <div class="form-group">
-                                                    <div class="col-md-8 col-sm-8">
-                                                        <div class="todo-taskbody-user">
-                                                            <img class="todo-userpic pull-left" :src="cardpic(this.cards[this.selectedcard].image)" width="50px" height="50px">
-                                                            <span class="todo-username pull-left">{{this.cards[this.selectedcard].name}}</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-4 col-sm-4">
-                                                        <div class="todo-taskbody-date pull-right">
-                                                            <button type="button" class="todo-username-btn btn btn-circle purple btn-sm">&nbsp; Edit &nbsp;</button>
-                                                        </div>
+                                                    <div class="todo-taskbody-user">
+                                                        <img class="todo-userpic" :src="cardpic(this.cards[this.selectedcard].image)" width="50px" height="50px">
+                                                        <span class="todo-username">{{this.cards[this.selectedcard].name}}</span>
                                                     </div>
                                                 </div>
                                                 <!-- END TASK HEAD -->
                                                 <!-- TASK DESC -->
                                                 <div class="form-group">
-                                                        <textarea class="form-control todo-taskbody-taskdesc" rows="8" placeholder="Task Description...">{{this.cards[this.selectedcard].details}}</textarea>
+                                                    <input type="text" class="form-control todo-taskbody-tasktitle" :value="this.cards[this.selectedcard].name">
+                                                </div>
+                                                <div class="form-group">
+                                                    <textarea class="form-control todo-taskbody-taskdesc" rows="8" placeholder="Task Description...">{{this.cards[this.selectedcard].details}}</textarea>
                                                 </div>
                                                 <!-- END TASK DESC -->
                                                 <!-- TASK TAGS -->

@@ -2568,10 +2568,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 
 
 
@@ -40114,8 +40110,8 @@ var render = function() {
                                   staticClass: "todo-userpic pull-left",
                                   attrs: {
                                     src: _vm.cardpic(card.image),
-                                    width: "50px",
-                                    height: "50px"
+                                    width: "30px",
+                                    height: "30px"
                                   }
                                 }),
                                 _vm._v(" "),
@@ -40174,47 +40170,46 @@ var render = function() {
                                   _c("div", { staticClass: "form-group" }, [
                                     _c(
                                       "div",
-                                      { staticClass: "col-md-8 col-sm-8" },
+                                      { staticClass: "todo-taskbody-user" },
                                       [
+                                        _c("img", {
+                                          staticClass: "todo-userpic",
+                                          attrs: {
+                                            src: _vm.cardpic(
+                                              this.cards[this.selectedcard]
+                                                .image
+                                            ),
+                                            width: "50px",
+                                            height: "50px"
+                                          }
+                                        }),
+                                        _vm._v(" "),
                                         _c(
-                                          "div",
-                                          { staticClass: "todo-taskbody-user" },
+                                          "span",
+                                          { staticClass: "todo-username" },
                                           [
-                                            _c("img", {
-                                              staticClass:
-                                                "todo-userpic pull-left",
-                                              attrs: {
-                                                src: _vm.cardpic(
-                                                  this.cards[this.selectedcard]
-                                                    .image
-                                                ),
-                                                width: "50px",
-                                                height: "50px"
-                                              }
-                                            }),
-                                            _vm._v(" "),
-                                            _c(
-                                              "span",
-                                              {
-                                                staticClass:
-                                                  "todo-username pull-left"
-                                              },
-                                              [
-                                                _vm._v(
-                                                  _vm._s(
-                                                    this.cards[
-                                                      this.selectedcard
-                                                    ].name
-                                                  )
-                                                )
-                                              ]
+                                            _vm._v(
+                                              _vm._s(
+                                                this.cards[this.selectedcard]
+                                                  .name
+                                              )
                                             )
                                           ]
                                         )
                                       ]
-                                    ),
-                                    _vm._v(" "),
-                                    _vm._m(4)
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("div", { staticClass: "form-group" }, [
+                                    _c("input", {
+                                      staticClass:
+                                        "form-control todo-taskbody-tasktitle",
+                                      attrs: { type: "text" },
+                                      domProps: {
+                                        value: this.cards[this.selectedcard]
+                                          .name
+                                      }
+                                    })
                                   ]),
                                   _vm._v(" "),
                                   _c("div", { staticClass: "form-group" }, [
@@ -40239,11 +40234,11 @@ var render = function() {
                                     )
                                   ]),
                                   _vm._v(" "),
-                                  _vm._m(5)
+                                  _vm._m(4)
                                 ]),
                                 _vm._v(" "),
                                 _c("div", { staticClass: "tabbable-line" }, [
-                                  _vm._m(6),
+                                  _vm._m(5),
                                   _vm._v(" "),
                                   _c("div", { staticClass: "tab-content" }, [
                                     _c(
@@ -40441,7 +40436,7 @@ var render = function() {
                                                           ]
                                                         ),
                                                         _vm._v(" "),
-                                                        _vm._m(7)
+                                                        _vm._m(6)
                                                       ]
                                                     )
                                                   ]
@@ -40576,23 +40571,6 @@ var staticRenderFns = [
         _c("i", { staticClass: "fa fa-angle-down" })
       ]
     )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-4 col-sm-4" }, [
-      _c("div", { staticClass: "todo-taskbody-date pull-right" }, [
-        _c(
-          "button",
-          {
-            staticClass: "todo-username-btn btn btn-circle purple btn-sm",
-            attrs: { type: "button" }
-          },
-          [_vm._v("  Edit  ")]
-        )
-      ])
-    ])
   },
   function() {
     var _vm = this
