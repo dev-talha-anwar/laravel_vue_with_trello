@@ -2,6 +2,7 @@
     <!-- Our Feature Section starts -->
     <section class="our-feature-section" >
         <div class="container">
+            <vue-element-loading :active="this.$store.state.pageloader" spinner="bar-fade-scale" color="#8E44AD"/>
             <div class="" id="errorsdiv" style="display: none;"></div> 
             <form class="form" method="post">
                 <div class="form-group">
@@ -38,7 +39,7 @@
     export default {
         methods:{
             submitform(){ 
-              ajax(route('registeruser'),'POST',$('.form').serialize(),document.getElementById("submitbtn"),this);
+              ajaxmodel(route('registeruser'),'POST',$('.form').serialize(),document.getElementById("submitbtn"),this,undefined,'pageloader');
             }
         }
     }
